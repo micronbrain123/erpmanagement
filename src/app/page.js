@@ -4,9 +4,9 @@ import { useNavigation } from './contexts/NavigationContext'
 import DashboardContent from '../components/dashboard/DashboardContent'
 import HRPayrollContent from '../components/hrandPayroll/HRPayrollContent'
 import PurchaseModuleContent from '../components/purchase/PurchaseModuleContent'
+import SalesModuleContent from '../components/sales/SalesModuleContent'
 
 // Import other components as you create them
-// import SalesContent from './components/sales/SalesContent'
 // import POSContent from './components/pos/POSContent'
 // import QuotationContent from './components/quotation/QuotationContent'
 // ... etc
@@ -20,15 +20,7 @@ export default function Home() {
       case 'dashboard':
         return <DashboardContent />
       case 'sales':
-        return (
-          <div className="bg-gray-50 min-h-screen">
-            <h1 className="text-2xl font-bold text-gray-800 mb-4">Sales Module</h1>
-            <div className="bg-white rounded-lg shadow p-6">
-              <p>Sales content will go here...</p>
-              {/* Replace this with your actual SalesContent component */}
-            </div>
-          </div>
-        )
+        return <SalesModuleContent />
       case 'pos':
         return (
           <div className="bg-gray-50 min-h-screen">
