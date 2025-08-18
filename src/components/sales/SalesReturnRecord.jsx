@@ -48,7 +48,7 @@ export default function SalesReturnRecord() {
       quantity: '1 Pcs',
       rate: '45,000.00',
       discount: '5%',
-      vat: '15%',
+      GST: '15%',
       total: '49,162.50',
       returnBy: 'John Doe',
       type: 'Defective Return',
@@ -64,7 +64,7 @@ export default function SalesReturnRecord() {
       quantity: '2 Pcs',
       rate: '8,500.00',
       discount: '10%',
-      vat: '15%',
+      GST: '15%',
       total: '17,595.00',
       returnBy: 'Jane Smith',
       type: 'Customer Return',
@@ -80,7 +80,7 @@ export default function SalesReturnRecord() {
       quantity: '1 Set',
       rate: '2,500.00',
       discount: '0%',
-      vat: '15%',
+      GST: '15%',
       total: '2,875.00',
       returnBy: 'Ahmed Khan',
       type: 'Exchange Return',
@@ -212,7 +212,7 @@ export default function SalesReturnRecord() {
                 <th>Quantity</th>
                 <th>Rate</th>
                 <th>Discount</th>
-                <th>VAT</th>
+                <th>GST</th>
                 <th>Total</th>
                 <th>Return By</th>
                 <th>Type</th>
@@ -230,7 +230,7 @@ export default function SalesReturnRecord() {
                   <td>${record.quantity}</td>
                   <td class="text-right">${record.rate}</td>
                   <td class="text-right">${record.discount}</td>
-                  <td class="text-right">${record.vat}</td>
+                  <td class="text-right">${record.GST}</td>
                   <td class="text-right">${record.total}</td>
                   <td>${record.returnBy}</td>
                   <td>${record.type}</td>
@@ -251,7 +251,7 @@ export default function SalesReturnRecord() {
   // Export functionality
   const handleExport = () => {
     const csvContent = [
-      ['Date', 'Return No', 'Customer Name', 'Original Invoice', 'Item Name', 'Quantity', 'Rate', 'Discount', 'VAT', 'Total', 'Return By', 'Type', 'Reason'],
+      ['Date', 'Return No', 'Customer Name', 'Original Invoice', 'Item Name', 'Quantity', 'Rate', 'Discount', 'GST', 'Total', 'Return By', 'Type', 'Reason'],
       ...filteredRecords.map(record => [
         new Date(record.date).toLocaleDateString('en-GB'),
         record.returnNo,
@@ -261,7 +261,7 @@ export default function SalesReturnRecord() {
         record.quantity,
         record.rate,
         record.discount,
-        record.vat,
+        record.GST,
         record.total,
         record.returnBy,
         record.type,
@@ -485,7 +485,7 @@ export default function SalesReturnRecord() {
                   <div>Qty</div>
                   <div className="text-right">Rate</div>
                   <div>Disc%</div>
-                  <div>VAT%</div>
+                  <div>GST%</div>
                   <div className="text-right">Total</div>
                   <div>Return By</div>
                   <div>Type</div>
@@ -503,10 +503,10 @@ export default function SalesReturnRecord() {
                       <div className="font-medium text-teal-600">{record.originalInvoice}</div>
                       <div className="truncate" title={record.itemName}>{record.itemName}</div>
                       <div>{record.quantity}</div>
-                      <div className="text-right">{record.rate} BDT</div>
+                      <div className="text-right">{record.rate} Rs</div>
                       <div className="text-center">{record.discount}</div>
-                      <div className="text-center">{record.vat}</div>
-                      <div className="text-right font-medium text-red-600">{record.total} BDT</div>
+                      <div className="text-center">{record.GST}</div>
+                      <div className="text-right font-medium text-red-600">{record.total} Rs</div>
                       <div>{record.returnBy}</div>
                       <div>
                         <span className={`px-2 py-1 rounded text-xs ${
@@ -550,7 +550,7 @@ export default function SalesReturnRecord() {
                   <div className="grid grid-cols-14 gap-2 text-xs py-3 border-t-2 border-red-600 bg-red-50 font-semibold">
                     <div className="col-span-9 text-right">TOTAL RETURNS:</div>
                     <div className="text-right text-red-600">
-                      {totalAmount.toLocaleString('en-BD', { minimumFractionDigits: 2 })} BDT
+                      {totalAmount.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
                     </div>
                     <div className="col-span-4"></div>
                   </div>

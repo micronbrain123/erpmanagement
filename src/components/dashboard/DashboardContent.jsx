@@ -37,24 +37,24 @@ export default function DashboardContent() {
 
   // Sample data for the dashboard
   const salesData = [
-    { month: 'August', amount: '2,005.00 BDT' },
-    { month: 'July', amount: '858,388.00 BDT' },
-    { month: 'June', amount: '75,970.00 BDT' },
-    { month: 'May', amount: '849,445.33 BDT' }
+    { month: 'August', amount: '2,005.00 Rs' },
+    { month: 'July', amount: '858,388.00 Rs' },
+    { month: 'June', amount: '75,970.00 Rs' },
+    { month: 'May', amount: '849,445.33 Rs' }
   ]
 
   const todayData = [
-    { label: 'Today Due Collection', amount: '0.00 BDT' },
-    { label: 'Today Sales', amount: '0.00 BDT' },
-    { label: 'Today Expense', amount: '5.00 BDT' },
-    { label: 'Today Profit/ Loss', amount: '0.00 BDT' }
+    { label: 'Today Due Collection', amount: '0.00 Rs' },
+    { label: 'Today Sales', amount: '0.00 Rs' },
+    { label: 'Today Expense', amount: '5.00 Rs' },
+    { label: 'Today Profit/ Loss', amount: '0.00 Rs' }
   ]
 
   const balanceData = [
-    { account: 'Cash In Hand', balance: '1,512,323,231,992,558.50 BDT' },
-    { account: 'Bank Accounts', balance: '-6,224,604.00 BDT' },
-    { account: 'Customer Due', balance: '1,340,202.00 BDT' },
-    { account: 'Supplier Due', balance: '-3,404,497.42 BDT' }
+    { account: 'Cash In Hand', balance: '1,512,992,558.50 Rs' },
+    { account: 'Bank Accounts', balance: '6,224,604.00 Rs' },
+    { account: 'Customer Due', balance: '1,340,202.00 Rs' },
+    { account: 'Supplier Due', balance: '-3,404,497.42 Rs' }
   ]
 
   const modules = [
@@ -109,7 +109,7 @@ export default function DashboardContent() {
               <div className="font-semibold text-gray-700 pb-2">Sold Amount</div>
               {salesData.map((item, index) => (
                 <div key={index} className="contents">
-                  <div className="py-1 text-gray-600"># {item.month}</div>
+                  <div className="py-1 text-gray-600"> {item.month}</div>
                   <div className="py-1 font-medium">{item.amount}</div>
                 </div>
               ))}
@@ -128,7 +128,7 @@ export default function DashboardContent() {
               <div className="font-semibold text-gray-700 pb-2">Amount</div>
               {todayData.map((item, index) => (
                 <div key={index} className="contents">
-                  <div className="py-1 text-gray-600">. {item.label}</div>
+                  <div className="py-1 text-gray-600"> {item.label}</div>
                   <div className="py-1 font-medium">{item.amount}</div>
                 </div>
               ))}
@@ -147,7 +147,7 @@ export default function DashboardContent() {
               <div className="font-semibold text-gray-700 pb-2">Balance</div>
               {balanceData.map((item, index) => (
                 <div key={index} className="contents">
-                  <div className="py-1 text-gray-600">:) {item.account}</div>
+                  <div className="py-1 text-gray-600"> {item.account}</div>
                   <div className="py-1 font-medium">{item.balance}</div>
                 </div>
               ))}

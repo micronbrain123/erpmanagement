@@ -18,7 +18,7 @@ export default function ViewSalesVouchers() {
         rate: '0.00',
         qty: '1 Cutton, 0 Pcs',
         discount: '0%',
-        vat: '0%',
+        GST: '0%',
         total: '0.00'
       },
       {
@@ -27,7 +27,7 @@ export default function ViewSalesVouchers() {
         rate: '0.00',
         qty: '1 Pcs',
         discount: '0%',
-        vat: '0%',
+        GST: '0%',
         total: '0.00'
       }
     ],
@@ -40,7 +40,7 @@ export default function ViewSalesVouchers() {
     previousDue: '0',
     invoiceDue: '0.00',
     currentDue: '0.00',
-    grandTotalInWords: 'Only (BDT)',
+    grandTotalInWords: 'Only (Rs)',
     narration: ''
   })
 
@@ -65,7 +65,7 @@ export default function ViewSalesVouchers() {
         due: '5,500.00',
         paid: '20,000.00',
         currentDue: '5,500.00',
-        grandTotalInWords: 'Twenty Five Thousand Five Hundred Only (BDT)'
+        grandTotalInWords: 'Twenty Five Thousand Five Hundred Only (Rs)'
       })
     } else {
       // Reset to default data
@@ -83,7 +83,7 @@ export default function ViewSalesVouchers() {
             rate: '0.00',
             qty: '1 Cutton, 0 Pcs',
             discount: '0%',
-            vat: '0%',
+            GST: '0%',
             total: '0.00'
           },
           {
@@ -92,7 +92,7 @@ export default function ViewSalesVouchers() {
             rate: '0.00',
             qty: '1 Pcs',
             discount: '0%',
-            vat: '0%',
+            GST: '0%',
             total: '0.00'
           }
         ],
@@ -105,7 +105,7 @@ export default function ViewSalesVouchers() {
         previousDue: '0',
         invoiceDue: '0.00',
         currentDue: '0.00',
-        grandTotalInWords: 'Only (BDT)',
+        grandTotalInWords: 'Only (Rs)',
         narration: ''
       })
     }
@@ -193,7 +193,7 @@ export default function ViewSalesVouchers() {
                 <th>Rate</th>
                 <th>QTY</th>
                 <th>Discount%</th>
-                <th>Vat%</th>
+                <th>GST%</th>
                 <th>Total</th>
               </tr>
             </thead>
@@ -205,7 +205,7 @@ export default function ViewSalesVouchers() {
                   <td class="text-right">${item.rate}</td>
                   <td>${item.qty}</td>
                   <td class="text-center">${item.discount}</td>
-                  <td class="text-center">${item.vat}</td>
+                  <td class="text-center">${item.GST}</td>
                   <td class="text-right">${item.total}</td>
                 </tr>
               `).join('')}
@@ -222,9 +222,9 @@ export default function ViewSalesVouchers() {
             <div class="total-row"><strong>Quantity Total:</strong> (${voucherData.quantityTotal})</div>
             <div class="total-row"><strong>Amount Sub Total:</strong> ${voucherData.amountSubTotal}</div>
             <div class="total-row"><strong>Transport Cost:</strong> ${voucherData.transportCost}</div>
-            <div class="total-row"><strong>Grand Total: BDT</strong> ${voucherData.grandTotal}</div>
-            <div class="total-row"><strong>Paid: BDT</strong> ${voucherData.paid}</div>
-            <div class="total-row"><strong>Due: BDT</strong> ${voucherData.due}</div>
+            <div class="total-row"><strong>Grand Total: Rs</strong> ${voucherData.grandTotal}</div>
+            <div class="total-row"><strong>Paid: Rs</strong> ${voucherData.paid}</div>
+            <div class="total-row"><strong>Due: Rs</strong> ${voucherData.due}</div>
           </div>
 
           <div style="margin-top: 20px;">
@@ -318,7 +318,7 @@ export default function ViewSalesVouchers() {
                   <th className="border border-gray-800 px-3 py-2 text-center font-semibold">Rate</th>
                   <th className="border border-gray-800 px-3 py-2 text-center font-semibold">QTY</th>
                   <th className="border border-gray-800 px-3 py-2 text-center font-semibold">Discount%</th>
-                  <th className="border border-gray-800 px-3 py-2 text-center font-semibold">Vat%</th>
+                  <th className="border border-gray-800 px-3 py-2 text-center font-semibold">GST%</th>
                   <th className="border border-gray-800 px-3 py-2 text-center font-semibold">Total</th>
                 </tr>
               </thead>
@@ -330,7 +330,7 @@ export default function ViewSalesVouchers() {
                     <td className="border border-gray-800 px-3 py-2 text-right">{item.rate}</td>
                     <td className="border border-gray-800 px-3 py-2">{item.qty}</td>
                     <td className="border border-gray-800 px-3 py-2 text-center">{item.discount}</td>
-                    <td className="border border-gray-800 px-3 py-2 text-center">{item.vat}</td>
+                    <td className="border border-gray-800 px-3 py-2 text-center">{item.GST}</td>
                     <td className="border border-gray-800 px-3 py-2 text-right font-semibold">{item.total}</td>
                   </tr>
                 ))}
@@ -366,13 +366,13 @@ export default function ViewSalesVouchers() {
                 <div className="font-semibold">Transport Cost :</div>
                 <div className="font-semibold">{voucherData.transportCost}</div>
                 
-                <div className="font-semibold">Grand Total : BDT</div>
+                <div className="font-semibold">Grand Total : Rs</div>
                 <div className="font-semibold">{voucherData.grandTotal}</div>
                 
-                <div className="font-semibold">Paid : BDT</div>
+                <div className="font-semibold">Paid : Rs</div>
                 <div className="font-semibold">{voucherData.paid}</div>
                 
-                <div className="font-semibold">Due : BDT</div>
+                <div className="font-semibold">Due : Rs</div>
                 <div className="font-semibold">{voucherData.due}</div>
               </div>
             </div>

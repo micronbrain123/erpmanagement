@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-export default function EmployeeLedger() {
+export default function SalesOrderRecord() {
   // Get today's date in DD/MM/YYYY format
   const getTodayFormatted = () => {
     const today = new Date()
@@ -31,88 +31,103 @@ export default function EmployeeLedger() {
   }
 
   const [formData, setFormData] = useState({
-    selectedEmployee: '',
+    filterType: 'All',
+    recordType: 'without item',
     fromDate: getTodayFormatted(),
     toDate: getTodayFormatted()
   })
 
-  const [ledgerEntries, setLedgerEntries] = useState([
+  const [salesOrderEntries, setSalesOrderEntries] = useState([
     {
       id: 1,
       date: '2025-08-01',
-      employee: 'John Doe',
-      particulars: 'Basic Salary - August 2025',
-      paymentCode: 'EPAY001',
-      debit: '25,000.00',
-      credit: '',
-      balance: '25,000.00',
-      type: 'Salary'
+      customer: 'Tech Solutions Inc',
+      salesOrderNo: 'SO-2025-001',
+      particulars: 'Software Development Services',
+      category: 'IT Services',
+      location: 'Main Office',
+      user: 'John Doe',
+      amount: '125,500.00',
+      status: 'Confirmed',
+      type: 'with item'
     },
     {
       id: 2,
-      date: '2025-08-05',
-      employee: 'Jane Smith',
-      particulars: 'Overtime Payment',
-      paymentCode: 'EPAY003',
-      debit: '3,500.00',
-      credit: '',
-      balance: '28,500.00',
-      type: 'Overtime'
+      date: '2025-08-03',
+      customer: 'ABC Manufacturing Ltd',
+      salesOrderNo: 'SO-2025-002',
+      particulars: 'Consulting Services - Business Analysis',
+      category: 'Consulting',
+      location: 'Client Site',
+      user: 'Jane Smith',
+      amount: '75,000.00',
+      status: 'Draft',
+      type: 'without item'
     },
     {
       id: 3,
-      date: '2025-08-10',
-      employee: 'John Doe',
-      particulars: 'Advance Deduction',
-      paymentCode: 'ADV001',
-      debit: '',
-      credit: '5,000.00',
-      balance: '23,500.00',
-      type: 'Deduction'
+      date: '2025-08-05',
+      customer: 'Global Retail Co',
+      salesOrderNo: 'SO-2025-003',
+      particulars: 'Custom Software License',
+      category: 'Software',
+      location: 'Remote',
+      user: 'Ahmed Khan',
+      amount: '285,200.00',
+      status: 'Pending',
+      type: 'with item'
     },
     {
       id: 4,
-      date: '2025-08-15',
-      employee: 'Ahmed Khan',
-      particulars: 'Bonus Payment',
-      paymentCode: 'BON001',
-      debit: '2,000.00',
-      credit: '',
-      balance: '25,500.00',
-      type: 'Bonus'
+      date: '2025-08-07',
+      customer: 'Industrial Systems LLC',
+      salesOrderNo: 'SO-2025-004',
+      particulars: 'Technical Support Services',
+      category: 'Support',
+      location: 'Main Office',
+      user: 'Maria Rodriguez',
+      amount: '42,500.00',
+      status: 'Confirmed',
+      type: 'without item'
     },
     {
       id: 5,
-      date: '2025-08-12',
-      employee: 'Jane Smith',
-      particulars: 'Basic Salary - August 2025',
-      paymentCode: 'EPAY005',
-      debit: '30,000.00',
-      credit: '',
-      balance: '30,000.00',
-      type: 'Salary'
+      date: '2025-08-10',
+      customer: 'Digital Solutions Inc',
+      salesOrderNo: 'SO-2025-005',
+      particulars: 'Mobile App Development',
+      category: 'Development',
+      location: 'Development Center',
+      user: 'David Wilson',
+      amount: '162,300.00',
+      status: 'In Progress',
+      type: 'with item'
     },
     {
       id: 6,
-      date: '2025-08-08',
-      employee: 'Maria Rodriguez',
-      particulars: 'Commission Payment',
-      paymentCode: 'COM001',
-      debit: '5,500.00',
-      credit: '',
-      balance: '5,500.00',
-      type: 'Commission'
+      date: '2025-08-12',
+      customer: 'Enterprise Corp',
+      salesOrderNo: 'SO-2025-006',
+      particulars: 'System Integration Services',
+      category: 'Integration',
+      location: 'Client Site',
+      user: 'Admin User',
+      amount: '98,600.00',
+      status: 'Draft',
+      type: 'without item'
     },
     {
       id: 7,
-      date: '2025-08-14',
-      employee: 'John Doe',
-      particulars: 'Today\'s Payment - Test Entry',
-      paymentCode: 'EPAY007',
-      debit: '1,500.00',
-      credit: '',
-      balance: '25,000.00',
-      type: 'Bonus'
+      date: '2025-08-17',
+      customer: 'Today\'s Customer',
+      salesOrderNo: 'SO-2025-007',
+      particulars: 'Today\'s Sales Order - Test Services',
+      category: 'Test Category',
+      location: 'Test Location',
+      user: 'Test User',
+      amount: '55,000.00',
+      status: 'Draft',
+      type: 'without item'
     }
   ])
 
@@ -123,13 +138,17 @@ export default function EmployeeLedger() {
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [currentPage, setCurrentPage] = useState(1)
 
-  const employees = [
-    'John Doe',
-    'Jane Smith',
-    'Ahmed Khan',
-    'Maria Rodriguez',
-    'David Wilson'
+  const filterTypes = [
+    'All',
+    'By Customer',
+    'By Item',
+    'By Group', 
+    'By Category',
+    'By Location',
+    'By User'
   ]
+
+  const recordTypes = ['with item', 'without item']
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -145,11 +164,6 @@ export default function EmployeeLedger() {
   }
 
   const handleGetReport = () => {
-    if (!formData.selectedEmployee) {
-      alert('Please select an employee')
-      return
-    }
-
     try {
       // Parse dates from DD/MM/YYYY format
       const fromDate = parseDisplayDate(formData.fromDate)
@@ -166,23 +180,20 @@ export default function EmployeeLedger() {
         return
       }
       
-      const filtered = ledgerEntries.filter(entry => {
+      const filtered = salesOrderEntries.filter(entry => {
         const entryDate = new Date(entry.date)
         const dateInRange = entryDate >= fromDate && entryDate <= toDate
         
-        // If "All" is selected, show all employees within date range
-        if (formData.selectedEmployee === 'All') {
-          return dateInRange
-        }
+        // Filter by record type
+        const typeMatch = entry.type === formData.recordType
         
-        // Otherwise filter by specific employee
-        return entry.employee === formData.selectedEmployee && dateInRange
+        return dateInRange && typeMatch
       })
       
       setFilteredEntries(filtered)
       setShowTable(true)
-      setCurrentPage(1) // Reset to first page
-      console.log('Generating report for:', formData)
+      setCurrentPage(1)
+      console.log('Generating sales order report for:', formData)
       console.log('Filtered entries:', filtered.length)
     } catch (error) {
       console.error('Error filtering entries:', error)
@@ -199,9 +210,10 @@ export default function EmployeeLedger() {
     } else {
       const filtered = filteredEntries.filter(entry =>
         entry.particulars.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        entry.paymentCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        entry.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        entry.employee.toLowerCase().includes(searchTerm.toLowerCase())
+        entry.customer.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.salesOrderNo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.status.toLowerCase().includes(searchTerm.toLowerCase())
       )
       setFilteredEntries(filtered)
     }
@@ -214,6 +226,136 @@ export default function EmployeeLedger() {
       handleGetReport() // Re-apply original filters
     }
     setShowSearch(false)
+  }
+
+  // Print functionality
+  const handlePrint = () => {
+    const printContent = `
+      <html>
+        <head>
+          <title>Sales Order Record Report</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            .header { text-align: center; margin-bottom: 30px; }
+            .company-name { font-size: 24px; font-weight: bold; color: #0f766e; margin-bottom: 10px; }
+            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; font-size: 12px; }
+            th { background-color: #f2f2f2; font-weight: bold; }
+            .footer { margin-top: 40px; text-align: center; font-size: 10px; color: #666; }
+            .text-right { text-align: right; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <div class="company-name">Fayullah Factory</div>
+            <div class="report-title">Sales Order Record Report</div>
+            <div>Filter Type: ${formData.filterType}</div>
+            <div>Record Type: ${formData.recordType}</div>
+            <div>Period: ${formData.fromDate} to ${formData.toDate}</div>
+            <div>Generated on: ${new Date().toLocaleString()}</div>
+            <div>Total Records: ${filteredEntries.length}</div>
+          </div>
+          
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Sales Order No</th>
+                <th>Particulars</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>User</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${filteredEntries.map(entry => `
+                <tr>
+                  <td>${new Date(entry.date).toLocaleDateString('en-GB')}</td>
+                  <td>${entry.customer}</td>
+                  <td>${entry.salesOrderNo}</td>
+                  <td>${entry.particulars}</td>
+                  <td>${entry.category}</td>
+                  <td>${entry.location}</td>
+                  <td>${entry.user}</td>
+                  <td class="text-right">${entry.amount} Rs</td>
+                  <td>${entry.status}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+          
+          <div class="footer">
+            Sales Order Report - Fayullah Factory Management System
+          </div>
+        </body>
+      </html>
+    `
+    const printWindow = window.open('', '_blank')
+    printWindow.document.write(printContent)
+    printWindow.document.close()
+    printWindow.print()
+  }
+
+  // Export functionality
+  const handleExport = () => {
+    const csvContent = [
+      ['Fayullah Factory - Sales Order Record Report'],
+      [`Filter Type: ${formData.filterType}`],
+      [`Record Type: ${formData.recordType}`],
+      [`Period: ${formData.fromDate} to ${formData.toDate}`],
+      [`Generated on: ${new Date().toLocaleString()}`],
+      [`Total Records: ${filteredEntries.length}`],
+      [],
+      ['Date', 'Customer', 'Sales Order No', 'Particulars', 'Category', 'Location', 'User', 'Amount', 'Status'],
+      ...filteredEntries.map(entry => [
+        new Date(entry.date).toLocaleDateString('en-GB'),
+        entry.customer,
+        entry.salesOrderNo,
+        entry.particulars,
+        entry.category,
+        entry.location,
+        entry.user,
+        entry.amount,
+        entry.status
+      ])
+    ].map(row => Array.isArray(row) ? row.join(',') : row).join('\n')
+
+    const blob = new Blob([csvContent], { type: 'text/csv' })
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `sales_order_record_${formData.fromDate.replace(/\//g, '-')}_to_${formData.toDate.replace(/\//g, '-')}.csv`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    window.URL.revokeObjectURL(url)
+  }
+
+  // Delete entry
+  const handleDeleteEntry = (id) => {
+    if (window.confirm('Are you sure you want to delete this sales order record?')) {
+      const updatedEntries = salesOrderEntries.filter(entry => entry.id !== id)
+      setSalesOrderEntries(updatedEntries)
+      
+      // Update filtered entries if table is shown
+      if (showTable) {
+        const fromDate = parseDisplayDate(formData.fromDate)
+        const toDate = parseDisplayDate(formData.toDate)
+        
+        const filtered = updatedEntries.filter(entry => {
+          const entryDate = new Date(entry.date)
+          const dateInRange = entryDate >= fromDate && entryDate <= toDate
+          const typeMatch = entry.type === formData.recordType
+          
+          return dateInRange && typeMatch
+        })
+        
+        setFilteredEntries(filtered)
+      }
+    }
   }
 
   // Set date range shortcuts
@@ -229,155 +371,51 @@ export default function EmployeeLedger() {
     }))
   }
 
-  // Print functionality
-  const handlePrint = () => {
-    const printContent = `
-      <html>
-        <head>
-          <title>Employee Ledger Report</title>
-          <style>
-            body { font-family: Arial, sans-serif; }
-            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-            th { background-color: #f2f2f2; font-weight: bold; }
-            h1 { text-align: center; color: #0f766e; }
-            .text-right { text-align: right; }
-          </style>
-        </head>
-        <body>
-          <h1>Employee Ledger Report</h1>
-          <p>Employee: ${formData.selectedEmployee || 'All Employees'}</p>
-          <p>Period: ${formData.fromDate} to ${formData.toDate}</p>
-          <p>Generated on: ${new Date().toLocaleString()}</p>
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Employee</th>
-                <th>Particulars</th>
-                <th>Payment Code</th>
-                <th>Debit</th>
-                <th>Credit</th>
-                <th>Balance</th>
-                <th>Type</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${filteredEntries.map(entry => `
-                <tr>
-                  <td>${new Date(entry.date).toLocaleDateString('en-GB')}</td>
-                  <td>${entry.employee}</td>
-                  <td>${entry.particulars}</td>
-                  <td>${entry.paymentCode}</td>
-                  <td class="text-right">${entry.debit || '-'}</td>
-                  <td class="text-right">${entry.credit || '-'}</td>
-                  <td class="text-right">${entry.balance}</td>
-                  <td>${entry.type}</td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        </body>
-      </html>
-    `
-    const printWindow = window.open('', '_blank')
-    printWindow.document.write(printContent)
-    printWindow.document.close()
-    printWindow.print()
-  }
-
-  // Export functionality
-  const handleExport = () => {
-    const csvContent = [
-      ['Date', 'Employee', 'Particulars', 'Payment Code', 'Debit', 'Credit', 'Balance', 'Type'],
-      ...filteredEntries.map(entry => [
-        new Date(entry.date).toLocaleDateString('en-GB'),
-        entry.employee,
-        entry.particulars,
-        entry.paymentCode,
-        entry.debit || '',
-        entry.credit || '',
-        entry.balance,
-        entry.type
-      ])
-    ].map(row => row.join(',')).join('\n')
-
-    const blob = new Blob([csvContent], { type: 'text/csv' })
-    const url = window.URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = 'employee_ledger.csv'
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    window.URL.revokeObjectURL(url)
-  }
-
-  // Delete entry
-  const handleDeleteEntry = (id) => {
-    if (window.confirm('Are you sure you want to delete this entry?')) {
-      const updatedEntries = ledgerEntries.filter(entry => entry.id !== id)
-      setLedgerEntries(updatedEntries)
-      
-      // Update filtered entries if table is shown
-      if (showTable) {
-        const fromDate = parseDisplayDate(formData.fromDate)
-        const toDate = parseDisplayDate(formData.toDate)
-        
-        const filtered = updatedEntries.filter(entry => {
-          const entryDate = new Date(entry.date)
-          const dateInRange = entryDate >= fromDate && entryDate <= toDate
-          
-          // If "All" is selected, show all employees within date range
-          if (formData.selectedEmployee === 'All') {
-            return dateInRange
-          }
-          
-          // Otherwise filter by specific employee
-          return entry.employee === formData.selectedEmployee && dateInRange
-        })
-        
-        setFilteredEntries(filtered)
-      }
-    }
-  }
-
   // Pagination
   const totalPages = Math.ceil(filteredEntries.length / rowsPerPage)
   const startIndex = (currentPage - 1) * rowsPerPage
   const endIndex = startIndex + rowsPerPage
   const currentEntries = filteredEntries.slice(startIndex, endIndex)
 
-  // Calculate totals
-  const totalDebit = filteredEntries.reduce((sum, entry) => 
-    sum + (parseFloat(entry.debit.replace(',', '')) || 0), 0
-  )
-  const totalCredit = filteredEntries.reduce((sum, entry) => 
-    sum + (parseFloat(entry.credit.replace(',', '')) || 0), 0
+  // Calculate total amount
+  const totalAmount = filteredEntries.reduce((sum, entry) => 
+    sum + parseFloat(entry.amount.replace(',', '')), 0
   )
 
   return (
     <div className="p-4">
       <div className="bg-white rounded-lg shadow-sm border">
         <div className="bg-teal-600 text-white px-4 py-3 rounded-t-lg">
-          <h2 className="font-medium text-lg">Employee Ledger</h2>
+          <h2 className="font-medium text-lg">Sales Order Record</h2>
         </div>
         
         <div className="p-6">
           {/* Filter Section */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            {/* Select Employee */}
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+            {/* Filter Type */}
             <div>
-              <label className="block text-xs text-gray-600 mb-1">Select Employee</label>
+              <label className="block text-xs text-gray-600 mb-1">Filter Type</label>
               <select 
                 className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
-                value={formData.selectedEmployee}
-                onChange={(e) => handleInputChange('selectedEmployee', e.target.value)}
+                value={formData.filterType}
+                onChange={(e) => handleInputChange('filterType', e.target.value)}
               >
-                <option value="">Select Employee</option>
-                <option value="All">All Employees</option>
-                {employees.map(employee => (
-                  <option key={employee} value={employee}>{employee}</option>
+                {filterTypes.map(type => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Record Type */}
+            <div>
+              <label className="block text-xs text-gray-600 mb-1">Record Type</label>
+              <select 
+                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
+                value={formData.recordType}
+                onChange={(e) => handleInputChange('recordType', e.target.value)}
+              >
+                {recordTypes.map(type => (
+                  <option key={type} value={type}>{type}</option>
                 ))}
               </select>
             </div>
@@ -404,13 +442,13 @@ export default function EmployeeLedger() {
               />
             </div>
 
-            {/* Get Report Button */}
+            {/* Report Button */}
             <div className="flex items-end">
               <button 
                 onClick={handleGetReport}
                 className="bg-teal-600 text-white px-6 py-2 rounded text-sm hover:bg-teal-700 transition-colors flex items-center gap-2"
               >
-                🔍 GET REPORT
+                🔍 REPORT
               </button>
             </div>
           </div>
@@ -446,21 +484,16 @@ export default function EmployeeLedger() {
           {/* Current Date Range Display */}
           <div className="text-sm text-gray-600 mb-4">
             Selected Date Range: <span className="font-medium">{formData.fromDate} to {formData.toDate}</span>
-            {formData.selectedEmployee && (
-              <span className="ml-4">
-                Employee: <span className="font-medium">{formData.selectedEmployee}</span>
-              </span>
-            )}
           </div>
         </div>
       </div>
 
-      {/* Employee Ledger Report */}
+      {/* Sales Order Record Report */}
       {showTable && (
         <div className="bg-white rounded-lg shadow-sm border mt-6">
           <div className="p-4">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium">Employee Ledger Report</h3>
+              <h3 className="text-lg font-medium">Sales Order Record Report</h3>
               <div className="flex gap-2">
                 <button 
                   onClick={() => setShowSearch(!showSearch)}
@@ -491,7 +524,7 @@ export default function EmployeeLedger() {
               <div className="mb-4 flex gap-2">
                 <input
                   type="text"
-                  placeholder="Search by employee, particulars, payment code, or type..."
+                  placeholder="Search by customer, sales order no, particulars, category, or status..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="flex-1 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
@@ -513,52 +546,50 @@ export default function EmployeeLedger() {
 
             {/* Results Summary */}
             <div className="mb-4 text-sm text-gray-600">
-              Showing {filteredEntries.length} records for {formData.selectedEmployee || 'selected employee'} from {formData.fromDate} to {formData.toDate}
+              Showing {filteredEntries.length} records for {formData.recordType} sales orders from {formData.fromDate} to {formData.toDate}
             </div>
 
             {/* Table Headers */}
             <div className="overflow-x-auto">
               <div className="min-w-full">
-                <div className="grid grid-cols-9 gap-2 text-xs font-semibold text-gray-700 border-b pb-2 mb-4">
+                <div className="grid grid-cols-10 gap-2 text-xs font-semibold text-gray-700 border-b pb-2 mb-4">
                   <div>Date</div>
-                  <div>Employee</div>
+                  <div>Customer</div>
+                  <div>Sales Order No</div>
                   <div>Particulars</div>
-                  <div>Payment Code</div>
-                  <div className="text-right">Debit</div>
-                  <div className="text-right">Credit</div>
-                  <div className="text-right">Balance</div>
-                  <div>Type</div>
+                  <div>Category</div>
+                  <div>Location</div>
+                  <div>User</div>
+                  <div className="text-right">Amount</div>
+                  <div>Status</div>
                   <div>Actions</div>
                 </div>
 
                 {/* Table Rows */}
                 {currentEntries.length > 0 ? (
                   currentEntries.map((entry) => (
-                    <div key={entry.id} className="grid grid-cols-9 gap-2 text-xs py-2 border-b hover:bg-gray-50">
+                    <div key={entry.id} className="grid grid-cols-10 gap-2 text-xs py-2 border-b hover:bg-gray-50">
                       <div>{new Date(entry.date).toLocaleDateString('en-GB')}</div>
-                      <div className="font-medium text-gray-700">{entry.employee}</div>
+                      <div className="font-medium text-gray-700">{entry.customer}</div>
+                      <div className="font-medium text-teal-600">{entry.salesOrderNo}</div>
                       <div className="truncate" title={entry.particulars}>{entry.particulars}</div>
-                      <div className="font-medium text-teal-600">{entry.paymentCode}</div>
+                      <div>{entry.category}</div>
+                      <div>{entry.location}</div>
+                      <div>{entry.user}</div>
                       <div className="text-right font-medium text-green-600">
-                        {entry.debit && `${entry.debit} Rs`}
+                        {entry.amount} Rs
                       </div>
-                      <div className="text-right font-medium text-red-600">
-                        {entry.credit && `${entry.credit} Rs`}
-                      </div>
-                      <div className="text-right font-medium">{entry.balance} Rs</div>
                       <div>
                         <span className={`px-2 py-1 rounded text-xs ${
-                          entry.type === 'Salary' 
-                            ? 'bg-blue-100 text-blue-800' 
-                            : entry.type === 'Overtime'
-                            ? 'bg-green-100 text-green-800'
-                            : entry.type === 'Bonus'
-                            ? 'bg-purple-100 text-purple-800'
-                            : entry.type === 'Commission'
+                          entry.status === 'Confirmed' 
+                            ? 'bg-green-100 text-green-800' 
+                            : entry.status === 'In Progress'
+                            ? 'bg-blue-100 text-blue-800'
+                            : entry.status === 'Pending'
                             ? 'bg-yellow-100 text-yellow-800'
-                            : 'bg-red-100 text-red-800'
+                            : 'bg-gray-100 text-gray-800'
                         }`}>
-                          {entry.type}
+                          {entry.status}
                         </span>
                       </div>
                       <div className="flex gap-1">
@@ -586,16 +617,10 @@ export default function EmployeeLedger() {
 
                 {/* Summary Row */}
                 {filteredEntries.length > 0 && (
-                  <div className="grid grid-cols-9 gap-2 text-xs py-3 border-t-2 border-teal-600 bg-teal-50 font-semibold">
-                    <div className="col-span-4 text-right">TOTAL:</div>
+                  <div className="grid grid-cols-10 gap-2 text-xs py-3 border-t-2 border-teal-600 bg-teal-50 font-semibold">
+                    <div className="col-span-7 text-right">TOTAL AMOUNT:</div>
                     <div className="text-right text-green-600">
-                      {totalDebit.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
-                    </div>
-                    <div className="text-right text-red-600">
-                      {totalCredit.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
-                    </div>
-                    <div className="text-right text-teal-700">
-                      {(totalDebit - totalCredit).toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
+                      {totalAmount.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
                     </div>
                     <div className="col-span-2"></div>
                   </div>

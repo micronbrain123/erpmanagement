@@ -2,83 +2,111 @@
 
 import { useState } from 'react'
 
-export default function ViewSalesReturn() {
-  const [selectedVoucher, setSelectedVoucher] = useState('SR7')
+export default function ViewServiceVouchers() {
+  const [selectedVoucher, setSelectedVoucher] = useState('SV-001')
   const [voucherData, setVoucherData] = useState({
-    invoiceNo: 'SR7',
-    customerName: 'Anvar',
-    institution: '',
-    address: '',
-    contactNo: '',
-    returnDate: '28 Mar 2025 11:49 pm',
-    returnBy: 'SOFT TASK',
+    voucherNo: 'SV-001',
+    customerCode: '',
+    customerName: 'tanyir',
+    institution: 'mwt',
+    address: 'doña, qatar',
+    contactNo: '33833792',
+    serviceDate: '18 Aug 2025',
+    serviceBy: 'SOFT TASK',
     items: [
       {
         sl: 1,
-        itemName: 'Anil Semiya',
-        rate: '88.00',
+        itemName: 'Hand Watch',
+        rate: '1,000.00',
         per: 'Pcs',
-        qty: '2 Pcs',
+        qty: '3 Pcs',
         discount: '0%',
         GST: '0%',
-        total: '176.00'
+        total: '3,000.00'
+      },
+      {
+        sl: 2,
+        itemName: 'Button',
+        rate: '15.00',
+        per: 'Pcs',
+        qty: '3 Pcs',
+        discount: '8.89%',
+        GST: '0%',
+        total: '41.00'
       }
     ],
-    subTotal: '176.00',
+    subTotal: '3,041.00',
     transportCost: '0.00',
-    grandTotal: '176.00',
-    grandTotalInWords: 'One Hundred and Seventy Six Only (Rs)',
-    narration: ''
+    grandTotal: '3,041.00',
+    paid: '0.00',
+    due: '3,041.00',
+    grandTotalInWords: 'Three Thousand Forty One Only (Rs)',
+    narration: 'naration test'
   })
 
   const [availableVouchers] = useState([
-    { value: 'SR7', label: 'SR7 - Anvar' },
-    { value: 'SR1', label: 'SR1 - ABC Company Ltd' },
-    { value: 'SR2', label: 'SR2 - XYZ Trading Co' },
-    { value: 'SR3', label: 'SR3 - Customer ABC' }
+    { value: 'SV-001', label: 'SV-001 - tanyir' },
+    { value: 'SV-002', label: 'SV-002 - Another Customer' },
+    { value: 'SV-003', label: 'SV-003 - Test Client' }
   ])
 
   const handleVoucherChange = (voucherNo) => {
     setSelectedVoucher(voucherNo)
     // In a real app, this would fetch voucher data from backend
     // For demo purposes, we'll just update with sample data
-    if (voucherNo === 'SR1') {
+    if (voucherNo === 'SV-002') {
       setVoucherData({
         ...voucherData,
-        invoiceNo: 'SR1',
-        customerName: 'ABC Company Ltd',
-        returnDate: '25 Mar 2025 09:30 am',
-        grandTotal: '15,500.00',
-        subTotal: '15,500.00',
-        grandTotalInWords: 'Fifteen Thousand Five Hundred Only (Rs)'
+        voucherNo: 'SV-002',
+        customerName: 'Another Customer',
+        institution: 'ABC Corp',
+        address: 'Doha, Qatar',
+        contactNo: '12345678',
+        grandTotal: '5,500.00',
+        due: '2,500.00',
+        paid: '3,000.00',
+        grandTotalInWords: 'Five Thousand Five Hundred Only (Rs)'
       })
-    } else {
+    } else if (voucherNo === 'SV-001') {
       // Reset to default data
       setVoucherData({
-        invoiceNo: 'SR7',
-        customerName: 'Anvar',
-        institution: '',
-        address: '',
-        contactNo: '',
-        returnDate: '28 Mar 2025 11:49 pm',
-        returnBy: 'SOFT TASK',
+        voucherNo: 'SV-001',
+        customerCode: '',
+        customerName: 'tanyir',
+        institution: 'mwt',
+        address: 'doña, qatar',
+        contactNo: '33833792',
+        serviceDate: '18 Aug 2025',
+        serviceBy: 'SOFT TASK',
         items: [
           {
             sl: 1,
-            itemName: 'Anil Semiya',
-            rate: '88.00',
+            itemName: 'Hand Watch',
+            rate: '1,000.00',
             per: 'Pcs',
-            qty: '2 Pcs',
+            qty: '3 Pcs',
             discount: '0%',
             GST: '0%',
-            total: '176.00'
+            total: '3,000.00'
+          },
+          {
+            sl: 2,
+            itemName: 'Button',
+            rate: '15.00',
+            per: 'Pcs',
+            qty: '3 Pcs',
+            discount: '8.89%',
+            GST: '0%',
+            total: '41.00'
           }
         ],
-        subTotal: '176.00',
+        subTotal: '3,041.00',
         transportCost: '0.00',
-        grandTotal: '176.00',
-        grandTotalInWords: 'One Hundred and Seventy Six Only (Rs)',
-        narration: ''
+        grandTotal: '3,041.00',
+        paid: '0.00',
+        due: '3,041.00',
+        grandTotalInWords: 'Three Thousand Forty One Only (Rs)',
+        narration: 'naration test'
       })
     }
   }
@@ -87,7 +115,7 @@ export default function ViewSalesReturn() {
     const printContent = `
       <html>
         <head>
-          <title>Sales Return Voucher - ${voucherData.invoiceNo}</title>
+          <title>Service Voucher - ${voucherData.voucherNo}</title>
           <style>
             body { 
               font-family: Arial, sans-serif; 
@@ -102,13 +130,8 @@ export default function ViewSalesReturn() {
               border-bottom: 2px solid #000;
               padding-bottom: 10px;
             }
-            .voucher-info {
-              display: flex;
-              justify-content: space-between;
+            .customer-info {
               margin-bottom: 20px;
-            }
-            .customer-info, .return-details {
-              width: 48%;
             }
             table { 
               width: 100%; 
@@ -129,7 +152,6 @@ export default function ViewSalesReturn() {
             .text-center { text-align: center; }
             .total-section {
               margin-top: 10px;
-              text-align: right;
             }
             .total-row {
               margin: 5px 0;
@@ -137,21 +159,14 @@ export default function ViewSalesReturn() {
           </style>
         </head>
         <body>
-          <div class="voucher-header">SALES RETURN VOUCHER</div>
+          <div class="voucher-header">SERVICE VOUCHER</div>
           
-          <div class="voucher-info">
-            <div class="customer-info">
-              <strong>Code:</strong><br>
-              <strong>Name:</strong> ${voucherData.customerName}<br>
-              <strong>Institution:</strong> ${voucherData.institution}<br>
-              <strong>Address:</strong> ${voucherData.address}<br>
-              <strong>Contact No:</strong> ${voucherData.contactNo}
-            </div>
-            <div class="return-details">
-              <strong>Invoice No:</strong> ${voucherData.invoiceNo}<br>
-              <strong>Return Date:</strong> ${voucherData.returnDate}<br>
-              <strong>Return By:</strong> ${voucherData.returnBy}
-            </div>
+          <div class="customer-info">
+            <strong>Customer/Debtor Code:</strong> ${voucherData.customerCode}<br>
+            <strong>Name:</strong> ${voucherData.customerName}<br>
+            <strong>Institution:</strong> ${voucherData.institution}<br>
+            <strong>Address:</strong> ${voucherData.address}<br>
+            <strong>Contact No:</strong> ${voucherData.contactNo}
           </div>
 
           <table>
@@ -187,6 +202,8 @@ export default function ViewSalesReturn() {
             <div class="total-row"><strong>Sub Total:</strong> ${voucherData.subTotal}</div>
             <div class="total-row"><strong>Transport Cost:</strong> ${voucherData.transportCost}</div>
             <div class="total-row"><strong>Grand Total: Rs</strong> ${voucherData.grandTotal}</div>
+            <div class="total-row"><strong>Due: Rs</strong> ${voucherData.due}</div>
+            <div class="total-row"><strong>Paid: Rs</strong> ${voucherData.paid}</div>
           </div>
 
           <div style="margin-top: 20px;">
@@ -210,10 +227,15 @@ export default function ViewSalesReturn() {
   return (
     <div className="p-4">
       <div className="bg-white rounded-lg shadow-sm border">
-        {/* Header with Search and Print Button */}
+        {/* Header with Search and AUTO PAD Button */}
         <div className="p-4 border-b">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
+              <button 
+                className="bg-green-600 text-white px-4 py-2 rounded text-sm font-semibold hover:bg-green-700 transition-colors"
+              >
+                AUTO PAD ?
+              </button>
               <button 
                 onClick={handlePrint}
                 className="p-2 border rounded hover:bg-gray-50 transition-colors"
@@ -244,26 +266,28 @@ export default function ViewSalesReturn() {
           {/* Voucher Header */}
           <div className="text-center mb-8">
             <h1 className="text-xl font-bold border-b-2 border-gray-800 pb-2 inline-block px-8">
-              SALES RETURN VOUCHER
+              SERVICE VOUCHER
             </h1>
           </div>
 
-          {/* Customer and Return Information */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
-            {/* Left Side - Customer Info */}
-            <div className="space-y-2">
-              <div><span className="font-semibold">Code :</span></div>
-              <div><span className="font-semibold">Name :</span> {voucherData.customerName}</div>
-              <div><span className="font-semibold">Institution :</span> {voucherData.institution}</div>
-              <div><span className="font-semibold">Address :</span> {voucherData.address}</div>
-              <div><span className="font-semibold">Contact No :</span> {voucherData.contactNo}</div>
+          {/* Customer Information */}
+          <div className="space-y-2 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div>
+                <span className="font-semibold">Customer/Debtor Code :</span> {voucherData.customerCode}
+              </div>
+              <div>
+                <span className="font-semibold">Name :</span> {voucherData.customerName}
+              </div>
+              <div>
+                <span className="font-semibold">Institution :</span> {voucherData.institution}
+              </div>
+              <div>
+                <span className="font-semibold">Contact No :</span> {voucherData.contactNo}
+              </div>
             </div>
-
-            {/* Right Side - Return Info */}
-            <div className="space-y-2 text-right">
-              <div><span className="font-semibold">Invoice No :</span> {voucherData.invoiceNo}</div>
-              <div><span className="font-semibold">Return Date :</span> {voucherData.returnDate}</div>
-              <div><span className="font-semibold">Return By :</span> {voucherData.returnBy}</div>
+            <div>
+              <span className="font-semibold">Address :</span> {voucherData.address}
             </div>
           </div>
 
@@ -311,6 +335,12 @@ export default function ViewSalesReturn() {
                 
                 <div className="font-semibold">Grand Total : Rs</div>
                 <div className="font-semibold">{voucherData.grandTotal}</div>
+                
+                <div className="font-semibold">Due : Rs</div>
+                <div className="font-semibold">{voucherData.due}</div>
+                
+                <div className="font-semibold">Paid : Rs</div>
+                <div className="font-semibold">{voucherData.paid}</div>
               </div>
             </div>
           </div>

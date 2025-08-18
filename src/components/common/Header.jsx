@@ -23,7 +23,6 @@ export default function Header() {
   const navigationItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: '/' },
     { id: 'sales', label: 'Sales', icon: ShoppingCart, path: '/sales' },
-    { id: 'pos', label: 'POS', icon: Monitor, path: '/pos' },
     { id: 'quotation', label: 'Quotation', icon: FileText, path: '/quotation' },
     { id: 'order', label: 'Order', icon: Package, path: '/order' },
     { id: 'service', label: 'Service', icon: Wrench, path: '/service' },
@@ -40,7 +39,7 @@ export default function Header() {
     <header className="bg-white border-b border-gray-200 shadow-sm">
       <div className="flex">
         {/* Logo Section */}
-        <div className="flex items-center px-6 py-3 border-r border-gray-200 bg-gray-50">
+        <div className="flex items-center px-8 py-3 border-r border-gray-200 bg-gray-50">
           <img
             src="/logo.png"
             alt="Company Logo"

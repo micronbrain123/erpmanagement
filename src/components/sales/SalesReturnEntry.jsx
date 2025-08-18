@@ -22,13 +22,13 @@ export default function SalesReturnEntry() {
     customerAddress: '',
     voucherNo: '',
     entryDate: getTodayFormatted(),
-    discountBDT: '0',
+    discountRs: '0',
     discountPercent: '0',
-    vatBDT: '0',
-    vatPercent: '0',
+    GSTRs: '0',
+    GSTPercent: '0',
     total: '0',
     narration: '',
-    discountVatMethod: 'Individual Item',
+    discountGSTMethod: 'Individual Item',
     salesReturnAcc: 'Sales Return',
     grandTotal: '0.00',
     subTotal: '0.00'
@@ -83,7 +83,7 @@ export default function SalesReturnEntry() {
       returnQty: 1,
       rate: 100,
       discountPercent: 0,
-      vatPercent: 0,
+      GSTPercent: 0,
       total: 100
     }
 
@@ -107,8 +107,8 @@ export default function SalesReturnEntry() {
         const baseAmount = updatedItem.rate * updatedItem.returnQty
         const discountAmount = baseAmount * (updatedItem.discountPercent / 100)
         const afterDiscount = baseAmount - discountAmount
-        const vatAmount = afterDiscount * (updatedItem.vatPercent / 100)
-        updatedItem.total = afterDiscount + vatAmount
+        const GSTAmount = afterDiscount * (updatedItem.GSTPercent / 100)
+        updatedItem.total = afterDiscount + GSTAmount
         
         return updatedItem
       }
@@ -121,13 +121,13 @@ export default function SalesReturnEntry() {
 
   const calculateTotals = (items) => {
     const subTotal = items.reduce((sum, item) => sum + item.total, 0)
-    const totalDiscount = parseFloat(formData.discountBDT) || 0
-    const totalVat = parseFloat(formData.vatBDT) || 0
+    const totalDiscount = parseFloat(formData.discountRs) || 0
+    const totalGST = parseFloat(formData.GSTRs) || 0
     
     let grandTotal = subTotal
     
-    if (formData.discountVatMethod === 'On Total') {
-      grandTotal = subTotal - totalDiscount + totalVat
+    if (formData.discountGSTMethod === 'On Total') {
+      grandTotal = subTotal - totalDiscount + totalGST
     }
     
     setFormData(prev => ({
@@ -173,13 +173,13 @@ export default function SalesReturnEntry() {
       customerAddress: '',
       voucherNo: '',
       entryDate: getTodayFormatted(),
-      discountBDT: '0',
+      discountRs: '0',
       discountPercent: '0',
-      vatBDT: '0',
-      vatPercent: '0',
+      GSTRs: '0',
+      GSTPercent: '0',
       total: '0',
       narration: '',
-      discountVatMethod: 'Individual Item',
+      discountGSTMethod: 'Individual Item',
       salesReturnAcc: 'Sales Return',
       grandTotal: '0.00',
       subTotal: '0.00'
@@ -222,7 +222,7 @@ export default function SalesReturnEntry() {
                         className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-sm"
                         onClick={() => handleInputChange('searchItem', item.name)}
                       >
-                        {item.name} - Rate: {item.rate} BDT
+                        {item.name} - Rate: {item.rate} Rs
                       </div>
                     ))}
                   {!items.some(item => item.name.toLowerCase().includes(formData.searchItem.toLowerCase())) && (
@@ -231,15 +231,15 @@ export default function SalesReturnEntry() {
                 </div>
               )}
 
-              {/* Discount and VAT Section */}
+              {/* Discount and GST Section */}
               <div className="mt-6 grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs text-gray-600 mb-1">Discount (BDT)</label>
+                  <label className="block text-xs text-gray-600 mb-1">Discount (Rs)</label>
                   <input
                     type="number"
                     className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
-                    value={formData.discountBDT}
-                    onChange={(e) => handleInputChange('discountBDT', e.target.value)}
+                    value={formData.discountRs}
+                    onChange={(e) => handleInputChange('discountRs', e.target.value)}
                   />
                 </div>
                 <div>
@@ -252,21 +252,21 @@ export default function SalesReturnEntry() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-600 mb-1">Vat (BDT)</label>
+                  <label className="block text-xs text-gray-600 mb-1">GST (Rs)</label>
                   <input
                     type="number"
                     className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
-                    value={formData.vatBDT}
-                    onChange={(e) => handleInputChange('vatBDT', e.target.value)}
+                    value={formData.GSTRs}
+                    onChange={(e) => handleInputChange('GSTRs', e.target.value)}
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-600 mb-1">Vat %</label>
+                  <label className="block text-xs text-gray-600 mb-1">GST %</label>
                   <input
                     type="number"
                     className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
-                    value={formData.vatPercent}
-                    onChange={(e) => handleInputChange('vatPercent', e.target.value)}
+                    value={formData.GSTPercent}
+                    onChange={(e) => handleInputChange('GSTPercent', e.target.value)}
                   />
                 </div>
               </div>
@@ -400,7 +400,7 @@ export default function SalesReturnEntry() {
                   <div>Return Qty</div>
                   <div>Rate (Per)</div>
                   <div>Discount %</div>
-                  <div>Vat %</div>
+                  <div>GST %</div>
                   <div>Total</div>
                   <div>Actions</div>
                 </div>
@@ -444,12 +444,12 @@ export default function SalesReturnEntry() {
                       <input
                         type="number"
                         className="w-full border rounded px-2 py-1 text-xs"
-                        value={item.vatPercent}
-                        onChange={(e) => updateCartItem(item.id, 'vatPercent', e.target.value)}
+                        value={item.GSTPercent}
+                        onChange={(e) => updateCartItem(item.id, 'GSTPercent', e.target.value)}
                       />
                     </div>
                     <div className="font-medium text-green-600">
-                      {item.total.toFixed(2)} BDT
+                      {item.total.toFixed(2)} Rs
                     </div>
                     <div>
                       <button
@@ -479,17 +479,17 @@ export default function SalesReturnEntry() {
 
           {/* Bottom Section */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Discount and Vat Method */}
+            {/* Discount and GST Method */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-3">Discount and Vat Method</label>
+              <label className="block text-sm font-medium text-gray-700 mb-3">Discount and GST Method</label>
               <div className="space-y-2">
                 <label className="flex items-center">
                   <input
                     type="radio"
-                    name="discountVatMethod"
+                    name="discountGSTMethod"
                     value="On Total"
-                    checked={formData.discountVatMethod === 'On Total'}
-                    onChange={(e) => handleInputChange('discountVatMethod', e.target.value)}
+                    checked={formData.discountGSTMethod === 'On Total'}
+                    onChange={(e) => handleInputChange('discountGSTMethod', e.target.value)}
                     className="mr-2"
                   />
                   <span className="text-sm">On Total</span>
@@ -497,10 +497,10 @@ export default function SalesReturnEntry() {
                 <label className="flex items-center">
                   <input
                     type="radio"
-                    name="discountVatMethod"
+                    name="discountGSTMethod"
                     value="Individual Item"
-                    checked={formData.discountVatMethod === 'Individual Item'}
-                    onChange={(e) => handleInputChange('discountVatMethod', e.target.value)}
+                    checked={formData.discountGSTMethod === 'Individual Item'}
+                    onChange={(e) => handleInputChange('discountGSTMethod', e.target.value)}
                     className="mr-2"
                   />
                   <span className="text-sm">Individual Item</span>
@@ -526,7 +526,7 @@ export default function SalesReturnEntry() {
             <div>
               <div className="bg-teal-50 p-4 rounded-lg">
                 <div className="mb-3">
-                  <label className="block text-xs text-gray-600 mb-1">Sub Total (BDT)</label>
+                  <label className="block text-xs text-gray-600 mb-1">Sub Total (Rs)</label>
                   <input
                     type="text"
                     className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-gray-50"
@@ -535,7 +535,7 @@ export default function SalesReturnEntry() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-600 mb-1">Grand Total (BDT)</label>
+                  <label className="block text-xs text-gray-600 mb-1">Grand Total (Rs)</label>
                   <input
                     type="text"
                     className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-gray-50 font-medium"

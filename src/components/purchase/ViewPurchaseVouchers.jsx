@@ -21,7 +21,7 @@ export default function ViewPurchaseVouchers() {
         per: 'Pcs',
         qty: '20 Cutton, 5 Pcs',
         discount: '0%',
-        vat: '15%',
+        GST: '15%',
         total: '104,000.00'
       }
     ],
@@ -31,7 +31,7 @@ export default function ViewPurchaseVouchers() {
     grandTotal: '104,000.00',
     due: '104,000.00',
     paid: '0.00',
-    grandTotalInWords: 'One Lakhs Four Thousand Only (BDT)',
+    grandTotalInWords: 'One Lakhs Four Thousand Only (Rs)',
     narration: ''
   })
 
@@ -55,7 +55,7 @@ export default function ViewPurchaseVouchers() {
         grandTotal: '15,500.00',
         due: '5,500.00',
         paid: '10,000.00',
-        grandTotalInWords: 'Fifteen Thousand Five Hundred Only (BDT)'
+        grandTotalInWords: 'Fifteen Thousand Five Hundred Only (Rs)'
       })
     } else {
       // Reset to default data
@@ -76,7 +76,7 @@ export default function ViewPurchaseVouchers() {
             per: 'Pcs',
             qty: '20 Cutton, 5 Pcs',
             discount: '0%',
-            vat: '15%',
+            GST: '15%',
             total: '104,000.00'
           }
         ],
@@ -86,7 +86,7 @@ export default function ViewPurchaseVouchers() {
         grandTotal: '104,000.00',
         due: '104,000.00',
         paid: '0.00',
-        grandTotalInWords: 'One Lakhs Four Thousand Only (BDT)',
+        grandTotalInWords: 'One Lakhs Four Thousand Only (Rs)',
         narration: ''
       })
     }
@@ -171,7 +171,7 @@ export default function ViewPurchaseVouchers() {
                 <th>Per</th>
                 <th>QTY</th>
                 <th>Discount%</th>
-                <th>Vat%</th>
+                <th>GST%</th>
                 <th>Total</th>
               </tr>
             </thead>
@@ -184,7 +184,7 @@ export default function ViewPurchaseVouchers() {
                   <td style="text-align: center;">${item.per}</td>
                   <td>${item.qty}</td>
                   <td style="text-align: center;">${item.discount}</td>
-                  <td style="text-align: center;">${item.vat}</td>
+                  <td style="text-align: center;">${item.GST}</td>
                   <td class="text-right">${item.total}</td>
                 </tr>
               `).join('')}
@@ -195,9 +195,9 @@ export default function ViewPurchaseVouchers() {
             <div class="total-row"><strong>Quantity Total: (${voucherData.quantityTotal})</strong></div>
             <div class="total-row"><strong>Sub Total:</strong> ${voucherData.subTotal}</div>
             <div class="total-row"><strong>Transport Cost:</strong> ${voucherData.transportCost}</div>
-            <div class="total-row"><strong>Grand Total: BDT</strong> ${voucherData.grandTotal}</div>
-            <div class="total-row"><strong>Due: BDT</strong> ${voucherData.due}</div>
-            <div class="total-row"><strong>Paid: BDT</strong> ${voucherData.paid}</div>
+            <div class="total-row"><strong>Grand Total: Rs</strong> ${voucherData.grandTotal}</div>
+            <div class="total-row"><strong>Due: Rs</strong> ${voucherData.due}</div>
+            <div class="total-row"><strong>Paid: Rs</strong> ${voucherData.paid}</div>
           </div>
 
           <div style="margin-top: 20px;">
@@ -287,7 +287,7 @@ export default function ViewPurchaseVouchers() {
                   <th className="border border-gray-800 px-3 py-2 text-center font-semibold">Per</th>
                   <th className="border border-gray-800 px-3 py-2 text-center font-semibold">QTY</th>
                   <th className="border border-gray-800 px-3 py-2 text-center font-semibold">Discount%</th>
-                  <th className="border border-gray-800 px-3 py-2 text-center font-semibold">Vat%</th>
+                  <th className="border border-gray-800 px-3 py-2 text-center font-semibold">GST%</th>
                   <th className="border border-gray-800 px-3 py-2 text-center font-semibold">Total</th>
                 </tr>
               </thead>
@@ -300,7 +300,7 @@ export default function ViewPurchaseVouchers() {
                     <td className="border border-gray-800 px-3 py-2 text-center">{item.per}</td>
                     <td className="border border-gray-800 px-3 py-2">{item.qty}</td>
                     <td className="border border-gray-800 px-3 py-2 text-center">{item.discount}</td>
-                    <td className="border border-gray-800 px-3 py-2 text-center">{item.vat}</td>
+                    <td className="border border-gray-800 px-3 py-2 text-center">{item.GST}</td>
                     <td className="border border-gray-800 px-3 py-2 text-right font-semibold">{item.total}</td>
                   </tr>
                 ))}
@@ -321,13 +321,13 @@ export default function ViewPurchaseVouchers() {
                 <div className="font-semibold">Transport Cost :</div>
                 <div className="font-semibold">{voucherData.transportCost}</div>
                 
-                <div className="font-semibold">Grand Total : BDT</div>
+                <div className="font-semibold">Grand Total : Rs</div>
                 <div className="font-semibold">{voucherData.grandTotal}</div>
                 
-                <div className="font-semibold">Due : BDT</div>
+                <div className="font-semibold">Due : Rs</div>
                 <div className="font-semibold">{voucherData.due}</div>
                 
-                <div className="font-semibold">Paid : BDT</div>
+                <div className="font-semibold">Paid : Rs</div>
                 <div className="font-semibold">{voucherData.paid}</div>
               </div>
             </div>

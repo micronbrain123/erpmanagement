@@ -13,11 +13,11 @@ export default function PurchaseReturnEntry() {
     searchItem: '',
     discount: '0',
     discountPercent: '0',
-    vat: '0',
-    vatPercent: '0',
+    GST: '0',
+    GSTPercent: '0',
     total: '',
     narration: '',
-    discountVatMethod: 'individual', // 'total' or 'individual'
+    discountGSTMethod: 'individual', // 'total' or 'individual'
     subTotal: '0.00',
     grandTotal: '0.00',
     purchaseReturnAccount: 'Purchase Return'
@@ -31,7 +31,7 @@ export default function PurchaseReturnEntry() {
       supplier: 'ABC Suppliers Ltd',
       entryDate: '2025-08-01',
       items: 3,
-      totalAmount: '7,500.00 BDT',
+      totalAmount: '7,500.00 Rs',
       status: 'Completed'
     },
     {
@@ -40,7 +40,7 @@ export default function PurchaseReturnEntry() {
       supplier: 'XYZ Trading Co',
       entryDate: '2025-08-02',
       items: 2,
-      totalAmount: '4,200.00 BDT',
+      totalAmount: '4,200.00 Rs',
       status: 'Completed'
     }
   ])
@@ -67,7 +67,7 @@ export default function PurchaseReturnEntry() {
         qty: 1,
         rate: formData.total,
         discount: formData.discount,
-        vat: formData.vat,
+        GST: formData.GST,
         total: formData.total
       }
       setPurchaseReturnItems(prev => [...prev, newItem])
@@ -78,7 +78,7 @@ export default function PurchaseReturnEntry() {
         searchItem: '',
         total: '',
         discount: '0',
-        vat: '0'
+        GST: '0'
       }))
     }
   }
@@ -90,7 +90,7 @@ export default function PurchaseReturnEntry() {
       supplier: formData.supplierName,
       entryDate: formData.entryDate,
       items: purchaseReturnItems.length,
-      totalAmount: `${formData.grandTotal} BDT`,
+      totalAmount: `${formData.grandTotal} Rs`,
       status: 'Completed'
     }
     
@@ -127,11 +127,11 @@ export default function PurchaseReturnEntry() {
       searchItem: '',
       discount: '0',
       discountPercent: '0',
-      vat: '0',
-      vatPercent: '0',
+      GST: '0',
+      GSTPercent: '0',
       total: '',
       narration: '',
-      discountVatMethod: 'individual',
+      discountGSTMethod: 'individual',
       subTotal: '0.00',
       grandTotal: '0.00',
       purchaseReturnAccount: 'Purchase Return'
@@ -367,11 +367,11 @@ export default function PurchaseReturnEntry() {
             </div>
           </div>
 
-          {/* Discount and VAT Section */}
+          {/* Discount and GST Section */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            {/* Discount (BDT) */}
+            {/* Discount (Rs) */}
             <div>
-              <label className="block text-xs text-gray-600 mb-1">Discount (BDT )</label>
+              <label className="block text-xs text-gray-600 mb-1">Discount (Rs )</label>
               <input 
                 type="text"
                 className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
@@ -391,25 +391,25 @@ export default function PurchaseReturnEntry() {
               />
             </div>
 
-            {/* Vat (BDT) */}
+            {/* GST (Rs) */}
             <div>
-              <label className="block text-xs text-gray-600 mb-1">Vat (BDT )</label>
+              <label className="block text-xs text-gray-600 mb-1">GST (Rs )</label>
               <input 
                 type="text"
                 className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
-                value={formData.vat}
-                onChange={(e) => handleInputChange('vat', e.target.value)}
+                value={formData.GST}
+                onChange={(e) => handleInputChange('GST', e.target.value)}
               />
             </div>
 
-            {/* Vat % */}
+            {/* GST % */}
             <div>
-              <label className="block text-xs text-gray-600 mb-1">Vat %</label>
+              <label className="block text-xs text-gray-600 mb-1">GST %</label>
               <input 
                 type="text"
                 className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
-                value={formData.vatPercent}
-                onChange={(e) => handleInputChange('vatPercent', e.target.value)}
+                value={formData.GSTPercent}
+                onChange={(e) => handleInputChange('GSTPercent', e.target.value)}
               />
             </div>
           </div>
@@ -444,7 +444,7 @@ export default function PurchaseReturnEntry() {
               <div>QTY</div>
               <div>Rate (Per)</div>
               <div>Discount(%)</div>
-              <div>Vat(%)</div>
+              <div>GST(%)</div>
               <div>Total</div>
               <div>Actions</div>
             </div>
@@ -460,7 +460,7 @@ export default function PurchaseReturnEntry() {
                   <div>{item.qty}</div>
                   <div>{item.rate}</div>
                   <div>{item.discount}%</div>
-                  <div>{item.vat}%</div>
+                  <div>{item.GST}%</div>
                   <div>{item.total}</div>
                   <div>
                     <button 
@@ -487,17 +487,17 @@ export default function PurchaseReturnEntry() {
             />
           </div>
 
-          {/* Discount and VAT Method */}
+          {/* Discount and GST Method */}
           <div className="mb-6">
             <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-700">Discount and Vat Method</span>
+              <span className="text-sm text-gray-700">Discount and GST Method</span>
               <label className="flex items-center gap-2">
                 <input
                   type="radio"
-                  name="discountVatMethod"
+                  name="discountGSTMethod"
                   value="total"
-                  checked={formData.discountVatMethod === 'total'}
-                  onChange={(e) => handleInputChange('discountVatMethod', e.target.value)}
+                  checked={formData.discountGSTMethod === 'total'}
+                  onChange={(e) => handleInputChange('discountGSTMethod', e.target.value)}
                   className="text-teal-600"
                 />
                 <span className="text-sm">On Total</span>
@@ -505,10 +505,10 @@ export default function PurchaseReturnEntry() {
               <label className="flex items-center gap-2">
                 <input
                   type="radio"
-                  name="discountVatMethod"
+                  name="discountGSTMethod"
                   value="individual"
-                  checked={formData.discountVatMethod === 'individual'}
-                  onChange={(e) => handleInputChange('discountVatMethod', e.target.value)}
+                  checked={formData.discountGSTMethod === 'individual'}
+                  onChange={(e) => handleInputChange('discountGSTMethod', e.target.value)}
                   className="text-teal-600"
                 />
                 <span className="text-sm">Individual Item</span>
@@ -520,7 +520,7 @@ export default function PurchaseReturnEntry() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             {/* Sub Total */}
             <div>
-              <label className="block text-xs text-gray-600 mb-1">Sub Total (BDT)</label>
+              <label className="block text-xs text-gray-600 mb-1">Sub Total (Rs)</label>
               <input 
                 type="text"
                 className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
@@ -545,7 +545,7 @@ export default function PurchaseReturnEntry() {
 
             {/* Grand Total */}
             <div>
-              <label className="block text-xs text-gray-600 mb-1">Grand Total (BDT)</label>
+              <label className="block text-xs text-gray-600 mb-1">Grand Total (Rs)</label>
               <input 
                 type="text"
                 className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"

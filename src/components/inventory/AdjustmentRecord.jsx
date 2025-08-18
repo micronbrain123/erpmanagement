@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-export default function EmployeeLedger() {
+export default function AdjustmentRecord() {
   // Get today's date in DD/MM/YYYY format
   const getTodayFormatted = () => {
     const today = new Date()
@@ -31,88 +31,103 @@ export default function EmployeeLedger() {
   }
 
   const [formData, setFormData] = useState({
-    selectedEmployee: '',
+    filterType: 'All',
+    recordType: 'without item',
     fromDate: getTodayFormatted(),
     toDate: getTodayFormatted()
   })
 
-  const [ledgerEntries, setLedgerEntries] = useState([
+  const [adjustmentEntries, setAdjustmentEntries] = useState([
     {
       id: 1,
       date: '2025-08-01',
-      employee: 'John Doe',
-      particulars: 'Basic Salary - August 2025',
-      paymentCode: 'EPAY001',
-      debit: '25,000.00',
-      credit: '',
-      balance: '25,000.00',
-      type: 'Salary'
+      voucherNo: 'A001',
+      particulars: 'Damage Stock Adjustment - Rice Premium',
+      adjustType: 'Damage Stock',
+      category: 'Food Items',
+      location: 'Main Warehouse',
+      user: 'John Doe',
+      amount: '4,250.00',
+      status: 'Completed',
+      type: 'with item'
     },
     {
       id: 2,
-      date: '2025-08-05',
-      employee: 'Jane Smith',
-      particulars: 'Overtime Payment',
-      paymentCode: 'EPAY003',
-      debit: '3,500.00',
-      credit: '',
-      balance: '28,500.00',
-      type: 'Overtime'
+      date: '2025-08-03',
+      voucherNo: 'A002',
+      particulars: 'Lost Stock - Office Supplies Missing',
+      adjustType: 'Lost Stock',
+      category: 'Office Supplies',
+      location: 'Main Office',
+      user: 'Jane Smith',
+      amount: '1,500.00',
+      status: 'Completed',
+      type: 'with item'
     },
     {
       id: 3,
-      date: '2025-08-10',
-      employee: 'John Doe',
-      particulars: 'Advance Deduction',
-      paymentCode: 'ADV001',
-      debit: '',
-      credit: '5,000.00',
-      balance: '23,500.00',
-      type: 'Deduction'
+      date: '2025-08-05',
+      voucherNo: 'A003',
+      particulars: 'Expired Stock Adjustment - Medicines',
+      adjustType: 'Expired Stock',
+      category: 'Medical Supplies',
+      location: 'Medical Store',
+      user: 'Ahmed Khan',
+      amount: '8,750.00',
+      status: 'Pending',
+      type: 'with item'
     },
     {
       id: 4,
-      date: '2025-08-15',
-      employee: 'Ahmed Khan',
-      particulars: 'Bonus Payment',
-      paymentCode: 'BON001',
-      debit: '2,000.00',
-      credit: '',
-      balance: '25,500.00',
-      type: 'Bonus'
+      date: '2025-08-07',
+      voucherNo: 'A004',
+      particulars: 'Stock Increase - Inventory Correction',
+      adjustType: 'Stock Increase',
+      category: 'Raw Materials',
+      location: 'Factory Floor',
+      user: 'Maria Rodriguez',
+      amount: '12,300.00',
+      status: 'Completed',
+      type: 'without item'
     },
     {
       id: 5,
-      date: '2025-08-12',
-      employee: 'Jane Smith',
-      particulars: 'Basic Salary - August 2025',
-      paymentCode: 'EPAY005',
-      debit: '30,000.00',
-      credit: '',
-      balance: '30,000.00',
-      type: 'Salary'
+      date: '2025-08-10',
+      voucherNo: 'A005',
+      particulars: 'Stock Decrease - Quality Control Rejection',
+      adjustType: 'Stock Decrease',
+      category: 'Finished Goods',
+      location: 'QC Department',
+      user: 'David Wilson',
+      amount: '5,600.00',
+      status: 'In Progress',
+      type: 'with item'
     },
     {
       id: 6,
-      date: '2025-08-08',
-      employee: 'Maria Rodriguez',
-      particulars: 'Commission Payment',
-      paymentCode: 'COM001',
-      debit: '5,500.00',
-      credit: '',
-      balance: '5,500.00',
-      type: 'Commission'
+      date: '2025-08-12',
+      voucherNo: 'A006',
+      particulars: 'Correction Entry - System Error Fix',
+      adjustType: 'Correction Entry',
+      category: 'System Adjustment',
+      location: 'IT Department',
+      user: 'Admin User',
+      amount: '0.00',
+      status: 'Completed',
+      type: 'without item'
     },
     {
       id: 7,
-      date: '2025-08-14',
-      employee: 'John Doe',
-      particulars: 'Today\'s Payment - Test Entry',
-      paymentCode: 'EPAY007',
-      debit: '1,500.00',
-      credit: '',
-      balance: '25,000.00',
-      type: 'Bonus'
+      date: getTodayFormatted().split('/').reverse().join('-'),
+      voucherNo: 'A007',
+      particulars: 'Today\'s Adjustment - Test Entry',
+      adjustType: 'Damage Stock',
+      category: 'Test Category',
+      location: 'Test Location',
+      user: 'Test User',
+      amount: '2,500.00',
+      status: 'Completed',
+      type: 'with item'
     }
   ])
 
@@ -123,13 +138,17 @@ export default function EmployeeLedger() {
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [currentPage, setCurrentPage] = useState(1)
 
-  const employees = [
-    'John Doe',
-    'Jane Smith',
-    'Ahmed Khan',
-    'Maria Rodriguez',
-    'David Wilson'
+  const filterTypes = [
+    'All',
+    'By Voucher',
+    'By Item',
+    'By Adjustment Type', 
+    'By Category',
+    'By Location',
+    'By User'
   ]
+
+  const recordTypes = ['with item', 'without item']
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -145,11 +164,6 @@ export default function EmployeeLedger() {
   }
 
   const handleGetReport = () => {
-    if (!formData.selectedEmployee) {
-      alert('Please select an employee')
-      return
-    }
-
     try {
       // Parse dates from DD/MM/YYYY format
       const fromDate = parseDisplayDate(formData.fromDate)
@@ -166,23 +180,20 @@ export default function EmployeeLedger() {
         return
       }
       
-      const filtered = ledgerEntries.filter(entry => {
+      const filtered = adjustmentEntries.filter(entry => {
         const entryDate = new Date(entry.date)
         const dateInRange = entryDate >= fromDate && entryDate <= toDate
         
-        // If "All" is selected, show all employees within date range
-        if (formData.selectedEmployee === 'All') {
-          return dateInRange
-        }
+        // Filter by record type
+        const typeMatch = entry.type === formData.recordType
         
-        // Otherwise filter by specific employee
-        return entry.employee === formData.selectedEmployee && dateInRange
+        return dateInRange && typeMatch
       })
       
       setFilteredEntries(filtered)
       setShowTable(true)
-      setCurrentPage(1) // Reset to first page
-      console.log('Generating report for:', formData)
+      setCurrentPage(1)
+      console.log('Generating adjustment record report for:', formData)
       console.log('Filtered entries:', filtered.length)
     } catch (error) {
       console.error('Error filtering entries:', error)
@@ -199,9 +210,10 @@ export default function EmployeeLedger() {
     } else {
       const filtered = filteredEntries.filter(entry =>
         entry.particulars.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        entry.paymentCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        entry.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        entry.employee.toLowerCase().includes(searchTerm.toLowerCase())
+        entry.voucherNo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.adjustType.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.status.toLowerCase().includes(searchTerm.toLowerCase())
       )
       setFilteredEntries(filtered)
     }
@@ -216,25 +228,12 @@ export default function EmployeeLedger() {
     setShowSearch(false)
   }
 
-  // Set date range shortcuts
-  const setDateRange = (days) => {
-    const today = new Date()
-    const fromDate = new Date(today)
-    fromDate.setDate(today.getDate() - days)
-    
-    setFormData(prev => ({
-      ...prev,
-      fromDate: formatDateForDisplay(fromDate.toISOString().split('T')[0]),
-      toDate: getTodayFormatted()
-    }))
-  }
-
   // Print functionality
   const handlePrint = () => {
     const printContent = `
       <html>
         <head>
-          <title>Employee Ledger Report</title>
+          <title>Adjustment Record Report</title>
           <style>
             body { font-family: Arial, sans-serif; }
             table { width: 100%; border-collapse: collapse; margin-top: 20px; }
@@ -245,34 +244,37 @@ export default function EmployeeLedger() {
           </style>
         </head>
         <body>
-          <h1>Employee Ledger Report</h1>
-          <p>Employee: ${formData.selectedEmployee || 'All Employees'}</p>
+          <h1>Adjustment Record Report</h1>
+          <p>Filter Type: ${formData.filterType}</p>
+          <p>Record Type: ${formData.recordType}</p>
           <p>Period: ${formData.fromDate} to ${formData.toDate}</p>
           <p>Generated on: ${new Date().toLocaleString()}</p>
           <table>
             <thead>
               <tr>
                 <th>Date</th>
-                <th>Employee</th>
+                <th>Voucher No</th>
                 <th>Particulars</th>
-                <th>Payment Code</th>
-                <th>Debit</th>
-                <th>Credit</th>
-                <th>Balance</th>
-                <th>Type</th>
+                <th>Adjust Type</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>User</th>
+                <th>Amount</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
               ${filteredEntries.map(entry => `
                 <tr>
-                  <td>${new Date(entry.date).toLocaleDateString('en-GB')}</td>
-                  <td>${entry.employee}</td>
+                  <td>${entry.date}</td>
+                  <td>${entry.voucherNo}</td>
                   <td>${entry.particulars}</td>
-                  <td>${entry.paymentCode}</td>
-                  <td class="text-right">${entry.debit || '-'}</td>
-                  <td class="text-right">${entry.credit || '-'}</td>
-                  <td class="text-right">${entry.balance}</td>
-                  <td>${entry.type}</td>
+                  <td>${entry.adjustType}</td>
+                  <td>${entry.category}</td>
+                  <td>${entry.location}</td>
+                  <td>${entry.user}</td>
+                  <td class="text-right">${entry.amount} Rs</td>
+                  <td>${entry.status}</td>
                 </tr>
               `).join('')}
             </tbody>
@@ -289,16 +291,17 @@ export default function EmployeeLedger() {
   // Export functionality
   const handleExport = () => {
     const csvContent = [
-      ['Date', 'Employee', 'Particulars', 'Payment Code', 'Debit', 'Credit', 'Balance', 'Type'],
+      ['Date', 'Voucher No', 'Particulars', 'Adjust Type', 'Category', 'Location', 'User', 'Amount', 'Status'],
       ...filteredEntries.map(entry => [
-        new Date(entry.date).toLocaleDateString('en-GB'),
-        entry.employee,
+        entry.date,
+        entry.voucherNo,
         entry.particulars,
-        entry.paymentCode,
-        entry.debit || '',
-        entry.credit || '',
-        entry.balance,
-        entry.type
+        entry.adjustType,
+        entry.category,
+        entry.location,
+        entry.user,
+        entry.amount,
+        entry.status
       ])
     ].map(row => row.join(',')).join('\n')
 
@@ -306,7 +309,7 @@ export default function EmployeeLedger() {
     const url = window.URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = 'employee_ledger.csv'
+    a.download = 'adjustment_record.csv'
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
@@ -315,9 +318,9 @@ export default function EmployeeLedger() {
 
   // Delete entry
   const handleDeleteEntry = (id) => {
-    if (window.confirm('Are you sure you want to delete this entry?')) {
-      const updatedEntries = ledgerEntries.filter(entry => entry.id !== id)
-      setLedgerEntries(updatedEntries)
+    if (window.confirm('Are you sure you want to delete this adjustment record?')) {
+      const updatedEntries = adjustmentEntries.filter(entry => entry.id !== id)
+      setAdjustmentEntries(updatedEntries)
       
       // Update filtered entries if table is shown
       if (showTable) {
@@ -327,19 +330,27 @@ export default function EmployeeLedger() {
         const filtered = updatedEntries.filter(entry => {
           const entryDate = new Date(entry.date)
           const dateInRange = entryDate >= fromDate && entryDate <= toDate
+          const typeMatch = entry.type === formData.recordType
           
-          // If "All" is selected, show all employees within date range
-          if (formData.selectedEmployee === 'All') {
-            return dateInRange
-          }
-          
-          // Otherwise filter by specific employee
-          return entry.employee === formData.selectedEmployee && dateInRange
+          return dateInRange && typeMatch
         })
         
         setFilteredEntries(filtered)
       }
     }
+  }
+
+  // Set date range shortcuts
+  const setDateRange = (days) => {
+    const today = new Date()
+    const fromDate = new Date(today)
+    fromDate.setDate(today.getDate() - days)
+    
+    setFormData(prev => ({
+      ...prev,
+      fromDate: formatDateForDisplay(fromDate.toISOString().split('T')[0]),
+      toDate: getTodayFormatted()
+    }))
   }
 
   // Pagination
@@ -348,36 +359,45 @@ export default function EmployeeLedger() {
   const endIndex = startIndex + rowsPerPage
   const currentEntries = filteredEntries.slice(startIndex, endIndex)
 
-  // Calculate totals
-  const totalDebit = filteredEntries.reduce((sum, entry) => 
-    sum + (parseFloat(entry.debit.replace(',', '')) || 0), 0
-  )
-  const totalCredit = filteredEntries.reduce((sum, entry) => 
-    sum + (parseFloat(entry.credit.replace(',', '')) || 0), 0
+  // Calculate total amount
+  const totalAmount = filteredEntries.reduce((sum, entry) => 
+    sum + parseFloat(entry.amount.replace(',', '')), 0
   )
 
   return (
     <div className="p-4">
       <div className="bg-white rounded-lg shadow-sm border">
         <div className="bg-teal-600 text-white px-4 py-3 rounded-t-lg">
-          <h2 className="font-medium text-lg">Employee Ledger</h2>
+          <h2 className="font-medium text-lg">Adjustment Record</h2>
         </div>
         
         <div className="p-6">
           {/* Filter Section */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            {/* Select Employee */}
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+            {/* Filter Type */}
             <div>
-              <label className="block text-xs text-gray-600 mb-1">Select Employee</label>
+              <label className="block text-xs text-gray-600 mb-1">Filter Type</label>
               <select 
                 className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
-                value={formData.selectedEmployee}
-                onChange={(e) => handleInputChange('selectedEmployee', e.target.value)}
+                value={formData.filterType}
+                onChange={(e) => handleInputChange('filterType', e.target.value)}
               >
-                <option value="">Select Employee</option>
-                <option value="All">All Employees</option>
-                {employees.map(employee => (
-                  <option key={employee} value={employee}>{employee}</option>
+                {filterTypes.map(type => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Record Type */}
+            <div>
+              <label className="block text-xs text-gray-600 mb-1">Record Type</label>
+              <select 
+                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
+                value={formData.recordType}
+                onChange={(e) => handleInputChange('recordType', e.target.value)}
+              >
+                {recordTypes.map(type => (
+                  <option key={type} value={type}>{type}</option>
                 ))}
               </select>
             </div>
@@ -404,13 +424,13 @@ export default function EmployeeLedger() {
               />
             </div>
 
-            {/* Get Report Button */}
+            {/* Report Button */}
             <div className="flex items-end">
               <button 
                 onClick={handleGetReport}
                 className="bg-teal-600 text-white px-6 py-2 rounded text-sm hover:bg-teal-700 transition-colors flex items-center gap-2"
               >
-                🔍 GET REPORT
+                🔍 REPORT
               </button>
             </div>
           </div>
@@ -446,21 +466,27 @@ export default function EmployeeLedger() {
           {/* Current Date Range Display */}
           <div className="text-sm text-gray-600 mb-4">
             Selected Date Range: <span className="font-medium">{formData.fromDate} to {formData.toDate}</span>
-            {formData.selectedEmployee && (
-              <span className="ml-4">
-                Employee: <span className="font-medium">{formData.selectedEmployee}</span>
-              </span>
-            )}
+          </div>
+
+          {/* Print Button */}
+          <div className="mb-4">
+            <button 
+              onClick={handlePrint}
+              className="p-2 border rounded hover:bg-gray-50 transition-colors"
+              title="Print Report"
+            >
+              🖨️
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Employee Ledger Report */}
+      {/* Adjustment Record Report */}
       {showTable && (
         <div className="bg-white rounded-lg shadow-sm border mt-6">
           <div className="p-4">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium">Employee Ledger Report</h3>
+              <h3 className="text-lg font-medium">Adjustment Record Report</h3>
               <div className="flex gap-2">
                 <button 
                   onClick={() => setShowSearch(!showSearch)}
@@ -491,7 +517,7 @@ export default function EmployeeLedger() {
               <div className="mb-4 flex gap-2">
                 <input
                   type="text"
-                  placeholder="Search by employee, particulars, payment code, or type..."
+                  placeholder="Search by voucher no, particulars, adjust type, category, or status..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="flex-1 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
@@ -513,52 +539,50 @@ export default function EmployeeLedger() {
 
             {/* Results Summary */}
             <div className="mb-4 text-sm text-gray-600">
-              Showing {filteredEntries.length} records for {formData.selectedEmployee || 'selected employee'} from {formData.fromDate} to {formData.toDate}
+              Showing {filteredEntries.length} records for {formData.recordType} adjustments from {formData.fromDate} to {formData.toDate}
             </div>
 
             {/* Table Headers */}
             <div className="overflow-x-auto">
               <div className="min-w-full">
-                <div className="grid grid-cols-9 gap-2 text-xs font-semibold text-gray-700 border-b pb-2 mb-4">
+                <div className="grid grid-cols-10 gap-2 text-xs font-semibold text-gray-700 border-b pb-2 mb-4">
                   <div>Date</div>
-                  <div>Employee</div>
+                  <div>Voucher No</div>
                   <div>Particulars</div>
-                  <div>Payment Code</div>
-                  <div className="text-right">Debit</div>
-                  <div className="text-right">Credit</div>
-                  <div className="text-right">Balance</div>
-                  <div>Type</div>
+                  <div>Adjust Type</div>
+                  <div>Category</div>
+                  <div>Location</div>
+                  <div>User</div>
+                  <div className="text-right">Amount</div>
+                  <div>Status</div>
                   <div>Actions</div>
                 </div>
 
                 {/* Table Rows */}
                 {currentEntries.length > 0 ? (
                   currentEntries.map((entry) => (
-                    <div key={entry.id} className="grid grid-cols-9 gap-2 text-xs py-2 border-b hover:bg-gray-50">
+                    <div key={entry.id} className="grid grid-cols-10 gap-2 text-xs py-2 border-b hover:bg-gray-50">
                       <div>{new Date(entry.date).toLocaleDateString('en-GB')}</div>
-                      <div className="font-medium text-gray-700">{entry.employee}</div>
+                      <div className="font-medium text-teal-600">{entry.voucherNo}</div>
                       <div className="truncate" title={entry.particulars}>{entry.particulars}</div>
-                      <div className="font-medium text-teal-600">{entry.paymentCode}</div>
-                      <div className="text-right font-medium text-green-600">
-                        {entry.debit && `${entry.debit} Rs`}
-                      </div>
+                      <div className="font-medium text-blue-600">{entry.adjustType}</div>
+                      <div>{entry.category}</div>
+                      <div>{entry.location}</div>
+                      <div>{entry.user}</div>
                       <div className="text-right font-medium text-red-600">
-                        {entry.credit && `${entry.credit} Rs`}
+                        {entry.amount} Rs
                       </div>
-                      <div className="text-right font-medium">{entry.balance} Rs</div>
                       <div>
                         <span className={`px-2 py-1 rounded text-xs ${
-                          entry.type === 'Salary' 
-                            ? 'bg-blue-100 text-blue-800' 
-                            : entry.type === 'Overtime'
-                            ? 'bg-green-100 text-green-800'
-                            : entry.type === 'Bonus'
-                            ? 'bg-purple-100 text-purple-800'
-                            : entry.type === 'Commission'
+                          entry.status === 'Completed' 
+                            ? 'bg-green-100 text-green-800' 
+                            : entry.status === 'Pending'
                             ? 'bg-yellow-100 text-yellow-800'
+                            : entry.status === 'In Progress'
+                            ? 'bg-blue-100 text-blue-800'
                             : 'bg-red-100 text-red-800'
                         }`}>
-                          {entry.type}
+                          {entry.status}
                         </span>
                       </div>
                       <div className="flex gap-1">
@@ -586,16 +610,10 @@ export default function EmployeeLedger() {
 
                 {/* Summary Row */}
                 {filteredEntries.length > 0 && (
-                  <div className="grid grid-cols-9 gap-2 text-xs py-3 border-t-2 border-teal-600 bg-teal-50 font-semibold">
-                    <div className="col-span-4 text-right">TOTAL:</div>
-                    <div className="text-right text-green-600">
-                      {totalDebit.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
-                    </div>
+                  <div className="grid grid-cols-10 gap-2 text-xs py-3 border-t-2 border-teal-600 bg-teal-50 font-semibold">
+                    <div className="col-span-7 text-right">TOTAL AMOUNT:</div>
                     <div className="text-right text-red-600">
-                      {totalCredit.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
-                    </div>
-                    <div className="text-right text-teal-700">
-                      {(totalDebit - totalCredit).toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
+                      {totalAmount.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
                     </div>
                     <div className="col-span-2"></div>
                   </div>

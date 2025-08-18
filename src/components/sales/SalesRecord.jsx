@@ -47,7 +47,7 @@ export default function SalesRecord() {
       quantity: '2 Pcs',
       rate: '45,000.00',
       discount: '5%',
-      vat: '15%',
+      GST: '15%',
       total: '98,325.00',
       salesBy: 'John Doe',
       type: 'Regular Sale'
@@ -61,7 +61,7 @@ export default function SalesRecord() {
       quantity: '5 Pcs',
       rate: '8,500.00',
       discount: '10%',
-      vat: '15%',
+      GST: '15%',
       total: '43,887.50',
       salesBy: 'Jane Smith',
       type: 'Bulk Sale'
@@ -75,7 +75,7 @@ export default function SalesRecord() {
       quantity: '3 Sets',
       rate: '2,500.00',
       discount: '0%',
-      vat: '15%',
+      GST: '15%',
       total: '8,625.00',
       salesBy: 'Ahmed Khan',
       type: 'Retail Sale'
@@ -203,7 +203,7 @@ export default function SalesRecord() {
                 <th>Quantity</th>
                 <th>Rate</th>
                 <th>Discount</th>
-                <th>VAT</th>
+                <th>GST</th>
                 <th>Total</th>
                 <th>Sales By</th>
                 <th>Type</th>
@@ -219,7 +219,7 @@ export default function SalesRecord() {
                   <td>${record.quantity}</td>
                   <td class="text-right">${record.rate}</td>
                   <td class="text-right">${record.discount}</td>
-                  <td class="text-right">${record.vat}</td>
+                  <td class="text-right">${record.GST}</td>
                   <td class="text-right">${record.total}</td>
                   <td>${record.salesBy}</td>
                   <td>${record.type}</td>
@@ -239,7 +239,7 @@ export default function SalesRecord() {
   // Export functionality
   const handleExport = () => {
     const csvContent = [
-      ['Date', 'Invoice No', 'Customer Name', 'Item Name', 'Quantity', 'Rate', 'Discount', 'VAT', 'Total', 'Sales By', 'Type'],
+      ['Date', 'Invoice No', 'Customer Name', 'Item Name', 'Quantity', 'Rate', 'Discount', 'GST', 'Total', 'Sales By', 'Type'],
       ...filteredRecords.map(record => [
         new Date(record.date).toLocaleDateString('en-GB'),
         record.invoiceNo,
@@ -248,7 +248,7 @@ export default function SalesRecord() {
         record.quantity,
         record.rate,
         record.discount,
-        record.vat,
+        record.GST,
         record.total,
         record.salesBy,
         record.type
@@ -470,7 +470,7 @@ export default function SalesRecord() {
                   <div>Qty</div>
                   <div className="text-right">Rate</div>
                   <div>Disc%</div>
-                  <div>VAT%</div>
+                  <div>GST%</div>
                   <div className="text-right">Total</div>
                   <div>Sales By</div>
                   <div>Type</div>
@@ -486,10 +486,10 @@ export default function SalesRecord() {
                       <div className="truncate" title={record.customerName}>{record.customerName}</div>
                       <div className="truncate" title={record.itemName}>{record.itemName}</div>
                       <div>{record.quantity}</div>
-                      <div className="text-right">{record.rate} BDT</div>
+                      <div className="text-right">{record.rate} Rs</div>
                       <div className="text-center">{record.discount}</div>
-                      <div className="text-center">{record.vat}</div>
-                      <div className="text-right font-medium text-green-600">{record.total} BDT</div>
+                      <div className="text-center">{record.GST}</div>
+                      <div className="text-right font-medium text-green-600">{record.total} Rs</div>
                       <div>{record.salesBy}</div>
                       <div>
                         <span className={`px-2 py-1 rounded text-xs ${
@@ -532,7 +532,7 @@ export default function SalesRecord() {
                   <div className="grid grid-cols-12 gap-2 text-xs py-3 border-t-2 border-teal-600 bg-teal-50 font-semibold">
                     <div className="col-span-8 text-right">TOTAL:</div>
                     <div className="text-right text-green-600">
-                      {totalAmount.toLocaleString('en-BD', { minimumFractionDigits: 2 })} BDT
+                      {totalAmount.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
                     </div>
                     <div className="col-span-3"></div>
                   </div>

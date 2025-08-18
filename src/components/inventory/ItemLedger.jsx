@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-export default function EmployeeLedger() {
+export default function ItemLedger() {
   // Get today's date in DD/MM/YYYY format
   const getTodayFormatted = () => {
     const today = new Date()
@@ -31,7 +31,7 @@ export default function EmployeeLedger() {
   }
 
   const [formData, setFormData] = useState({
-    selectedEmployee: '',
+    selectedItem: '',
     fromDate: getTodayFormatted(),
     toDate: getTodayFormatted()
   })
@@ -40,79 +40,93 @@ export default function EmployeeLedger() {
     {
       id: 1,
       date: '2025-08-01',
-      employee: 'John Doe',
-      particulars: 'Basic Salary - August 2025',
-      paymentCode: 'EPAY001',
-      debit: '25,000.00',
-      credit: '',
-      balance: '25,000.00',
-      type: 'Salary'
+      item: 'Raw Material A',
+      particulars: 'Purchase Receipt - Supplier ABC',
+      voucherCode: 'PR001',
+      inQty: '500',
+      outQty: '',
+      balance: '500',
+      unitPrice: '25.00',
+      value: '12,500.00',
+      type: 'Purchase'
     },
     {
       id: 2,
       date: '2025-08-05',
-      employee: 'Jane Smith',
-      particulars: 'Overtime Payment',
-      paymentCode: 'EPAY003',
-      debit: '3,500.00',
-      credit: '',
-      balance: '28,500.00',
-      type: 'Overtime'
+      item: 'Finished Product X',
+      particulars: 'Production Receipt',
+      voucherCode: 'MR001',
+      inQty: '100',
+      outQty: '',
+      balance: '100',
+      unitPrice: '150.00',
+      value: '15,000.00',
+      type: 'Production'
     },
     {
       id: 3,
       date: '2025-08-10',
-      employee: 'John Doe',
-      particulars: 'Advance Deduction',
-      paymentCode: 'ADV001',
-      debit: '',
-      credit: '5,000.00',
-      balance: '23,500.00',
-      type: 'Deduction'
+      item: 'Raw Material A',
+      particulars: 'Material Issue to Production',
+      voucherCode: 'MI001',
+      inQty: '',
+      outQty: '200',
+      balance: '300',
+      unitPrice: '25.00',
+      value: '-5,000.00',
+      type: 'Issue'
     },
     {
       id: 4,
       date: '2025-08-15',
-      employee: 'Ahmed Khan',
-      particulars: 'Bonus Payment',
-      paymentCode: 'BON001',
-      debit: '2,000.00',
-      credit: '',
-      balance: '25,500.00',
-      type: 'Bonus'
+      item: 'Packaging Material',
+      particulars: 'Purchase Receipt - Supplier XYZ',
+      voucherCode: 'PR002',
+      inQty: '1000',
+      outQty: '',
+      balance: '1000',
+      unitPrice: '2.50',
+      value: '2,500.00',
+      type: 'Purchase'
     },
     {
       id: 5,
       date: '2025-08-12',
-      employee: 'Jane Smith',
-      particulars: 'Basic Salary - August 2025',
-      paymentCode: 'EPAY005',
-      debit: '30,000.00',
-      credit: '',
-      balance: '30,000.00',
-      type: 'Salary'
+      item: 'Finished Product X',
+      particulars: 'Sales Delivery',
+      voucherCode: 'SD001',
+      inQty: '',
+      outQty: '50',
+      balance: '50',
+      unitPrice: '150.00',
+      value: '-7,500.00',
+      type: 'Sales'
     },
     {
       id: 6,
       date: '2025-08-08',
-      employee: 'Maria Rodriguez',
-      particulars: 'Commission Payment',
-      paymentCode: 'COM001',
-      debit: '5,500.00',
-      credit: '',
-      balance: '5,500.00',
-      type: 'Commission'
+      item: 'Semi Finished Y',
+      particulars: 'Transfer from WIP',
+      voucherCode: 'TR001',
+      inQty: '200',
+      outQty: '',
+      balance: '200',
+      unitPrice: '75.00',
+      value: '15,000.00',
+      type: 'Transfer'
     },
     {
       id: 7,
       date: '2025-08-14',
-      employee: 'John Doe',
-      particulars: 'Today\'s Payment - Test Entry',
-      paymentCode: 'EPAY007',
-      debit: '1,500.00',
-      credit: '',
-      balance: '25,000.00',
-      type: 'Bonus'
+      item: 'Raw Material A',
+      particulars: 'Adjustment - Physical Count',
+      voucherCode: 'ADJ001',
+      inQty: '10',
+      outQty: '',
+      balance: '310',
+      unitPrice: '25.00',
+      value: '250.00',
+      type: 'Adjustment'
     }
   ])
 
@@ -123,12 +137,15 @@ export default function EmployeeLedger() {
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [currentPage, setCurrentPage] = useState(1)
 
-  const employees = [
-    'John Doe',
-    'Jane Smith',
-    'Ahmed Khan',
-    'Maria Rodriguez',
-    'David Wilson'
+  const items = [
+    'Raw Material A',
+    'Raw Material B',
+    'Finished Product X',
+    'Finished Product Y',
+    'Semi Finished Y',
+    'Packaging Material',
+    'Components ABC',
+    'Tools & Equipment'
   ]
 
   const handleInputChange = (field, value) => {
@@ -145,8 +162,8 @@ export default function EmployeeLedger() {
   }
 
   const handleGetReport = () => {
-    if (!formData.selectedEmployee) {
-      alert('Please select an employee')
+    if (!formData.selectedItem) {
+      alert('Please select an item')
       return
     }
 
@@ -170,13 +187,13 @@ export default function EmployeeLedger() {
         const entryDate = new Date(entry.date)
         const dateInRange = entryDate >= fromDate && entryDate <= toDate
         
-        // If "All" is selected, show all employees within date range
-        if (formData.selectedEmployee === 'All') {
+        // If "All" is selected, show all items within date range
+        if (formData.selectedItem === 'All') {
           return dateInRange
         }
         
-        // Otherwise filter by specific employee
-        return entry.employee === formData.selectedEmployee && dateInRange
+        // Otherwise filter by specific item
+        return entry.item === formData.selectedItem && dateInRange
       })
       
       setFilteredEntries(filtered)
@@ -199,9 +216,9 @@ export default function EmployeeLedger() {
     } else {
       const filtered = filteredEntries.filter(entry =>
         entry.particulars.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        entry.paymentCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.voucherCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
         entry.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        entry.employee.toLowerCase().includes(searchTerm.toLowerCase())
+        entry.item.toLowerCase().includes(searchTerm.toLowerCase())
       )
       setFilteredEntries(filtered)
     }
@@ -234,7 +251,7 @@ export default function EmployeeLedger() {
     const printContent = `
       <html>
         <head>
-          <title>Employee Ledger Report</title>
+          <title>Item Ledger Report</title>
           <style>
             body { font-family: Arial, sans-serif; }
             table { width: 100%; border-collapse: collapse; margin-top: 20px; }
@@ -245,20 +262,22 @@ export default function EmployeeLedger() {
           </style>
         </head>
         <body>
-          <h1>Employee Ledger Report</h1>
-          <p>Employee: ${formData.selectedEmployee || 'All Employees'}</p>
+          <h1>Item Ledger Report</h1>
+          <p>Item: ${formData.selectedItem || 'All Items'}</p>
           <p>Period: ${formData.fromDate} to ${formData.toDate}</p>
           <p>Generated on: ${new Date().toLocaleString()}</p>
           <table>
             <thead>
               <tr>
                 <th>Date</th>
-                <th>Employee</th>
+                <th>Item</th>
                 <th>Particulars</th>
-                <th>Payment Code</th>
-                <th>Debit</th>
-                <th>Credit</th>
+                <th>Voucher Code</th>
+                <th>In Qty</th>
+                <th>Out Qty</th>
                 <th>Balance</th>
+                <th>Unit Price</th>
+                <th>Value</th>
                 <th>Type</th>
               </tr>
             </thead>
@@ -266,12 +285,14 @@ export default function EmployeeLedger() {
               ${filteredEntries.map(entry => `
                 <tr>
                   <td>${new Date(entry.date).toLocaleDateString('en-GB')}</td>
-                  <td>${entry.employee}</td>
+                  <td>${entry.item}</td>
                   <td>${entry.particulars}</td>
-                  <td>${entry.paymentCode}</td>
-                  <td class="text-right">${entry.debit || '-'}</td>
-                  <td class="text-right">${entry.credit || '-'}</td>
+                  <td>${entry.voucherCode}</td>
+                  <td class="text-right">${entry.inQty || '-'}</td>
+                  <td class="text-right">${entry.outQty || '-'}</td>
                   <td class="text-right">${entry.balance}</td>
+                  <td class="text-right">${entry.unitPrice}</td>
+                  <td class="text-right">${entry.value}</td>
                   <td>${entry.type}</td>
                 </tr>
               `).join('')}
@@ -289,15 +310,17 @@ export default function EmployeeLedger() {
   // Export functionality
   const handleExport = () => {
     const csvContent = [
-      ['Date', 'Employee', 'Particulars', 'Payment Code', 'Debit', 'Credit', 'Balance', 'Type'],
+      ['Date', 'Item', 'Particulars', 'Voucher Code', 'In Qty', 'Out Qty', 'Balance', 'Unit Price', 'Value', 'Type'],
       ...filteredEntries.map(entry => [
         new Date(entry.date).toLocaleDateString('en-GB'),
-        entry.employee,
+        entry.item,
         entry.particulars,
-        entry.paymentCode,
-        entry.debit || '',
-        entry.credit || '',
+        entry.voucherCode,
+        entry.inQty || '',
+        entry.outQty || '',
         entry.balance,
+        entry.unitPrice,
+        entry.value,
         entry.type
       ])
     ].map(row => row.join(',')).join('\n')
@@ -306,7 +329,7 @@ export default function EmployeeLedger() {
     const url = window.URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = 'employee_ledger.csv'
+    a.download = 'item_ledger.csv'
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
@@ -328,13 +351,13 @@ export default function EmployeeLedger() {
           const entryDate = new Date(entry.date)
           const dateInRange = entryDate >= fromDate && entryDate <= toDate
           
-          // If "All" is selected, show all employees within date range
-          if (formData.selectedEmployee === 'All') {
+          // If "All" is selected, show all items within date range
+          if (formData.selectedItem === 'All') {
             return dateInRange
           }
           
-          // Otherwise filter by specific employee
-          return entry.employee === formData.selectedEmployee && dateInRange
+          // Otherwise filter by specific item
+          return entry.item === formData.selectedItem && dateInRange
         })
         
         setFilteredEntries(filtered)
@@ -349,35 +372,38 @@ export default function EmployeeLedger() {
   const currentEntries = filteredEntries.slice(startIndex, endIndex)
 
   // Calculate totals
-  const totalDebit = filteredEntries.reduce((sum, entry) => 
-    sum + (parseFloat(entry.debit.replace(',', '')) || 0), 0
+  const totalInQty = filteredEntries.reduce((sum, entry) => 
+    sum + (parseFloat(entry.inQty) || 0), 0
   )
-  const totalCredit = filteredEntries.reduce((sum, entry) => 
-    sum + (parseFloat(entry.credit.replace(',', '')) || 0), 0
+  const totalOutQty = filteredEntries.reduce((sum, entry) => 
+    sum + (parseFloat(entry.outQty) || 0), 0
+  )
+  const totalValue = filteredEntries.reduce((sum, entry) => 
+    sum + (parseFloat(entry.value.replace(',', '').replace('-', '')) * (entry.value.includes('-') ? -1 : 1) || 0), 0
   )
 
   return (
     <div className="p-4">
       <div className="bg-white rounded-lg shadow-sm border">
         <div className="bg-teal-600 text-white px-4 py-3 rounded-t-lg">
-          <h2 className="font-medium text-lg">Employee Ledger</h2>
+          <h2 className="font-medium text-lg">Item Ledger</h2>
         </div>
         
         <div className="p-6">
           {/* Filter Section */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            {/* Select Employee */}
+            {/* Select Item */}
             <div>
-              <label className="block text-xs text-gray-600 mb-1">Select Employee</label>
+              <label className="block text-xs text-gray-600 mb-1">Search Item</label>
               <select 
                 className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
-                value={formData.selectedEmployee}
-                onChange={(e) => handleInputChange('selectedEmployee', e.target.value)}
+                value={formData.selectedItem}
+                onChange={(e) => handleInputChange('selectedItem', e.target.value)}
               >
-                <option value="">Select Employee</option>
-                <option value="All">All Employees</option>
-                {employees.map(employee => (
-                  <option key={employee} value={employee}>{employee}</option>
+                <option value="">Search Item</option>
+                <option value="All">All Items</option>
+                {items.map(item => (
+                  <option key={item} value={item}>{item}</option>
                 ))}
               </select>
             </div>
@@ -446,21 +472,21 @@ export default function EmployeeLedger() {
           {/* Current Date Range Display */}
           <div className="text-sm text-gray-600 mb-4">
             Selected Date Range: <span className="font-medium">{formData.fromDate} to {formData.toDate}</span>
-            {formData.selectedEmployee && (
+            {formData.selectedItem && (
               <span className="ml-4">
-                Employee: <span className="font-medium">{formData.selectedEmployee}</span>
+                Item: <span className="font-medium">{formData.selectedItem}</span>
               </span>
             )}
           </div>
         </div>
       </div>
 
-      {/* Employee Ledger Report */}
+      {/* Item Ledger Report */}
       {showTable && (
         <div className="bg-white rounded-lg shadow-sm border mt-6">
           <div className="p-4">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium">Employee Ledger Report</h3>
+              <h3 className="text-lg font-medium">Item Ledger Report</h3>
               <div className="flex gap-2">
                 <button 
                   onClick={() => setShowSearch(!showSearch)}
@@ -491,7 +517,7 @@ export default function EmployeeLedger() {
               <div className="mb-4 flex gap-2">
                 <input
                   type="text"
-                  placeholder="Search by employee, particulars, payment code, or type..."
+                  placeholder="Search by item, particulars, voucher code, or type..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="flex-1 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
@@ -513,20 +539,22 @@ export default function EmployeeLedger() {
 
             {/* Results Summary */}
             <div className="mb-4 text-sm text-gray-600">
-              Showing {filteredEntries.length} records for {formData.selectedEmployee || 'selected employee'} from {formData.fromDate} to {formData.toDate}
+              Showing {filteredEntries.length} records for {formData.selectedItem || 'selected item'} from {formData.fromDate} to {formData.toDate}
             </div>
 
             {/* Table Headers */}
             <div className="overflow-x-auto">
               <div className="min-w-full">
-                <div className="grid grid-cols-9 gap-2 text-xs font-semibold text-gray-700 border-b pb-2 mb-4">
+                <div className="grid grid-cols-11 gap-2 text-xs font-semibold text-gray-700 border-b pb-2 mb-4">
                   <div>Date</div>
-                  <div>Employee</div>
+                  <div>Item</div>
                   <div>Particulars</div>
-                  <div>Payment Code</div>
-                  <div className="text-right">Debit</div>
-                  <div className="text-right">Credit</div>
+                  <div>Voucher Code</div>
+                  <div className="text-right">In Qty</div>
+                  <div className="text-right">Out Qty</div>
                   <div className="text-right">Balance</div>
+                  <div className="text-right">Unit Price</div>
+                  <div className="text-right">Value</div>
                   <div>Type</div>
                   <div>Actions</div>
                 </div>
@@ -534,29 +562,35 @@ export default function EmployeeLedger() {
                 {/* Table Rows */}
                 {currentEntries.length > 0 ? (
                   currentEntries.map((entry) => (
-                    <div key={entry.id} className="grid grid-cols-9 gap-2 text-xs py-2 border-b hover:bg-gray-50">
+                    <div key={entry.id} className="grid grid-cols-11 gap-2 text-xs py-2 border-b hover:bg-gray-50">
                       <div>{new Date(entry.date).toLocaleDateString('en-GB')}</div>
-                      <div className="font-medium text-gray-700">{entry.employee}</div>
+                      <div className="font-medium text-gray-700">{entry.item}</div>
                       <div className="truncate" title={entry.particulars}>{entry.particulars}</div>
-                      <div className="font-medium text-teal-600">{entry.paymentCode}</div>
+                      <div className="font-medium text-teal-600">{entry.voucherCode}</div>
                       <div className="text-right font-medium text-green-600">
-                        {entry.debit && `${entry.debit} Rs`}
+                        {entry.inQty && `${entry.inQty}`}
                       </div>
                       <div className="text-right font-medium text-red-600">
-                        {entry.credit && `${entry.credit} Rs`}
+                        {entry.outQty && `${entry.outQty}`}
                       </div>
-                      <div className="text-right font-medium">{entry.balance} Rs</div>
+                      <div className="text-right font-medium">{entry.balance}</div>
+                      <div className="text-right">{entry.unitPrice} Rs</div>
+                      <div className={`text-right font-medium ${entry.value.includes('-') ? 'text-red-600' : 'text-green-600'}`}>
+                        {entry.value} Rs
+                      </div>
                       <div>
                         <span className={`px-2 py-1 rounded text-xs ${
-                          entry.type === 'Salary' 
+                          entry.type === 'Purchase' 
                             ? 'bg-blue-100 text-blue-800' 
-                            : entry.type === 'Overtime'
+                            : entry.type === 'Production'
                             ? 'bg-green-100 text-green-800'
-                            : entry.type === 'Bonus'
+                            : entry.type === 'Sales'
                             ? 'bg-purple-100 text-purple-800'
-                            : entry.type === 'Commission'
+                            : entry.type === 'Transfer'
                             ? 'bg-yellow-100 text-yellow-800'
-                            : 'bg-red-100 text-red-800'
+                            : entry.type === 'Issue'
+                            ? 'bg-orange-100 text-orange-800'
+                            : 'bg-gray-100 text-gray-800'
                         }`}>
                           {entry.type}
                         </span>
@@ -586,16 +620,20 @@ export default function EmployeeLedger() {
 
                 {/* Summary Row */}
                 {filteredEntries.length > 0 && (
-                  <div className="grid grid-cols-9 gap-2 text-xs py-3 border-t-2 border-teal-600 bg-teal-50 font-semibold">
+                  <div className="grid grid-cols-11 gap-2 text-xs py-3 border-t-2 border-teal-600 bg-teal-50 font-semibold">
                     <div className="col-span-4 text-right">TOTAL:</div>
                     <div className="text-right text-green-600">
-                      {totalDebit.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
+                      {totalInQty.toLocaleString('en-BD')}
                     </div>
                     <div className="text-right text-red-600">
-                      {totalCredit.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
+                      {totalOutQty.toLocaleString('en-BD')}
                     </div>
                     <div className="text-right text-teal-700">
-                      {(totalDebit - totalCredit).toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
+                      {(totalInQty - totalOutQty).toLocaleString('en-BD')}
+                    </div>
+                    <div></div>
+                    <div className="text-right text-teal-700">
+                      {totalValue.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
                     </div>
                     <div className="col-span-2"></div>
                   </div>

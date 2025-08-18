@@ -55,8 +55,8 @@ export default function POSEntry() {
     rate: '',
     discount: '0',
     discountPercent: '0',
-    vat: '0',
-    vatPercent: '0'
+    GST: '0',
+    GSTPercent: '0'
   })
 
   const [searchTerm, setSearchTerm] = useState('')
@@ -67,9 +67,9 @@ export default function POSEntry() {
       voucherNo: 'INV-001',
       customer: 'John Doe',
       saleDate: '01/08/2025',
-      grandTotal: '15,500.00 BDT',
-      paidAmount: '10,000.00 BDT',
-      dueAmount: '5,500.00 BDT',
+      grandTotal: '15,500.00 Rs',
+      paidAmount: '10,000.00 Rs',
+      dueAmount: '5,500.00 Rs',
       status: 'Completed',
       createdAt: new Date('2025-08-01').getTime()
     },
@@ -78,9 +78,9 @@ export default function POSEntry() {
       voucherNo: 'INV-002',
       customer: 'Jane Smith',
       saleDate: '02/08/2025',
-      grandTotal: '8,750.00 BDT',
-      paidAmount: '8,750.00 BDT',
-      dueAmount: '0.00 BDT',
+      grandTotal: '8,750.00 Rs',
+      paidAmount: '8,750.00 Rs',
+      dueAmount: '0.00 Rs',
       status: 'Paid',
       createdAt: new Date('2025-08-02').getTime()
     }
@@ -166,20 +166,20 @@ export default function POSEntry() {
         updated.discountPercent = rate > 0 ? ((discount / rate) * 100).toFixed(2) : '0'
       }
       
-      if (field === 'vatPercent' && selectedProduct) {
+      if (field === 'GSTPercent' && selectedProduct) {
         const rate = parseFloat(updated.rate) || 0
         const discount = parseFloat(updated.discount) || 0
-        const vatPercent = parseFloat(value) || 0
+        const GSTPercent = parseFloat(value) || 0
         const discountedAmount = rate - discount
-        updated.vat = ((discountedAmount * vatPercent) / 100).toFixed(2)
+        updated.GST = ((discountedAmount * GSTPercent) / 100).toFixed(2)
       }
       
-      if (field === 'vat' && selectedProduct) {
+      if (field === 'GST' && selectedProduct) {
         const rate = parseFloat(updated.rate) || 0
         const discount = parseFloat(updated.discount) || 0
-        const vat = parseFloat(value) || 0
+        const GST = parseFloat(value) || 0
         const discountedAmount = rate - discount
-        updated.vatPercent = discountedAmount > 0 ? ((vat / discountedAmount) * 100).toFixed(2) : '0'
+        updated.GSTPercent = discountedAmount > 0 ? ((GST / discountedAmount) * 100).toFixed(2) : '0'
       }
       
       return updated
@@ -193,8 +193,8 @@ export default function POSEntry() {
       rate: product.price,
       discount: '0',
       discountPercent: '0',
-      vat: '0',
-      vatPercent: '0'
+      GST: '0',
+      GSTPercent: '0'
     })
   }
 
@@ -204,9 +204,9 @@ export default function POSEntry() {
     const qty = parseFloat(productDetails.qty) || 0
     const rate = parseFloat(productDetails.rate) || 0
     const discount = parseFloat(productDetails.discount) || 0
-    const vat = parseFloat(productDetails.vat) || 0
+    const GST = parseFloat(productDetails.GST) || 0
     
-    const subtotal = (qty * rate) - (qty * discount) + (qty * vat)
+    const subtotal = (qty * rate) - (qty * discount) + (qty * GST)
     return subtotal.toFixed(2)
   }
 
@@ -224,8 +224,8 @@ export default function POSEntry() {
       rate: parseFloat(productDetails.rate) || 0,
       discount: parseFloat(productDetails.discount) || 0,
       discountPercent: parseFloat(productDetails.discountPercent) || 0,
-      vat: parseFloat(productDetails.vat) || 0,
-      vatPercent: parseFloat(productDetails.vatPercent) || 0,
+      GST: parseFloat(productDetails.GST) || 0,
+      GSTPercent: parseFloat(productDetails.GSTPercent) || 0,
       total: parseFloat(calculateItemTotal())
     }
 
@@ -238,8 +238,8 @@ export default function POSEntry() {
       rate: '',
       discount: '0',
       discountPercent: '0',
-      vat: '0',
-      vatPercent: '0'
+      GST: '0',
+      GSTPercent: '0'
     })
   }
 
@@ -287,9 +287,9 @@ export default function POSEntry() {
       voucherNo: formData.voucherNo,
       customer: formData.customerName,
       saleDate: formData.entryDate,
-      grandTotal: `${parseFloat(calculateGrandTotal()).toFixed(2)} BDT`,
-      paidAmount: `${parseFloat(formData.paidAmount).toFixed(2)} BDT`,
-      dueAmount: `${parseFloat(calculateDueAmount()).toFixed(2)} BDT`,
+      grandTotal: `${parseFloat(calculateGrandTotal()).toFixed(2)} Rs`,
+      paidAmount: `${parseFloat(formData.paidAmount).toFixed(2)} Rs`,
+      dueAmount: `${parseFloat(calculateDueAmount()).toFixed(2)} Rs`,
       status: parseFloat(calculateDueAmount()) > 0 ? 'Partial' : 'Paid',
       items: cartItems,
       institutionName: formData.institutionName,
@@ -314,8 +314,8 @@ export default function POSEntry() {
       rate: '',
       discount: '0',
       discountPercent: '0',
-      vat: '0',
-      vatPercent: '0'
+      GST: '0',
+      GSTPercent: '0'
     })
     setFormData({
       customerName: 'General Customer',
@@ -345,8 +345,8 @@ export default function POSEntry() {
         rate: '',
         discount: '0',
         discountPercent: '0',
-        vat: '0',
-        vatPercent: '0'
+        GST: '0',
+        GSTPercent: '0'
       })
       setFormData({
         customerName: 'General Customer',
@@ -652,7 +652,7 @@ export default function POSEntry() {
                     </div>
 
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Discount (BDT)</label>
+                      <label className="block text-xs text-gray-600 mb-1">Discount (Rs)</label>
                       <input 
                         type="number"
                         step="0.01"
@@ -674,24 +674,24 @@ export default function POSEntry() {
                     </div>
 
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Vat (BDT)</label>
+                      <label className="block text-xs text-gray-600 mb-1">GST (Rs)</label>
                       <input 
                         type="number"
                         step="0.01"
                         className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
-                        value={productDetails.vat}
-                        onChange={(e) => handleProductDetailChange('vat', e.target.value)}
+                        value={productDetails.GST}
+                        onChange={(e) => handleProductDetailChange('GST', e.target.value)}
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Vat %</label>
+                      <label className="block text-xs text-gray-600 mb-1">GST %</label>
                       <input 
                         type="number"
                         step="0.01"
                         className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
-                        value={productDetails.vatPercent}
-                        onChange={(e) => handleProductDetailChange('vatPercent', e.target.value)}
+                        value={productDetails.GSTPercent}
+                        onChange={(e) => handleProductDetailChange('GSTPercent', e.target.value)}
                       />
                     </div>
                   </div>
@@ -699,7 +699,7 @@ export default function POSEntry() {
                   <div className="mt-3 pt-3 border-t border-gray-200">
                     <div className="flex justify-between items-center mb-3">
                       <span className="text-sm font-medium">Total:</span>
-                      <span className="text-lg font-semibold text-green-600">{calculateItemTotal()} BDT</span>
+                      <span className="text-lg font-semibold text-green-600">{calculateItemTotal()} Rs</span>
                     </div>
                     
                     <button 
@@ -742,7 +742,7 @@ export default function POSEntry() {
                       {product.name}
                     </div>
                     <div className="text-xs text-gray-600 text-center">
-                      {product.price} BDT
+                      {product.price} Rs
                     </div>
                   </div>
                 ))}
@@ -764,7 +764,7 @@ export default function POSEntry() {
                       <th className="text-center py-2 px-3 text-xs font-semibold text-gray-700">QTY</th>
                       <th className="text-center py-2 px-3 text-xs font-semibold text-gray-700">Rate (Per)</th>
                       <th className="text-center py-2 px-3 text-xs font-semibold text-gray-700">Discount %</th>
-                      <th className="text-center py-2 px-3 text-xs font-semibold text-gray-700">Vat %</th>
+                      <th className="text-center py-2 px-3 text-xs font-semibold text-gray-700">GST %</th>
                       <th className="text-center py-2 px-3 text-xs font-semibold text-gray-700">Total</th>
                       <th className="text-center py-2 px-3 text-xs font-semibold text-gray-700">Actions</th>
                     </tr>
@@ -777,8 +777,8 @@ export default function POSEntry() {
                         <td className="py-2 px-3 text-xs text-center">{item.qty}</td>
                         <td className="py-2 px-3 text-xs text-center">{item.rate.toFixed(2)}</td>
                         <td className="py-2 px-3 text-xs text-center">{item.discountPercent.toFixed(2)}%</td>
-                        <td className="py-2 px-3 text-xs text-center">{item.vatPercent.toFixed(2)}%</td>
-                        <td className="py-2 px-3 text-xs text-center font-medium">{item.total.toFixed(2)} BDT</td>
+                        <td className="py-2 px-3 text-xs text-center">{item.GSTPercent.toFixed(2)}%</td>
+                        <td className="py-2 px-3 text-xs text-center font-medium">{item.total.toFixed(2)} Rs</td>
                         <td className="py-2 px-3 text-center">
                           <button 
                             onClick={() => removeFromCart(item.id)}
@@ -795,7 +795,7 @@ export default function POSEntry() {
               </div>
               
               <div className="mt-4 text-right">
-                <div className="text-sm font-semibold">Sub Total: {calculateSubTotal()} BDT</div>
+                <div className="text-sm font-semibold">Sub Total: {calculateSubTotal()} Rs</div>
               </div>
             </div>
           )}
@@ -817,7 +817,7 @@ export default function POSEntry() {
                 </div>
 
                 <div>
-                  <label className="block text-xs text-gray-600 mb-2">Discount and Vat Method</label>
+                  <label className="block text-xs text-gray-600 mb-2">Discount and GST Method</label>
                   <div className="space-y-2">
                     <label className="flex items-center">
                       <input 

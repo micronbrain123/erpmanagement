@@ -35,8 +35,8 @@ export default function SalesEntry() {
     selectedItem: null,
     discount: '',
     discountPercent: '',
-    vat: '',
-    vatPercent: '',
+    GST: '',
+    GSTPercent: '',
     
     // Customer information
     searchCustomer: '',
@@ -55,14 +55,14 @@ export default function SalesEntry() {
     quantity: '1',
     ratePerUnit: '',
     discountPercentItem: '',
-    vatPercentItem: '',
+    GSTPercentItem: '',
     
     // Narration and Challan
     narration: '',
     challanText: '',
     
-    // Discount and Vat Method
-    discountVatMethod: 'individual', // 'total' or 'individual'
+    // Discount and GST Method
+    discountGSTMethod: 'individual', // 'total' or 'individual'
     
     // Payment information
     chooseEmployee: '',
@@ -84,9 +84,9 @@ export default function SalesEntry() {
       invoiceNo: 'INV001',
       customerName: 'General Customer',
       entryDate: '01/08/2025',
-      totalAmount: '5,000.00 BDT',
-      paidAmount: '5,000.00 BDT',
-      dueAmount: '0.00 BDT',
+      totalAmount: '5,000.00 Rs',
+      paidAmount: '5,000.00 Rs',
+      dueAmount: '0.00 Rs',
       status: 'Completed',
       employee: 'Admin',
       narration: 'Sales transaction',
@@ -97,9 +97,9 @@ export default function SalesEntry() {
       invoiceNo: 'INV002',
       customerName: 'John Doe',
       entryDate: '02/08/2025',
-      totalAmount: '7,500.00 BDT',
-      paidAmount: '5,000.00 BDT',
-      dueAmount: '2,500.00 BDT',
+      totalAmount: '7,500.00 Rs',
+      paidAmount: '5,000.00 Rs',
+      dueAmount: '2,500.00 Rs',
       status: 'Partial',
       employee: 'Admin',
       narration: 'Partial payment received',
@@ -140,7 +140,7 @@ export default function SalesEntry() {
   // Calculate totals when cart changes
   useEffect(() => {
     calculateTotals()
-  }, [salesCart, formData.transportCost, formData.discountVatMethod, formData.discount, formData.vat])
+  }, [salesCart, formData.transportCost, formData.discountGSTMethod, formData.discount, formData.GST])
 
   const handleInputChange = (field, value) => {
     if (field === 'entryDate' && value.includes('-')) {
@@ -210,12 +210,12 @@ export default function SalesEntry() {
       discount = (subtotal * parseFloat(formData.discountPercentItem)) / 100
     }
     
-    let vat = 0
-    if (formData.vatPercentItem) {
-      vat = ((subtotal - discount) * parseFloat(formData.vatPercentItem)) / 100
+    let GST = 0
+    if (formData.GSTPercentItem) {
+      GST = ((subtotal - discount) * parseFloat(formData.GSTPercentItem)) / 100
     }
     
-    return subtotal - discount + vat
+    return subtotal - discount + GST
   }
 
   const handleAddToCart = () => {
@@ -230,7 +230,7 @@ export default function SalesEntry() {
       quantity: parseFloat(formData.quantity),
       rate: parseFloat(formData.ratePerUnit),
       discountPercent: parseFloat(formData.discountPercentItem) || 0,
-      vatPercent: parseFloat(formData.vatPercentItem) || 0,
+      GSTPercent: parseFloat(formData.GSTPercentItem) || 0,
       total: calculateItemTotal()
     }
 
@@ -245,7 +245,7 @@ export default function SalesEntry() {
       quantity: '1',
       ratePerUnit: '',
       discountPercentItem: '',
-      vatPercentItem: ''
+      GSTPercentItem: ''
     }))
   }
 
@@ -258,18 +258,18 @@ export default function SalesEntry() {
     const transportCost = parseFloat(formData.transportCost) || 0
     
     let totalDiscount = 0
-    let totalVat = 0
+    let totalGST = 0
     
-    if (formData.discountVatMethod === 'total') {
+    if (formData.discountGSTMethod === 'total') {
       if (formData.discount) {
         totalDiscount = parseFloat(formData.discount)
       }
-      if (formData.vat) {
-        totalVat = parseFloat(formData.vat)
+      if (formData.GST) {
+        totalGST = parseFloat(formData.GST)
       }
     }
     
-    const grandTotal = subtotal + transportCost - totalDiscount + totalVat
+    const grandTotal = subtotal + transportCost - totalDiscount + totalGST
     const paidAmount = parseFloat(formData.paidAmount) || 0
     const dueAmount = grandTotal - paidAmount
     
@@ -295,9 +295,9 @@ export default function SalesEntry() {
       invoiceNo: formData.invoiceNo,
       customerName: formData.customerName,
       entryDate: formData.entryDate,
-      totalAmount: `${formData.grandTotal} BDT`,
-      paidAmount: `${formData.paidAmount} BDT`,
-      dueAmount: `${formData.dueAmount} BDT`,
+      totalAmount: `${formData.grandTotal} Rs`,
+      paidAmount: `${formData.paidAmount} Rs`,
+      dueAmount: `${formData.dueAmount} Rs`,
       status: parseFloat(formData.dueAmount) > 0 ? 'Partial' : 'Completed',
       employee: formData.chooseEmployee || 'Admin',
       narration: formData.narration || 'Sales transaction',
@@ -330,7 +330,7 @@ export default function SalesEntry() {
       quantity: '1',
       ratePerUnit: '',
       discountPercentItem: '',
-      vatPercentItem: '',
+      GSTPercentItem: '',
       narration: '',
       challanText: '',
       chooseEmployee: '',
@@ -340,8 +340,8 @@ export default function SalesEntry() {
       dueAmount: '0.00',
       discount: '',
       discountPercent: '',
-      vat: '',
-      vatPercent: '',
+      GST: '',
+      GSTPercent: '',
       smgToMobile: false,
       isConditionSale: false,
       isPaymentEMI: false
@@ -367,7 +367,7 @@ export default function SalesEntry() {
       quantity: '1',
       ratePerUnit: '',
       discountPercentItem: '',
-      vatPercentItem: '',
+      GSTPercentItem: '',
       narration: '',
       challanText: '',
       chooseEmployee: '',
@@ -377,8 +377,8 @@ export default function SalesEntry() {
       dueAmount: '0.00',
       discount: '',
       discountPercent: '',
-      vat: '',
-      vatPercent: '',
+      GST: '',
+      GSTPercent: '',
       smgToMobile: false,
       isConditionSale: false,
       isPaymentEMI: false
@@ -558,7 +558,7 @@ export default function SalesEntry() {
               {/* Discount Fields */}
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-xs text-gray-600 mb-1">Discount (BDT)</label>
+                  <label className="block text-xs text-gray-600 mb-1">Discount (Rs)</label>
                   <input 
                     type="number"
                     step="0.01"
@@ -581,27 +581,27 @@ export default function SalesEntry() {
                 </div>
               </div>
 
-              {/* VAT Fields */}
+              {/* GST Fields */}
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-xs text-gray-600 mb-1">Vat (BDT)</label>
+                  <label className="block text-xs text-gray-600 mb-1">GST (Rs)</label>
                   <input 
                     type="number"
                     step="0.01"
                     className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
-                    value={formData.vat}
-                    onChange={(e) => handleInputChange('vat', e.target.value)}
+                    value={formData.GST}
+                    onChange={(e) => handleInputChange('GST', e.target.value)}
                     placeholder="0"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-600 mb-1">Vat %</label>
+                  <label className="block text-xs text-gray-600 mb-1">GST %</label>
                   <input 
                     type="number"
                     step="0.01"
                     className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
-                    value={formData.vatPercent}
-                    onChange={(e) => handleInputChange('vatPercent', e.target.value)}
+                    value={formData.GSTPercent}
+                    onChange={(e) => handleInputChange('GSTPercent', e.target.value)}
                     placeholder="0"
                   />
                 </div>
@@ -738,7 +738,7 @@ export default function SalesEntry() {
                   <div>QTY</div>
                   <div>Rate (Per)</div>
                   <div>Discount %</div>
-                  <div>Vat %</div>
+                  <div>GST %</div>
                   <div>Total</div>
                   <div>Actions</div>
                 </div>
@@ -750,7 +750,7 @@ export default function SalesEntry() {
                         <div>{item.quantity}</div>
                         <div>{item.rate.toFixed(2)}</div>
                         <div>{item.discountPercent}%</div>
-                        <div>{item.vatPercent}%</div>
+                        <div>{item.GSTPercent}%</div>
                         <div>{item.total.toFixed(2)}</div>
                         <div>
                           <button 
@@ -815,10 +815,10 @@ export default function SalesEntry() {
                 <div>
                   <input 
                     type="number"
-                    placeholder="Vat %"
+                    placeholder="GST %"
                     className="w-full border border-gray-300 rounded px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-teal-500"
-                    value={formData.vatPercentItem}
-                    onChange={(e) => handleInputChange('vatPercentItem', e.target.value)}
+                    value={formData.GSTPercentItem}
+                    onChange={(e) => handleInputChange('GSTPercentItem', e.target.value)}
                   />
                 </div>
               </div>
@@ -845,17 +845,17 @@ export default function SalesEntry() {
                 />
               </div>
 
-              {/* Discount and Vat Method */}
+              {/* Discount and GST Method */}
               <div className="bg-gray-50 p-3 rounded">
-                <label className="block text-xs font-semibold text-gray-700 mb-2">Discount and Vat Method</label>
+                <label className="block text-xs font-semibold text-gray-700 mb-2">Discount and GST Method</label>
                 <div className="space-y-1">
                   <label className="flex items-center text-xs">
                     <input 
                       type="radio" 
-                      name="discountVatMethod" 
+                      name="discountGSTMethod" 
                       value="total"
-                      checked={formData.discountVatMethod === 'total'}
-                      onChange={(e) => handleInputChange('discountVatMethod', e.target.value)}
+                      checked={formData.discountGSTMethod === 'total'}
+                      onChange={(e) => handleInputChange('discountGSTMethod', e.target.value)}
                       className="mr-2"
                     />
                     On Total
@@ -863,10 +863,10 @@ export default function SalesEntry() {
                   <label className="flex items-center text-xs">
                     <input 
                       type="radio" 
-                      name="discountVatMethod" 
+                      name="discountGSTMethod" 
                       value="individual"
-                      checked={formData.discountVatMethod === 'individual'}
-                      onChange={(e) => handleInputChange('discountVatMethod', e.target.value)}
+                      checked={formData.discountGSTMethod === 'individual'}
+                      onChange={(e) => handleInputChange('discountGSTMethod', e.target.value)}
                       className="mr-2"
                     />
                     Individual Item
@@ -913,7 +913,7 @@ export default function SalesEntry() {
               {/* Transport Cost & Grand Total */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs text-gray-600 mb-1">Transport Cost (BDT)</label>
+                  <label className="block text-xs text-gray-600 mb-1">Transport Cost (Rs)</label>
                   <input 
                     type="number"
                     step="0.01"
@@ -923,7 +923,7 @@ export default function SalesEntry() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-600 mb-1">Grand Total (BDT)</label>
+                  <label className="block text-xs text-gray-600 mb-1">Grand Total (Rs)</label>
                   <input 
                     type="text"
                     className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-gray-50"
@@ -935,7 +935,7 @@ export default function SalesEntry() {
 
               {/* Sub Total */}
               <div>
-                <label className="block text-xs text-gray-600 mb-1">Sub Total (BDT)</label>
+                <label className="block text-xs text-gray-600 mb-1">Sub Total (Rs)</label>
                 <input 
                   type="text"
                   className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-gray-50"

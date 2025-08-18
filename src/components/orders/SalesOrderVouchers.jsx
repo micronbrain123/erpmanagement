@@ -2,82 +2,103 @@
 
 import { useState } from 'react'
 
-export default function ViewSalesReturn() {
-  const [selectedVoucher, setSelectedVoucher] = useState('SR7')
+export default function SalesOrderVouchers() {
+  const [selectedVoucher, setSelectedVoucher] = useState('S010')
   const [voucherData, setVoucherData] = useState({
-    invoiceNo: 'SR7',
-    customerName: 'Anvar',
+    voucherNo: 'S010',
+    customerName: 'General Customer',
+    debtorCode: '',
     institution: '',
     address: '',
     contactNo: '',
-    returnDate: '28 Mar 2025 11:49 pm',
-    returnBy: 'SOFT TASK',
+    orderDate: '08 Jul 2025',
+    orderBy: 'SOFT TASK',
     items: [
       {
         sl: 1,
-        itemName: 'Anil Semiya',
-        rate: '88.00',
+        itemName: 'test',
+        rate: 'NaN',
         per: 'Pcs',
-        qty: '2 Pcs',
+        qty: '1 Cutton, 0 Pcs',
         discount: '0%',
         GST: '0%',
-        total: '176.00'
+        total: '0.00'
       }
     ],
-    subTotal: '176.00',
+    quantityTotal: '1',
+    subTotal: '0.00',
     transportCost: '0.00',
-    grandTotal: '176.00',
-    grandTotalInWords: 'One Hundred and Seventy Six Only (Rs)',
+    grandTotal: '0.00',
+    due: '0.00',
+    paid: '0.00',
+    grandTotalInWords: 'Only (Rs)',
     narration: ''
   })
 
   const [availableVouchers] = useState([
-    { value: 'SR7', label: 'SR7 - Anvar' },
-    { value: 'SR1', label: 'SR1 - ABC Company Ltd' },
-    { value: 'SR2', label: 'SR2 - XYZ Trading Co' },
-    { value: 'SR3', label: 'SR3 - Customer ABC' }
+    { value: 'S010', label: 'S010 - General Customer' },
+    { value: 'S001', label: 'S001 - ABC Trading Ltd' },
+    { value: 'S002', label: 'S002 - XYZ Corporation' },
+    { value: 'S003', label: 'S003 - Prime Customer' },
+    { value: 'S004', label: 'S004 - Elite Buyers' }
   ])
 
   const handleVoucherChange = (voucherNo) => {
     setSelectedVoucher(voucherNo)
     // In a real app, this would fetch voucher data from backend
     // For demo purposes, we'll just update with sample data
-    if (voucherNo === 'SR1') {
+    if (voucherNo === 'S001') {
       setVoucherData({
         ...voucherData,
-        invoiceNo: 'SR1',
-        customerName: 'ABC Company Ltd',
-        returnDate: '25 Mar 2025 09:30 am',
-        grandTotal: '15,500.00',
-        subTotal: '15,500.00',
-        grandTotalInWords: 'Fifteen Thousand Five Hundred Only (Rs)'
+        voucherNo: 'S001',
+        customerName: 'ABC Trading Ltd',
+        orderDate: '05 Jul 2025',
+        grandTotal: '25,500.00',
+        due: '5,500.00',
+        paid: '20,000.00',
+        grandTotalInWords: 'Twenty Five Thousand Five Hundred Only (Rs)'
+      })
+    } else if (voucherNo === 'S002') {
+      setVoucherData({
+        ...voucherData,
+        voucherNo: 'S002',
+        customerName: 'XYZ Corporation',
+        orderDate: '03 Jul 2025',
+        grandTotal: '18,750.00',
+        due: '0.00',
+        paid: '18,750.00',
+        grandTotalInWords: 'Eighteen Thousand Seven Hundred Fifty Only (Rs)'
       })
     } else {
       // Reset to default data
       setVoucherData({
-        invoiceNo: 'SR7',
-        customerName: 'Anvar',
+        voucherNo: 'S010',
+        customerName: 'General Customer',
+        debtorCode: '',
         institution: '',
         address: '',
         contactNo: '',
-        returnDate: '28 Mar 2025 11:49 pm',
-        returnBy: 'SOFT TASK',
+        orderDate: '08 Jul 2025',
+        orderBy: 'SOFT TASK',
         items: [
           {
             sl: 1,
-            itemName: 'Anil Semiya',
-            rate: '88.00',
+            itemName: 'test',
+            rate: 'NaN',
             per: 'Pcs',
-            qty: '2 Pcs',
+            qty: '1 Cutton, 0 Pcs',
             discount: '0%',
             GST: '0%',
-            total: '176.00'
+            total: '0.00'
           }
         ],
-        subTotal: '176.00',
+        quantityTotal: '1',
+        subTotal: '0.00',
         transportCost: '0.00',
-        grandTotal: '176.00',
-        grandTotalInWords: 'One Hundred and Seventy Six Only (Rs)',
+        grandTotal: '0.00',
+        due: '0.00',
+        paid: '0.00',
+        grandTotalInWords: 'Only (Rs)',
         narration: ''
       })
     }
@@ -87,14 +108,14 @@ export default function ViewSalesReturn() {
     const printContent = `
       <html>
         <head>
-          <title>Sales Return Voucher - ${voucherData.invoiceNo}</title>
+          <title>Sales Order Voucher - ${voucherData.voucherNo}</title>
           <style>
             body { 
               font-family: Arial, sans-serif; 
               margin: 20px;
               font-size: 12px;
             }
-            .voucher-header {
+            .invoice-header {
               text-align: center;
               font-size: 18px;
               font-weight: bold;
@@ -102,12 +123,12 @@ export default function ViewSalesReturn() {
               border-bottom: 2px solid #000;
               padding-bottom: 10px;
             }
-            .voucher-info {
+            .invoice-info {
               display: flex;
               justify-content: space-between;
               margin-bottom: 20px;
             }
-            .customer-info, .return-details {
+            .customer-info, .voucher-info {
               width: 48%;
             }
             table { 
@@ -126,7 +147,6 @@ export default function ViewSalesReturn() {
               text-align: center;
             }
             .text-right { text-align: right; }
-            .text-center { text-align: center; }
             .total-section {
               margin-top: 10px;
               text-align: right;
@@ -137,20 +157,20 @@ export default function ViewSalesReturn() {
           </style>
         </head>
         <body>
-          <div class="voucher-header">SALES RETURN VOUCHER</div>
+          <div class="invoice-header">ORDER VOUCHER</div>
           
-          <div class="voucher-info">
+          <div class="invoice-info">
             <div class="customer-info">
-              <strong>Code:</strong><br>
+              <strong>Customer/ Debtor Code:</strong> ${voucherData.debtorCode}<br>
               <strong>Name:</strong> ${voucherData.customerName}<br>
               <strong>Institution:</strong> ${voucherData.institution}<br>
               <strong>Address:</strong> ${voucherData.address}<br>
               <strong>Contact No:</strong> ${voucherData.contactNo}
             </div>
-            <div class="return-details">
-              <strong>Invoice No:</strong> ${voucherData.invoiceNo}<br>
-              <strong>Return Date:</strong> ${voucherData.returnDate}<br>
-              <strong>Return By:</strong> ${voucherData.returnBy}
+            <div class="voucher-info">
+              <strong>Voucher No:</strong> ${voucherData.voucherNo}<br>
+              <strong>Order Date:</strong> ${voucherData.orderDate}<br>
+              <strong>Order By:</strong> ${voucherData.orderBy}
             </div>
           </div>
 
@@ -161,7 +181,7 @@ export default function ViewSalesReturn() {
                 <th>Item Name</th>
                 <th>Rate</th>
                 <th>Per</th>
-                <th>QTY</th>
+                <th>ORDER QTY</th>
                 <th>Discount%</th>
                 <th>GST%</th>
                 <th>Total</th>
@@ -170,13 +190,13 @@ export default function ViewSalesReturn() {
             <tbody>
               ${voucherData.items.map(item => `
                 <tr>
-                  <td class="text-center">${item.sl}</td>
+                  <td style="text-align: center;">${item.sl}</td>
                   <td>${item.itemName}</td>
                   <td class="text-right">${item.rate}</td>
-                  <td class="text-center">${item.per}</td>
-                  <td class="text-center">${item.qty}</td>
-                  <td class="text-center">${item.discount}</td>
-                  <td class="text-center">${item.GST}</td>
+                  <td style="text-align: center;">${item.per}</td>
+                  <td>${item.qty}</td>
+                  <td style="text-align: center;">${item.discount}</td>
+                  <td style="text-align: center;">${item.GST}</td>
                   <td class="text-right">${item.total}</td>
                 </tr>
               `).join('')}
@@ -210,7 +230,7 @@ export default function ViewSalesReturn() {
   return (
     <div className="p-4">
       <div className="bg-white rounded-lg shadow-sm border">
-        {/* Header with Search and Print Button */}
+        {/* Header with Search */}
         <div className="p-4 border-b">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
@@ -221,8 +241,6 @@ export default function ViewSalesReturn() {
               >
                 🖨️
               </button>
-            </div>
-            <div>
               <select 
                 className="border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500 min-w-60"
                 value={selectedVoucher}
@@ -239,31 +257,31 @@ export default function ViewSalesReturn() {
           </div>
         </div>
 
-        {/* Voucher Content */}
+        {/* Invoice Content */}
         <div className="p-6">
-          {/* Voucher Header */}
+          {/* Invoice Header */}
           <div className="text-center mb-8">
             <h1 className="text-xl font-bold border-b-2 border-gray-800 pb-2 inline-block px-8">
-              SALES RETURN VOUCHER
+              ORDER VOUCHER
             </h1>
           </div>
 
-          {/* Customer and Return Information */}
+          {/* Customer and Voucher Information */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
             {/* Left Side - Customer Info */}
             <div className="space-y-2">
-              <div><span className="font-semibold">Code :</span></div>
+              <div><span className="font-semibold">Customer/ Debtor Code :</span> {voucherData.debtorCode}</div>
               <div><span className="font-semibold">Name :</span> {voucherData.customerName}</div>
               <div><span className="font-semibold">Institution :</span> {voucherData.institution}</div>
               <div><span className="font-semibold">Address :</span> {voucherData.address}</div>
               <div><span className="font-semibold">Contact No :</span> {voucherData.contactNo}</div>
             </div>
 
-            {/* Right Side - Return Info */}
+            {/* Right Side - Voucher Info */}
             <div className="space-y-2 text-right">
-              <div><span className="font-semibold">Invoice No :</span> {voucherData.invoiceNo}</div>
-              <div><span className="font-semibold">Return Date :</span> {voucherData.returnDate}</div>
-              <div><span className="font-semibold">Return By :</span> {voucherData.returnBy}</div>
+              <div><span className="font-semibold">Voucher No :</span> {voucherData.voucherNo}</div>
+              <div><span className="font-semibold">Order Date :</span> {voucherData.orderDate}</div>
+              <div><span className="font-semibold">Order By :</span> {voucherData.orderBy}</div>
             </div>
           </div>
 
@@ -276,7 +294,7 @@ export default function ViewSalesReturn() {
                   <th className="border border-gray-800 px-3 py-2 text-center font-semibold">Item Name</th>
                   <th className="border border-gray-800 px-3 py-2 text-center font-semibold">Rate</th>
                   <th className="border border-gray-800 px-3 py-2 text-center font-semibold">Per</th>
-                  <th className="border border-gray-800 px-3 py-2 text-center font-semibold">QTY</th>
+                  <th className="border border-gray-800 px-3 py-2 text-center font-semibold">ORDER QTY</th>
                   <th className="border border-gray-800 px-3 py-2 text-center font-semibold">Discount%</th>
                   <th className="border border-gray-800 px-3 py-2 text-center font-semibold">GST%</th>
                   <th className="border border-gray-800 px-3 py-2 text-center font-semibold">Total</th>
@@ -289,7 +307,7 @@ export default function ViewSalesReturn() {
                     <td className="border border-gray-800 px-3 py-2">{item.itemName}</td>
                     <td className="border border-gray-800 px-3 py-2 text-right">{item.rate}</td>
                     <td className="border border-gray-800 px-3 py-2 text-center">{item.per}</td>
-                    <td className="border border-gray-800 px-3 py-2 text-center">{item.qty}</td>
+                    <td className="border border-gray-800 px-3 py-2">{item.qty}</td>
                     <td className="border border-gray-800 px-3 py-2 text-center">{item.discount}</td>
                     <td className="border border-gray-800 px-3 py-2 text-center">{item.GST}</td>
                     <td className="border border-gray-800 px-3 py-2 text-right font-semibold">{item.total}</td>

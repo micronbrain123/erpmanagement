@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-export default function EmployeeLedger() {
+export default function TransferPendingRecord() {
   // Get today's date in DD/MM/YYYY format
   const getTodayFormatted = () => {
     const today = new Date()
@@ -31,88 +31,102 @@ export default function EmployeeLedger() {
   }
 
   const [formData, setFormData] = useState({
-    selectedEmployee: '',
+    filterType: 'All',
+    recordType: 'without item',
     fromDate: getTodayFormatted(),
     toDate: getTodayFormatted()
   })
 
-  const [ledgerEntries, setLedgerEntries] = useState([
+  const [transferEntries, setTransferEntries] = useState([
     {
       id: 1,
-      date: '2025-08-01',
-      employee: 'John Doe',
-      particulars: 'Basic Salary - August 2025',
-      paymentCode: 'EPAY001',
-      debit: '25,000.00',
-      credit: '',
-      balance: '25,000.00',
-      type: 'Salary'
+      date: '2025-08-15',
+      voucherNo: 'TP8',
+      toBranch: 'Main Branch',
+      fromBranch: 'Chittagong Branch',
+      particulars: 'Pending Office Supplies Transfer - Stationery Items',
+      category: 'Office Supplies',
+      location: 'Main Warehouse',
+      user: 'John Doe',
+      amount: '15,500.00',
+      transportCost: '500.00',
+      status: 'Pending',
+      type: 'with item'
     },
     {
       id: 2,
-      date: '2025-08-05',
-      employee: 'Jane Smith',
-      particulars: 'Overtime Payment',
-      paymentCode: 'EPAY003',
-      debit: '3,500.00',
-      credit: '',
-      balance: '28,500.00',
-      type: 'Overtime'
+      date: '2025-08-16',
+      voucherNo: 'TP9',
+      toBranch: 'Sylhet Branch',
+      fromBranch: 'Main Branch',
+      particulars: 'Pending IT Equipment Transfer - Laptops & Accessories',
+      category: 'IT Equipment',
+      location: 'IT Department',
+      user: 'Jane Smith',
+      amount: '125,000.00',
+      transportCost: '2,500.00',
+      status: 'Pending',
+      type: 'with item'
     },
     {
       id: 3,
-      date: '2025-08-10',
-      employee: 'John Doe',
-      particulars: 'Advance Deduction',
-      paymentCode: 'ADV001',
-      debit: '',
-      credit: '5,000.00',
-      balance: '23,500.00',
-      type: 'Deduction'
+      date: '2025-08-17',
+      voucherNo: 'TP10',
+      toBranch: 'Rajshahi Branch',
+      fromBranch: 'Main Branch',
+      particulars: 'Pending Raw Materials Transfer - Steel Sheets',
+      category: 'Raw Materials',
+      location: 'Factory Floor',
+      user: 'Ahmed Khan',
+      amount: '75,200.00',
+      transportCost: '1,800.00',
+      status: 'Pending',
+      type: 'with item'
     },
     {
       id: 4,
-      date: '2025-08-15',
-      employee: 'Ahmed Khan',
-      particulars: 'Bonus Payment',
-      paymentCode: 'BON001',
-      debit: '2,000.00',
-      credit: '',
-      balance: '25,500.00',
-      type: 'Bonus'
+      date: '2025-08-18',
+      voucherNo: 'TP11',
+      toBranch: 'Chittagong Branch',
+      fromBranch: 'Sylhet Branch',
+      particulars: 'Pending Document Transfer - Administrative Files',
+      category: 'Documents',
+      location: 'Admin Office',
+      user: 'Maria Rodriguez',
+      amount: '0.00',
+      transportCost: '300.00',
+      status: 'Pending',
+      type: 'without item'
     },
     {
       id: 5,
-      date: '2025-08-12',
-      employee: 'Jane Smith',
-      particulars: 'Basic Salary - August 2025',
-      paymentCode: 'EPAY005',
-      debit: '30,000.00',
-      credit: '',
-      balance: '30,000.00',
-      type: 'Salary'
+      date: getTodayFormatted().split('/').reverse().join('-'),
+      voucherNo: 'TP12',
+      toBranch: 'Main Branch',
+      fromBranch: 'Rajshahi Branch',
+      particulars: 'Today\'s Pending Safety Equipment Transfer - Helmets & Gloves',
+      category: 'Safety Equipment',
+      location: 'Safety Department',
+      user: 'David Wilson',
+      amount: '22,300.00',
+      transportCost: '750.00',
+      status: 'Pending',
+      type: 'with item'
     },
     {
       id: 6,
-      date: '2025-08-08',
-      employee: 'Maria Rodriguez',
-      particulars: 'Commission Payment',
-      paymentCode: 'COM001',
-      debit: '5,500.00',
-      credit: '',
-      balance: '5,500.00',
-      type: 'Commission'
-    },
-    {
-      id: 7,
-      date: '2025-08-14',
-      employee: 'John Doe',
-      particulars: 'Today\'s Payment - Test Entry',
-      paymentCode: 'EPAY007',
-      debit: '1,500.00',
-      credit: '',
-      balance: '25,000.00',
-      type: 'Bonus'
+      date: getTodayFormatted().split('/').reverse().join('-'),
+      voucherNo: 'TP13',
+      toBranch: 'Sylhet Branch',
+      fromBranch: 'Main Branch',
+      particulars: 'Today\'s Pending Emergency Supply Transfer - Medical Equipment',
+      category: 'Medical Supplies',
+      location: 'Medical Store',
+      user: 'Admin User',
+      amount: '45,600.00',
+      transportCost: '1,200.00',
+      status: 'Pending',
+      type: 'without item'
     }
   ])
 
@@ -123,13 +137,17 @@ export default function EmployeeLedger() {
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [currentPage, setCurrentPage] = useState(1)
 
-  const employees = [
-    'John Doe',
-    'Jane Smith',
-    'Ahmed Khan',
-    'Maria Rodriguez',
-    'David Wilson'
+  const filterTypes = [
+    'All',
+    'By Voucher',
+    'By Item',
+    'By Branch', 
+    'By Category',
+    'By Location',
+    'By User'
   ]
+
+  const recordTypes = ['with item', 'without item']
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -145,11 +163,6 @@ export default function EmployeeLedger() {
   }
 
   const handleGetReport = () => {
-    if (!formData.selectedEmployee) {
-      alert('Please select an employee')
-      return
-    }
-
     try {
       // Parse dates from DD/MM/YYYY format
       const fromDate = parseDisplayDate(formData.fromDate)
@@ -166,23 +179,20 @@ export default function EmployeeLedger() {
         return
       }
       
-      const filtered = ledgerEntries.filter(entry => {
+      const filtered = transferEntries.filter(entry => {
         const entryDate = new Date(entry.date)
         const dateInRange = entryDate >= fromDate && entryDate <= toDate
         
-        // If "All" is selected, show all employees within date range
-        if (formData.selectedEmployee === 'All') {
-          return dateInRange
-        }
+        // Filter by record type
+        const typeMatch = entry.type === formData.recordType
         
-        // Otherwise filter by specific employee
-        return entry.employee === formData.selectedEmployee && dateInRange
+        return dateInRange && typeMatch
       })
       
       setFilteredEntries(filtered)
       setShowTable(true)
-      setCurrentPage(1) // Reset to first page
-      console.log('Generating report for:', formData)
+      setCurrentPage(1)
+      console.log('Generating transfer pending record report for:', formData)
       console.log('Filtered entries:', filtered.length)
     } catch (error) {
       console.error('Error filtering entries:', error)
@@ -199,9 +209,11 @@ export default function EmployeeLedger() {
     } else {
       const filtered = filteredEntries.filter(entry =>
         entry.particulars.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        entry.paymentCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        entry.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        entry.employee.toLowerCase().includes(searchTerm.toLowerCase())
+        entry.voucherNo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.toBranch.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.fromBranch.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.status.toLowerCase().includes(searchTerm.toLowerCase())
       )
       setFilteredEntries(filtered)
     }
@@ -216,25 +228,12 @@ export default function EmployeeLedger() {
     setShowSearch(false)
   }
 
-  // Set date range shortcuts
-  const setDateRange = (days) => {
-    const today = new Date()
-    const fromDate = new Date(today)
-    fromDate.setDate(today.getDate() - days)
-    
-    setFormData(prev => ({
-      ...prev,
-      fromDate: formatDateForDisplay(fromDate.toISOString().split('T')[0]),
-      toDate: getTodayFormatted()
-    }))
-  }
-
   // Print functionality
   const handlePrint = () => {
     const printContent = `
       <html>
         <head>
-          <title>Employee Ledger Report</title>
+          <title>Transfer Pending Record Report</title>
           <style>
             body { font-family: Arial, sans-serif; }
             table { width: 100%; border-collapse: collapse; margin-top: 20px; }
@@ -245,34 +244,41 @@ export default function EmployeeLedger() {
           </style>
         </head>
         <body>
-          <h1>Employee Ledger Report</h1>
-          <p>Employee: ${formData.selectedEmployee || 'All Employees'}</p>
+          <h1>Transfer Pending Record Report</h1>
+          <p>Filter Type: ${formData.filterType}</p>
+          <p>Record Type: ${formData.recordType}</p>
           <p>Period: ${formData.fromDate} to ${formData.toDate}</p>
           <p>Generated on: ${new Date().toLocaleString()}</p>
           <table>
             <thead>
               <tr>
                 <th>Date</th>
-                <th>Employee</th>
+                <th>Voucher No</th>
+                <th>From Branch</th>
+                <th>To Branch</th>
                 <th>Particulars</th>
-                <th>Payment Code</th>
-                <th>Debit</th>
-                <th>Credit</th>
-                <th>Balance</th>
-                <th>Type</th>
+                <th>Category</th>
+                <th>User</th>
+                <th>Amount</th>
+                <th>Transport Cost</th>
+                <th>Total</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
               ${filteredEntries.map(entry => `
                 <tr>
-                  <td>${new Date(entry.date).toLocaleDateString('en-GB')}</td>
-                  <td>${entry.employee}</td>
+                  <td>${entry.date}</td>
+                  <td>${entry.voucherNo}</td>
+                  <td>${entry.fromBranch}</td>
+                  <td>${entry.toBranch}</td>
                   <td>${entry.particulars}</td>
-                  <td>${entry.paymentCode}</td>
-                  <td class="text-right">${entry.debit || '-'}</td>
-                  <td class="text-right">${entry.credit || '-'}</td>
-                  <td class="text-right">${entry.balance}</td>
-                  <td>${entry.type}</td>
+                  <td>${entry.category}</td>
+                  <td>${entry.user}</td>
+                  <td class="text-right">${entry.amount} Rs</td>
+                  <td class="text-right">${entry.transportCost} Rs</td>
+                  <td class="text-right">${(parseFloat(entry.amount.replace(',', '')) + parseFloat(entry.transportCost.replace(',', ''))).toFixed(2)} Rs</td>
+                  <td>${entry.status}</td>
                 </tr>
               `).join('')}
             </tbody>
@@ -289,16 +295,19 @@ export default function EmployeeLedger() {
   // Export functionality
   const handleExport = () => {
     const csvContent = [
-      ['Date', 'Employee', 'Particulars', 'Payment Code', 'Debit', 'Credit', 'Balance', 'Type'],
+      ['Date', 'Voucher No', 'From Branch', 'To Branch', 'Particulars', 'Category', 'User', 'Amount', 'Transport Cost', 'Total', 'Status'],
       ...filteredEntries.map(entry => [
-        new Date(entry.date).toLocaleDateString('en-GB'),
-        entry.employee,
+        entry.date,
+        entry.voucherNo,
+        entry.fromBranch,
+        entry.toBranch,
         entry.particulars,
-        entry.paymentCode,
-        entry.debit || '',
-        entry.credit || '',
-        entry.balance,
-        entry.type
+        entry.category,
+        entry.user,
+        entry.amount,
+        entry.transportCost,
+        (parseFloat(entry.amount.replace(',', '')) + parseFloat(entry.transportCost.replace(',', ''))).toFixed(2),
+        entry.status
       ])
     ].map(row => row.join(',')).join('\n')
 
@@ -306,7 +315,7 @@ export default function EmployeeLedger() {
     const url = window.URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = 'employee_ledger.csv'
+    a.download = 'transfer_pending_record.csv'
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
@@ -315,9 +324,9 @@ export default function EmployeeLedger() {
 
   // Delete entry
   const handleDeleteEntry = (id) => {
-    if (window.confirm('Are you sure you want to delete this entry?')) {
-      const updatedEntries = ledgerEntries.filter(entry => entry.id !== id)
-      setLedgerEntries(updatedEntries)
+    if (window.confirm('Are you sure you want to delete this pending transfer record?')) {
+      const updatedEntries = transferEntries.filter(entry => entry.id !== id)
+      setTransferEntries(updatedEntries)
       
       // Update filtered entries if table is shown
       if (showTable) {
@@ -327,19 +336,53 @@ export default function EmployeeLedger() {
         const filtered = updatedEntries.filter(entry => {
           const entryDate = new Date(entry.date)
           const dateInRange = entryDate >= fromDate && entryDate <= toDate
+          const typeMatch = entry.type === formData.recordType
           
-          // If "All" is selected, show all employees within date range
-          if (formData.selectedEmployee === 'All') {
-            return dateInRange
-          }
-          
-          // Otherwise filter by specific employee
-          return entry.employee === formData.selectedEmployee && dateInRange
+          return dateInRange && typeMatch
         })
         
         setFilteredEntries(filtered)
       }
     }
+  }
+
+  // Approve transfer
+  const handleApproveTransfer = (id) => {
+    if (window.confirm('Are you sure you want to approve this pending transfer?')) {
+      const updatedEntries = transferEntries.map(entry => 
+        entry.id === id ? { ...entry, status: 'Approved' } : entry
+      )
+      setTransferEntries(updatedEntries)
+      
+      // Update filtered entries if table is shown
+      if (showTable) {
+        const fromDate = parseDisplayDate(formData.fromDate)
+        const toDate = parseDisplayDate(formData.toDate)
+        
+        const filtered = updatedEntries.filter(entry => {
+          const entryDate = new Date(entry.date)
+          const dateInRange = entryDate >= fromDate && entryDate <= toDate
+          const typeMatch = entry.type === formData.recordType
+          
+          return dateInRange && typeMatch
+        })
+        
+        setFilteredEntries(filtered)
+      }
+    }
+  }
+
+  // Set date range shortcuts
+  const setDateRange = (days) => {
+    const today = new Date()
+    const fromDate = new Date(today)
+    fromDate.setDate(today.getDate() - days)
+    
+    setFormData(prev => ({
+      ...prev,
+      fromDate: formatDateForDisplay(fromDate.toISOString().split('T')[0]),
+      toDate: getTodayFormatted()
+    }))
   }
 
   // Pagination
@@ -349,35 +392,50 @@ export default function EmployeeLedger() {
   const currentEntries = filteredEntries.slice(startIndex, endIndex)
 
   // Calculate totals
-  const totalDebit = filteredEntries.reduce((sum, entry) => 
-    sum + (parseFloat(entry.debit.replace(',', '')) || 0), 0
+  const totalAmount = filteredEntries.reduce((sum, entry) => 
+    sum + parseFloat(entry.amount.replace(',', '')), 0
   )
-  const totalCredit = filteredEntries.reduce((sum, entry) => 
-    sum + (parseFloat(entry.credit.replace(',', '')) || 0), 0
+
+  const totalTransportCost = filteredEntries.reduce((sum, entry) => 
+    sum + parseFloat(entry.transportCost.replace(',', '')), 0
   )
+
+  const grandTotal = totalAmount + totalTransportCost
 
   return (
     <div className="p-4">
       <div className="bg-white rounded-lg shadow-sm border">
         <div className="bg-teal-600 text-white px-4 py-3 rounded-t-lg">
-          <h2 className="font-medium text-lg">Employee Ledger</h2>
+          <h2 className="font-medium text-lg">Transfer Pending Record</h2>
         </div>
         
         <div className="p-6">
           {/* Filter Section */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            {/* Select Employee */}
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+            {/* Filter Type */}
             <div>
-              <label className="block text-xs text-gray-600 mb-1">Select Employee</label>
+              <label className="block text-xs text-gray-600 mb-1">Filter Type</label>
               <select 
                 className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
-                value={formData.selectedEmployee}
-                onChange={(e) => handleInputChange('selectedEmployee', e.target.value)}
+                value={formData.filterType}
+                onChange={(e) => handleInputChange('filterType', e.target.value)}
               >
-                <option value="">Select Employee</option>
-                <option value="All">All Employees</option>
-                {employees.map(employee => (
-                  <option key={employee} value={employee}>{employee}</option>
+                {filterTypes.map(type => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Record Type */}
+            <div>
+              <label className="block text-xs text-gray-600 mb-1">Record Type</label>
+              <select 
+                className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
+                value={formData.recordType}
+                onChange={(e) => handleInputChange('recordType', e.target.value)}
+              >
+                {recordTypes.map(type => (
+                  <option key={type} value={type}>{type}</option>
                 ))}
               </select>
             </div>
@@ -404,13 +462,13 @@ export default function EmployeeLedger() {
               />
             </div>
 
-            {/* Get Report Button */}
+            {/* Report Button */}
             <div className="flex items-end">
               <button 
                 onClick={handleGetReport}
                 className="bg-teal-600 text-white px-6 py-2 rounded text-sm hover:bg-teal-700 transition-colors flex items-center gap-2"
               >
-                🔍 GET REPORT
+                🔍 REPORT
               </button>
             </div>
           </div>
@@ -446,21 +504,27 @@ export default function EmployeeLedger() {
           {/* Current Date Range Display */}
           <div className="text-sm text-gray-600 mb-4">
             Selected Date Range: <span className="font-medium">{formData.fromDate} to {formData.toDate}</span>
-            {formData.selectedEmployee && (
-              <span className="ml-4">
-                Employee: <span className="font-medium">{formData.selectedEmployee}</span>
-              </span>
-            )}
+          </div>
+
+          {/* Print Button */}
+          <div className="mb-4">
+            <button 
+              onClick={handlePrint}
+              className="p-2 border rounded hover:bg-gray-50 transition-colors"
+              title="Print Report"
+            >
+              🖨️
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Employee Ledger Report */}
+      {/* Transfer Pending Record Report */}
       {showTable && (
         <div className="bg-white rounded-lg shadow-sm border mt-6">
           <div className="p-4">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium">Employee Ledger Report</h3>
+              <h3 className="text-lg font-medium">Transfer Pending Record Report</h3>
               <div className="flex gap-2">
                 <button 
                   onClick={() => setShowSearch(!showSearch)}
@@ -491,7 +555,7 @@ export default function EmployeeLedger() {
               <div className="mb-4 flex gap-2">
                 <input
                   type="text"
-                  placeholder="Search by employee, particulars, payment code, or type..."
+                  placeholder="Search by voucher no, branch, particulars, category, or status..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="flex-1 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
@@ -513,60 +577,67 @@ export default function EmployeeLedger() {
 
             {/* Results Summary */}
             <div className="mb-4 text-sm text-gray-600">
-              Showing {filteredEntries.length} records for {formData.selectedEmployee || 'selected employee'} from {formData.fromDate} to {formData.toDate}
+              Showing {filteredEntries.length} pending records for {formData.recordType} transfers from {formData.fromDate} to {formData.toDate}
             </div>
 
             {/* Table Headers */}
             <div className="overflow-x-auto">
               <div className="min-w-full">
-                <div className="grid grid-cols-9 gap-2 text-xs font-semibold text-gray-700 border-b pb-2 mb-4">
+                <div className="grid grid-cols-13 gap-2 text-xs font-semibold text-gray-700 border-b pb-2 mb-4">
                   <div>Date</div>
-                  <div>Employee</div>
-                  <div>Particulars</div>
-                  <div>Payment Code</div>
-                  <div className="text-right">Debit</div>
-                  <div className="text-right">Credit</div>
-                  <div className="text-right">Balance</div>
-                  <div>Type</div>
-                  <div>Actions</div>
+                  <div>Voucher No</div>
+                  <div>From Branch</div>
+                  <div>To Branch</div>
+                  <div className="col-span-2">Particulars</div>
+                  <div>Category</div>
+                  <div>User</div>
+                  <div className="text-right">Amount</div>
+                  <div className="text-right">Transport</div>
+                  <div>Status</div>
+                  <div className="col-span-2">Actions</div>
                 </div>
 
                 {/* Table Rows */}
                 {currentEntries.length > 0 ? (
                   currentEntries.map((entry) => (
-                    <div key={entry.id} className="grid grid-cols-9 gap-2 text-xs py-2 border-b hover:bg-gray-50">
+                    <div key={entry.id} className="grid grid-cols-13 gap-2 text-xs py-2 border-b hover:bg-gray-50">
                       <div>{new Date(entry.date).toLocaleDateString('en-GB')}</div>
-                      <div className="font-medium text-gray-700">{entry.employee}</div>
-                      <div className="truncate" title={entry.particulars}>{entry.particulars}</div>
-                      <div className="font-medium text-teal-600">{entry.paymentCode}</div>
+                      <div className="font-medium text-teal-600">{entry.voucherNo}</div>
+                      <div className="font-medium text-blue-600">{entry.fromBranch}</div>
+                      <div className="font-medium text-green-600">{entry.toBranch}</div>
+                      <div className="col-span-2 truncate" title={entry.particulars}>{entry.particulars}</div>
+                      <div>{entry.category}</div>
+                      <div>{entry.user}</div>
                       <div className="text-right font-medium text-green-600">
-                        {entry.debit && `${entry.debit} Rs`}
+                        {entry.amount} Rs
                       </div>
-                      <div className="text-right font-medium text-red-600">
-                        {entry.credit && `${entry.credit} Rs`}
+                      <div className="text-right font-medium text-orange-600">
+                        {entry.transportCost} Rs
                       </div>
-                      <div className="text-right font-medium">{entry.balance} Rs</div>
                       <div>
                         <span className={`px-2 py-1 rounded text-xs ${
-                          entry.type === 'Salary' 
-                            ? 'bg-blue-100 text-blue-800' 
-                            : entry.type === 'Overtime'
-                            ? 'bg-green-100 text-green-800'
-                            : entry.type === 'Bonus'
-                            ? 'bg-purple-100 text-purple-800'
-                            : entry.type === 'Commission'
+                          entry.status === 'Approved' 
+                            ? 'bg-green-100 text-green-800' 
+                            : entry.status === 'Pending'
                             ? 'bg-yellow-100 text-yellow-800'
                             : 'bg-red-100 text-red-800'
                         }`}>
-                          {entry.type}
+                          {entry.status}
                         </span>
                       </div>
-                      <div className="flex gap-1">
+                      <div className="col-span-2 flex gap-1">
                         <button 
                           className="text-blue-600 hover:text-blue-800 text-xs"
                           title="View Details"
                         >
                           👁️
+                        </button>
+                        <button 
+                          onClick={() => handleApproveTransfer(entry.id)}
+                          className="text-green-600 hover:text-green-800 text-xs"
+                          title="Approve Transfer"
+                        >
+                          ✅
                         </button>
                         <button 
                           onClick={() => handleDeleteEntry(entry.id)}
@@ -580,24 +651,32 @@ export default function EmployeeLedger() {
                   ))
                 ) : (
                   <div className="text-center py-8 text-gray-500">
-                    {searchTerm ? 'No matching records found' : 'Sorry, no matching records found'}
+                    {searchTerm ? 'No matching pending records found' : 'Sorry, no matching pending records found'}
                   </div>
                 )}
 
                 {/* Summary Row */}
                 {filteredEntries.length > 0 && (
-                  <div className="grid grid-cols-9 gap-2 text-xs py-3 border-t-2 border-teal-600 bg-teal-50 font-semibold">
-                    <div className="col-span-4 text-right">TOTAL:</div>
+                  <div className="grid grid-cols-13 gap-2 text-xs py-3 border-t-2 border-teal-600 bg-teal-50 font-semibold">
+                    <div className="col-span-8 text-right">TOTALS:</div>
                     <div className="text-right text-green-600">
-                      {totalDebit.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
+                      {totalAmount.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
                     </div>
-                    <div className="text-right text-red-600">
-                      {totalCredit.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
+                    <div className="text-right text-orange-600">
+                      {totalTransportCost.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
                     </div>
-                    <div className="text-right text-teal-700">
-                      {(totalDebit - totalCredit).toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
+                    <div className="col-span-3"></div>
+                  </div>
+                )}
+
+                {/* Grand Total Row */}
+                {filteredEntries.length > 0 && (
+                  <div className="grid grid-cols-13 gap-2 text-xs py-2 bg-gray-100 font-semibold">
+                    <div className="col-span-8 text-right">GRAND TOTAL:</div>
+                    <div className="col-span-2 text-right text-teal-600">
+                      {grandTotal.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
                     </div>
-                    <div className="col-span-2"></div>
+                    <div className="col-span-3"></div>
                   </div>
                 )}
               </div>
