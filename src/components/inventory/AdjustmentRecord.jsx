@@ -273,7 +273,7 @@ export default function AdjustmentRecord() {
                   <td>${entry.category}</td>
                   <td>${entry.location}</td>
                   <td>${entry.user}</td>
-                  <td class="text-right">${entry.amount} Rs</td>
+                  <td class="text-right">₹ ${entry.amount}</td>
                   <td>${entry.status}</td>
                 </tr>
               `).join('')}
@@ -570,7 +570,7 @@ export default function AdjustmentRecord() {
                       <div>{entry.location}</div>
                       <div>{entry.user}</div>
                       <div className="text-right font-medium text-red-600">
-                        {entry.amount} Rs
+                        ₹ {entry.amount}
                       </div>
                       <div>
                         <span className={`px-2 py-1 rounded text-xs ${
@@ -613,7 +613,7 @@ export default function AdjustmentRecord() {
                   <div className="grid grid-cols-10 gap-2 text-xs py-3 border-t-2 border-teal-600 bg-teal-50 font-semibold">
                     <div className="col-span-7 text-right">TOTAL AMOUNT:</div>
                     <div className="text-right text-red-600">
-                      {totalAmount.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
+                      ₹ {totalAmount.toLocaleString('en-BD', { minimumFractionDigits: 2 })}
                     </div>
                     <div className="col-span-2"></div>
                   </div>

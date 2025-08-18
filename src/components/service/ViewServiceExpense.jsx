@@ -181,9 +181,9 @@ export default function ViewServiceExpense() {
           <div class="total-section">
             <div class="total-row"><strong>Sub Total:</strong> ${voucherData.subTotal}</div>
             <div class="total-row"><strong>Transport Cost:</strong> ${voucherData.transportCost}</div>
-            <div class="total-row"><strong>Grand Total: Rs</strong> ${voucherData.grandTotal}</div>
-            <div class="total-row"><strong>Due: Rs</strong> ${voucherData.due}</div>
-            <div class="total-row"><strong>Paid: Rs</strong> ${voucherData.paid}</div>
+            <div class="total-row"><strong>Grand Total: ₹ </strong> ${voucherData.grandTotal}</div>
+            <div class="total-row"><strong>Due: ₹ </strong> ${voucherData.due}</div>
+            <div class="total-row"><strong>Paid: ₹ </strong> ${voucherData.paid}</div>
           </div>
 
           <div style="margin-top: 20px;">
@@ -327,13 +327,13 @@ export default function ViewServiceExpense() {
                 <div className="font-semibold">Transport Cost :</div>
                 <div className="font-semibold">{voucherData.transportCost}</div>
                 
-                <div className="font-semibold">Grand Total : Rs</div>
+                <div className="font-semibold">Grand Total : ₹</div>
                 <div className="font-semibold">{voucherData.grandTotal}</div>
                 
-                <div className="font-semibold">Due : Rs</div>
+                <div className="font-semibold">Due : ₹</div>
                 <div className="font-semibold">{voucherData.due}</div>
                 
-                <div className="font-semibold">Paid : Rs</div>
+                <div className="font-semibold">Paid : ₹</div>
                 <div className="font-semibold">{voucherData.paid}</div>
               </div>
             </div>

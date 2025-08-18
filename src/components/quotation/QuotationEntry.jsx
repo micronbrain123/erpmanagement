@@ -59,7 +59,7 @@ export default function QuotationEntry() {
       customer: 'ABC Corporation',
       date: '15/08/2025',
       items: 3,
-      totalAmount: '15,000.00 Rs',
+      totalAmount: '₹ 15,000.00',
       status: 'Draft',
       createdAt: new Date('2025-08-15').getTime()
     },
@@ -69,7 +69,7 @@ export default function QuotationEntry() {
       customer: 'XYZ Limited',
       date: '16/08/2025',
       items: 2,
-      totalAmount: '8,500.00 Rs',
+      totalAmount: '₹ 8,500.00',
       status: 'Sent',
       createdAt: new Date('2025-08-16').getTime()
     }
@@ -195,7 +195,7 @@ export default function QuotationEntry() {
       customer: formData.customerName,
       date: formData.entryDate,
       items: quotationCart.length,
-      totalAmount: `${formData.grandTotal} Rs`,
+      totalAmount: `₹ ${formData.grandTotal}`,
       status: 'Draft',
       createdAt: Date.now()
     }

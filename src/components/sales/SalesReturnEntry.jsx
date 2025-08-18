@@ -222,7 +222,7 @@ export default function SalesReturnEntry() {
                         className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-sm"
                         onClick={() => handleInputChange('searchItem', item.name)}
                       >
-                        {item.name} - Rate: {item.rate} Rs
+                        {item.name} - Rate: ₹ {item.rate}
                       </div>
                     ))}
                   {!items.some(item => item.name.toLowerCase().includes(formData.searchItem.toLowerCase())) && (
@@ -449,7 +449,7 @@ export default function SalesReturnEntry() {
                       />
                     </div>
                     <div className="font-medium text-green-600">
-                      {item.total.toFixed(2)} Rs
+                      ₹ {item.total.toFixed(2)}
                     </div>
                     <div>
                       <button

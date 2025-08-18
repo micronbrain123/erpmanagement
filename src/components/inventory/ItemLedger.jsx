@@ -574,9 +574,9 @@ export default function ItemLedger() {
                         {entry.outQty && `${entry.outQty}`}
                       </div>
                       <div className="text-right font-medium">{entry.balance}</div>
-                      <div className="text-right">{entry.unitPrice} Rs</div>
+                      <div className="text-right">₹ {entry.unitPrice}</div>
                       <div className={`text-right font-medium ${entry.value.includes('-') ? 'text-red-600' : 'text-green-600'}`}>
-                        {entry.value} Rs
+                        ₹ {entry.value}
                       </div>
                       <div>
                         <span className={`px-2 py-1 rounded text-xs ${
@@ -633,7 +633,7 @@ export default function ItemLedger() {
                     </div>
                     <div></div>
                     <div className="text-right text-teal-700">
-                      {totalValue.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
+                      ₹ {totalValue.toLocaleString('en-BD', { minimumFractionDigits: 2 })}
                     </div>
                     <div className="col-span-2"></div>
                   </div>

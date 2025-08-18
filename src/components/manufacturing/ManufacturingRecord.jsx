@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-export default function ServiceExpenseRecord() {
+export default function ManufacturingRecord() {
   // Get today's date in DD/MM/YYYY format
   const getTodayFormatted = () => {
     const today = new Date()
@@ -37,63 +37,124 @@ export default function ServiceExpenseRecord() {
     toDate: getTodayFormatted()
   })
 
-  const [expenseRecords, setExpenseRecords] = useState([
+  const [manufacturingEntries, setManufacturingEntries] = useState([
     {
       id: 1,
-      date: '2024-09-30',
-      voucherNo: 'SE1',
-      supplierName: 'Conmix Ltd',
-      institution: '',
-      itemName: 'Recon PH (MB)',
-      quantity: '10 Bag, 0 KG',
-      rate: '3,300.00',
-      discount: '0%',
-      GST: '0%',
-      total: '33,000.00',
-      expenseBy: 'SOFT TASK',
-      type: 'Material Purchase'
+      date: '2025-08-01',
+      product: 'Aluminum Sheets',
+      batchNo: 'MFG-2025-001',
+      particulars: 'Sheet Metal Production - Grade A Aluminum',
+      category: 'Metal Processing',
+      location: 'Production Floor A',
+      user: 'John Doe',
+      quantity: '500 pcs',
+      amount: '45,500.00',
+      status: 'Completed',
+      type: 'with item'
     },
     {
       id: 2,
-      date: '2024-09-29',
-      voucherNo: 'SE2',
-      supplierName: 'Tech Solutions Ltd',
-      institution: 'XYZ Corp',
-      itemName: 'Hardware Components',
-      quantity: '5 Sets',
-      rate: '2,500.00',
-      discount: '5%',
-      GST: '15%',
-      total: '13,593.75',
-      expenseBy: 'Tech Team',
-      type: 'Equipment Purchase'
+      date: '2025-08-03',
+      product: 'Assembly Services',
+      batchNo: 'MFG-2025-002',
+      particulars: 'Custom Assembly Work - Electronic Components',
+      category: 'Assembly',
+      location: 'Assembly Line 1',
+      user: 'Jane Smith',
+      quantity: '200 units',
+      amount: '125,000.00',
+      status: 'In Progress',
+      type: 'without item'
     },
     {
       id: 3,
-      date: '2024-09-28',
-      voucherNo: 'SE3',
-      supplierName: 'Office Supplies Co',
-      institution: 'ABC Trading',
-      itemName: 'Office Equipment',
-      quantity: '8 Pcs',
-      rate: '1,200.00',
-      discount: '10%',
-      GST: '15%',
-      total: '9,936.00',
-      expenseBy: 'Admin Team',
-      type: 'Office Supplies'
+      date: '2025-08-05',
+      product: 'CNC Machined Parts',
+      batchNo: 'MFG-2025-003',
+      particulars: 'Precision Machining - Steel Components',
+      category: 'Machining',
+      location: 'CNC Workshop',
+      user: 'Ahmed Khan',
+      quantity: '150 pcs',
+      amount: '75,200.00',
+      status: 'Quality Check',
+      type: 'with item'
+    },
+    {
+      id: 4,
+      date: '2025-08-07',
+      product: 'Finishing Services',
+      batchNo: 'MFG-2025-004',
+      particulars: 'Surface Treatment - Anodizing Process',
+      category: 'Finishing',
+      location: 'Finishing Bay',
+      user: 'Maria Rodriguez',
+      quantity: '300 pcs',
+      amount: '22,500.00',
+      status: 'Pending',
+      type: 'without item'
+    },
+    {
+      id: 5,
+      date: '2025-08-10',
+      product: 'Welded Structures',
+      batchNo: 'MFG-2025-005',
+      particulars: 'Structural Welding - Steel Framework',
+      category: 'Welding',
+      location: 'Welding Station',
+      user: 'David Wilson',
+      quantity: '50 units',
+      amount: '95,300.00',
+      status: 'Completed',
+      type: 'with item'
+    },
+    {
+      id: 6,
+      date: '2025-08-12',
+      product: 'Quality Testing',
+      batchNo: 'MFG-2025-006',
+      particulars: 'Quality Assurance Testing Services',
+      category: 'Quality Control',
+      location: 'QC Laboratory',
+      user: 'Admin User',
+      quantity: '100 tests',
+      amount: '18,600.00',
+      status: 'In Progress',
+      type: 'without item'
+    },
+    {
+      id: 7,
+      date: '2025-08-17',
+      product: 'Today\'s Production',
+      batchNo: 'MFG-2025-007',
+      particulars: 'Today\'s Manufacturing - Test Batch',
+      category: 'Test Production',
+      location: 'Test Area',
+      user: 'Test User',
+      quantity: '75 pcs',
+      amount: '35,000.00',
+      status: 'In Progress',
+      type: 'without item'
     }
   ])
 
-  const [filteredRecords, setFilteredRecords] = useState([])
-  const [showTable, setShowTable] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [showSearch, setShowSearch] = useState(false)
+  const [filteredEntries, setFilteredEntries] = useState([])
+  const [showTable, setShowTable] = useState(false)
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [currentPage, setCurrentPage] = useState(1)
 
-  const filterTypes = ['All', 'Material Purchase', 'Equipment Purchase', 'Office Supplies', 'Service Expense', 'Transport Cost']
-  const recordTypes = ['with item', 'without item', 'summary only']
+  const filterTypes = [
+    'All',
+    'By Product',
+    'By Batch',
+    'By Category',
+    'By Location',
+    'By User'
+  ]
+
+  const recordTypes = ['with item', 'without item']
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -125,25 +186,23 @@ export default function ServiceExpenseRecord() {
         return
       }
       
-      const filtered = expenseRecords.filter(record => {
-        const recordDate = new Date(record.date)
-        const dateInRange = recordDate >= fromDate && recordDate <= toDate
+      const filtered = manufacturingEntries.filter(entry => {
+        const entryDate = new Date(entry.date)
+        const dateInRange = entryDate >= fromDate && entryDate <= toDate
         
-        // Filter by type if not "All"
-        if (formData.filterType === 'All') {
-          return dateInRange
-        }
+        // Filter by record type
+        const typeMatch = entry.type === formData.recordType
         
-        return record.type === formData.filterType && dateInRange
+        return dateInRange && typeMatch
       })
       
-      setFilteredRecords(filtered)
+      setFilteredEntries(filtered)
       setShowTable(true)
-      setCurrentPage(1) // Reset to first page
-      console.log('Generating report for:', formData)
-      console.log('Filtered records:', filtered.length)
+      setCurrentPage(1)
+      console.log('Generating manufacturing report for:', formData)
+      console.log('Filtered entries:', filtered.length)
     } catch (error) {
-      console.error('Error filtering records:', error)
+      console.error('Error filtering entries:', error)
       alert('Error processing dates. Please check date format.')
     }
   }
@@ -155,15 +214,14 @@ export default function ServiceExpenseRecord() {
     if (searchTerm.trim() === '') {
       handleGetReport() // Re-apply original filters
     } else {
-      const filtered = filteredRecords.filter(record =>
-        record.voucherNo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        record.supplierName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        record.institution.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        record.itemName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        record.expenseBy.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        record.type.toLowerCase().includes(searchTerm.toLowerCase())
+      const filtered = filteredEntries.filter(entry =>
+        entry.particulars.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.product.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.batchNo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.status.toLowerCase().includes(searchTerm.toLowerCase())
       )
-      setFilteredRecords(filtered)
+      setFilteredEntries(filtered)
     }
   }
 
@@ -181,58 +239,65 @@ export default function ServiceExpenseRecord() {
     const printContent = `
       <html>
         <head>
-          <title>Service Expense Record Report</title>
+          <title>Manufacturing Record Report</title>
           <style>
-            body { font-family: Arial, sans-serif; }
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            .header { text-align: center; margin-bottom: 30px; }
+            .company-name { font-size: 24px; font-weight: bold; color: #0f766e; margin-bottom: 10px; }
             table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; font-size: 12px; }
             th { background-color: #f2f2f2; font-weight: bold; }
-            h1 { text-align: center; color: #0f766e; }
+            .footer { margin-top: 40px; text-align: center; font-size: 10px; color: #666; }
             .text-right { text-align: right; }
           </style>
         </head>
         <body>
-          <h1>Service Expense Record Report</h1>
-          <p>Filter Type: ${formData.filterType}</p>
-          <p>Record Type: ${formData.recordType}</p>
-          <p>Period: ${formData.fromDate} to ${formData.toDate}</p>
-          <p>Generated on: ${new Date().toLocaleString()}</p>
+          <div class="header">
+            <div class="company-name">Fayullah Factory</div>
+            <div class="report-title">Manufacturing Record Report</div>
+            <div>Filter Type: ${formData.filterType}</div>
+            <div>Record Type: ${formData.recordType}</div>
+            <div>Period: ${formData.fromDate} to ${formData.toDate}</div>
+            <div>Generated on: ${new Date().toLocaleString()}</div>
+            <div>Total Records: ${filteredEntries.length}</div>
+          </div>
+          
           <table>
             <thead>
               <tr>
                 <th>Date</th>
-                <th>Voucher No</th>
-                <th>Supplier Name</th>
-                <th>Institution</th>
-                <th>Item Name</th>
+                <th>Product</th>
+                <th>Batch No</th>
+                <th>Particulars</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>User</th>
                 <th>Quantity</th>
-                <th>Rate</th>
-                <th>Discount</th>
-                <th>GST</th>
-                <th>Total</th>
-                <th>Expense By</th>
-                <th>Type</th>
+                <th>Amount</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
-              ${filteredRecords.map(record => `
+              ${filteredEntries.map(entry => `
                 <tr>
-                  <td>${new Date(record.date).toLocaleDateString('en-GB')}</td>
-                  <td>${record.voucherNo}</td>
-                  <td>${record.supplierName}</td>
-                  <td>${record.institution}</td>
-                  <td>${record.itemName}</td>
-                  <td>${record.quantity}</td>
-                  <td class="text-right">${record.rate}</td>
-                  <td class="text-right">${record.discount}</td>
-                  <td class="text-right">${record.GST}</td>
-                  <td class="text-right">${record.total}</td>
-                  <td>${record.expenseBy}</td>
-                  <td>${record.type}</td>
+                  <td>${new Date(entry.date).toLocaleDateString('en-GB')}</td>
+                  <td>${entry.product}</td>
+                  <td>${entry.batchNo}</td>
+                  <td>${entry.particulars}</td>
+                  <td>${entry.category}</td>
+                  <td>${entry.location}</td>
+                  <td>${entry.user}</td>
+                  <td>${entry.quantity}</td>
+                  <td class="text-right">₹ ${entry.amount}</td>
+                  <td>${entry.status}</td>
                 </tr>
               `).join('')}
             </tbody>
           </table>
+          
+          <div class="footer">
+            Manufacturing Report - Fayullah Factory Management System
+          </div>
         </body>
       </html>
     `
@@ -245,78 +310,95 @@ export default function ServiceExpenseRecord() {
   // Export functionality
   const handleExport = () => {
     const csvContent = [
-      ['Date', 'Voucher No', 'Supplier Name', 'Institution', 'Item Name', 'Quantity', 'Rate', 'Discount', 'GST', 'Total', 'Expense By', 'Type'],
-      ...filteredRecords.map(record => [
-        new Date(record.date).toLocaleDateString('en-GB'),
-        record.voucherNo,
-        record.supplierName,
-        record.institution,
-        record.itemName,
-        record.quantity,
-        record.rate,
-        record.discount,
-        record.GST,
-        record.total,
-        record.expenseBy,
-        record.type
+      ['Fayullah Factory - Manufacturing Record Report'],
+      [`Filter Type: ${formData.filterType}`],
+      [`Record Type: ${formData.recordType}`],
+      [`Period: ${formData.fromDate} to ${formData.toDate}`],
+      [`Generated on: ${new Date().toLocaleString()}`],
+      [`Total Records: ${filteredEntries.length}`],
+      [],
+      ['Date', 'Product', 'Batch No', 'Particulars', 'Category', 'Location', 'User', 'Quantity', 'Amount', 'Status'],
+      ...filteredEntries.map(entry => [
+        new Date(entry.date).toLocaleDateString('en-GB'),
+        entry.product,
+        entry.batchNo,
+        entry.particulars,
+        entry.category,
+        entry.location,
+        entry.user,
+        entry.quantity,
+        entry.amount,
+        entry.status
       ])
-    ].map(row => row.join(',')).join('\n')
+    ].map(row => Array.isArray(row) ? row.join(',') : row).join('\n')
 
     const blob = new Blob([csvContent], { type: 'text/csv' })
     const url = window.URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = 'service_expense_record.csv'
+    a.download = `manufacturing_record_${formData.fromDate.replace(/\//g, '-')}_to_${formData.toDate.replace(/\//g, '-')}.csv`
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
     window.URL.revokeObjectURL(url)
   }
 
-  // Delete record
-  const handleDeleteRecord = (id) => {
-    if (window.confirm('Are you sure you want to delete this record?')) {
-      const updatedRecords = expenseRecords.filter(record => record.id !== id)
-      setExpenseRecords(updatedRecords)
+  // Delete entry
+  const handleDeleteEntry = (id) => {
+    if (window.confirm('Are you sure you want to delete this manufacturing record?')) {
+      const updatedEntries = manufacturingEntries.filter(entry => entry.id !== id)
+      setManufacturingEntries(updatedEntries)
       
-      // Update filtered records if table is shown
+      // Update filtered entries if table is shown
       if (showTable) {
         const fromDate = parseDisplayDate(formData.fromDate)
         const toDate = parseDisplayDate(formData.toDate)
         
-        const filtered = updatedRecords.filter(record => {
-          const recordDate = new Date(record.date)
-          const dateInRange = recordDate >= fromDate && recordDate <= toDate
+        const filtered = updatedEntries.filter(entry => {
+          const entryDate = new Date(entry.date)
+          const dateInRange = entryDate >= fromDate && entryDate <= toDate
+          const typeMatch = entry.type === formData.recordType
           
-          if (formData.filterType === 'All') {
-            return dateInRange
-          }
-          
-          return record.type === formData.filterType && dateInRange
+          return dateInRange && typeMatch
         })
         
-        setFilteredRecords(filtered)
+        setFilteredEntries(filtered)
       }
     }
   }
 
+  // Set date range shortcuts
+  const setDateRange = (days) => {
+    const today = new Date()
+    const fromDate = new Date(today)
+    fromDate.setDate(today.getDate() - days)
+    
+    setFormData(prev => ({
+      ...prev,
+      fromDate: formatDateForDisplay(fromDate.toISOString().split('T')[0]),
+      toDate: getTodayFormatted()
+    }))
+  }
+
   // Pagination
-  const totalPages = Math.ceil(filteredRecords.length / rowsPerPage)
+  const totalPages = Math.ceil(filteredEntries.length / rowsPerPage)
   const startIndex = (currentPage - 1) * rowsPerPage
   const endIndex = startIndex + rowsPerPage
-  const currentRecords = filteredRecords.slice(startIndex, endIndex)
+  const currentEntries = filteredEntries.slice(startIndex, endIndex)
 
-  // Calculate totals
-  const totalAmount = filteredRecords.reduce((sum, record) => 
-    sum + (parseFloat(record.total.replace(',', '')) || 0), 0
+  // Calculate total amount
+  const totalAmount = filteredEntries.reduce((sum, entry) => 
+    sum + parseFloat(entry.amount.replace(',', '')), 0
   )
 
   return (
     <div className="p-4">
       <div className="bg-white rounded-lg shadow-sm border">
-        <div className="p-4">
-          <h2 className="font-medium text-lg mb-6">Service Expense Record</h2>
-          
+        <div className="bg-teal-600 text-white px-4 py-3 rounded-t-lg">
+          <h2 className="font-medium text-lg">Manufacturing Record</h2>
+        </div>
+        
+        <div className="p-6">
           {/* Filter Section */}
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
             {/* Filter Type */}
@@ -373,43 +455,54 @@ export default function ServiceExpenseRecord() {
             <div className="flex items-end">
               <button 
                 onClick={handleGetReport}
-                className="bg-teal-600 text-white px-6 py-2 rounded text-sm hover:bg-teal-700 transition-colors flex items-center gap-2 w-full justify-center"
+                className="bg-teal-600 text-white px-6 py-2 rounded text-sm hover:bg-teal-700 transition-colors flex items-center gap-2"
               >
                 🔍 REPORT
               </button>
             </div>
           </div>
 
-          {/* Print Button */}
-          <div className="mb-4">
+          {/* Date Range Shortcuts */}
+          <div className="flex flex-wrap gap-2 mb-4">
             <button 
-              onClick={handlePrint}
-              className="p-2 border rounded hover:bg-gray-50 transition-colors"
-              title="Print Report"
+              onClick={() => setDateRange(0)}
+              className="text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded transition-colors"
             >
-              🖨️
+              Today
+            </button>
+            <button 
+              onClick={() => setDateRange(7)}
+              className="text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded transition-colors"
+            >
+              Last 7 Days
+            </button>
+            <button 
+              onClick={() => setDateRange(30)}
+              className="text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded transition-colors"
+            >
+              Last 30 Days
+            </button>
+            <button 
+              onClick={() => setDateRange(90)}
+              className="text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded transition-colors"
+            >
+              Last 90 Days
             </button>
           </div>
 
-          {/* Current Filter Display */}
+          {/* Current Date Range Display */}
           <div className="text-sm text-gray-600 mb-4">
-            Filter: <span className="font-medium">{formData.filterType}</span>
-            <span className="ml-4">
-              Record Type: <span className="font-medium">{formData.recordType}</span>
-            </span>
-            <span className="ml-4">
-              Date Range: <span className="font-medium">{formData.fromDate} to {formData.toDate}</span>
-            </span>
+            Selected Date Range: <span className="font-medium">{formData.fromDate} to {formData.toDate}</span>
           </div>
         </div>
       </div>
 
-      {/* Service Expense Record Report */}
+      {/* Manufacturing Record Report */}
       {showTable && (
         <div className="bg-white rounded-lg shadow-sm border mt-6">
           <div className="p-4">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium">Service Expense Record Report</h3>
+              <h3 className="text-lg font-medium">Manufacturing Record Report</h3>
               <div className="flex gap-2">
                 <button 
                   onClick={() => setShowSearch(!showSearch)}
@@ -440,7 +533,7 @@ export default function ServiceExpenseRecord() {
               <div className="mb-4 flex gap-2">
                 <input
                   type="text"
-                  placeholder="Search by voucher, supplier, institution, item, expense person, or type..."
+                  placeholder="Search by product, batch no, particulars, category, or status..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="flex-1 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-teal-500"
@@ -462,57 +555,54 @@ export default function ServiceExpenseRecord() {
 
             {/* Results Summary */}
             <div className="mb-4 text-sm text-gray-600">
-              Showing {filteredRecords.length} records from {formData.fromDate} to {formData.toDate}
-              {formData.filterType !== 'All' && ` (Filter: ${formData.filterType})`}
+              Showing {filteredEntries.length} records for {formData.recordType} manufacturing from {formData.fromDate} to {formData.toDate}
             </div>
 
             {/* Table Headers */}
             <div className="overflow-x-auto">
               <div className="min-w-full">
-                <div className="grid grid-cols-13 gap-2 text-xs font-semibold text-gray-700 border-b pb-2 mb-4">
+                <div className="grid grid-cols-11 gap-2 text-xs font-semibold text-gray-700 border-b pb-2 mb-4">
                   <div>Date</div>
-                  <div>Voucher No</div>
-                  <div>Supplier</div>
-                  <div>Institution</div>
-                  <div>Item Name</div>
-                  <div>Qty</div>
-                  <div className="text-right">Rate</div>
-                  <div>Disc%</div>
-                  <div>GST%</div>
-                  <div className="text-right">Total</div>
-                  <div>Expense By</div>
-                  <div>Type</div>
+                  <div>Product</div>
+                  <div>Batch No</div>
+                  <div>Particulars</div>
+                  <div>Category</div>
+                  <div>Location</div>
+                  <div>User</div>
+                  <div>Quantity</div>
+                  <div className="text-right">Amount</div>
+                  <div>Status</div>
                   <div>Actions</div>
                 </div>
 
                 {/* Table Rows */}
-                {currentRecords.length > 0 ? (
-                  currentRecords.map((record) => (
-                    <div key={record.id} className="grid grid-cols-13 gap-2 text-xs py-2 border-b hover:bg-gray-50">
-                      <div>{new Date(record.date).toLocaleDateString('en-GB')}</div>
-                      <div className="font-medium text-teal-600">{record.voucherNo}</div>
-                      <div className="truncate" title={record.supplierName}>{record.supplierName}</div>
-                      <div className="truncate" title={record.institution}>{record.institution}</div>
-                      <div className="truncate" title={record.itemName}>{record.itemName}</div>
-                      <div>{record.quantity}</div>
-                      <div className="text-right">₹ {record.rate}</div>
-                      <div className="text-center">{record.discount}</div>
-                      <div className="text-center">{record.GST}</div>
-                      <div className="text-right font-medium text-red-600">₹ {record.total}</div>
-                      <div>{record.expenseBy}</div>
+                {currentEntries.length > 0 ? (
+                  currentEntries.map((entry) => (
+                    <div key={entry.id} className="grid grid-cols-11 gap-2 text-xs py-2 border-b hover:bg-gray-50">
+                      <div>{new Date(entry.date).toLocaleDateString('en-GB')}</div>
+                      <div className="font-medium text-gray-700">{entry.product}</div>
+                      <div className="font-medium text-teal-600">{entry.batchNo}</div>
+                      <div className="truncate" title={entry.particulars}>{entry.particulars}</div>
+                      <div>{entry.category}</div>
+                      <div>{entry.location}</div>
+                      <div>{entry.user}</div>
+                      <div className="font-medium text-blue-600">{entry.quantity}</div>
+                      <div className="text-right font-medium text-green-600">
+                        ₹ {entry.amount}
+                      </div>
                       <div>
                         <span className={`px-2 py-1 rounded text-xs ${
-                          record.type === 'Material Purchase' 
-                            ? 'bg-blue-100 text-blue-800' 
-                            : record.type === 'Equipment Purchase'
-                            ? 'bg-green-100 text-green-800'
-                            : record.type === 'Office Supplies'
+                          entry.status === 'Completed' 
+                            ? 'bg-green-100 text-green-800' 
+                            : entry.status === 'Quality Check'
+                            ? 'bg-blue-100 text-blue-800'
+                            : entry.status === 'Pending'
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : entry.status === 'In Progress'
                             ? 'bg-purple-100 text-purple-800'
-                            : record.type === 'Service Expense'
-                            ? 'bg-orange-100 text-orange-800'
                             : 'bg-gray-100 text-gray-800'
                         }`}>
-                          {record.type}
+                          {entry.status}
                         </span>
                       </div>
                       <div className="flex gap-1">
@@ -523,7 +613,7 @@ export default function ServiceExpenseRecord() {
                           👁️
                         </button>
                         <button 
-                          onClick={() => handleDeleteRecord(record.id)}
+                          onClick={() => handleDeleteEntry(entry.id)}
                           className="text-red-600 hover:text-red-800 text-xs"
                           title="Delete"
                         >
@@ -534,18 +624,18 @@ export default function ServiceExpenseRecord() {
                   ))
                 ) : (
                   <div className="text-center py-8 text-gray-500">
-                    {searchTerm ? 'No matching records found' : 'No records found for the selected criteria'}
+                    {searchTerm ? 'No matching records found' : 'Sorry, no matching records found'}
                   </div>
                 )}
 
                 {/* Summary Row */}
-                {filteredRecords.length > 0 && (
-                  <div className="grid grid-cols-13 gap-2 text-xs py-3 border-t-2 border-teal-600 bg-teal-50 font-semibold">
-                    <div className="col-span-9 text-right">TOTAL:</div>
-                    <div className="text-right text-red-600">
+                {filteredEntries.length > 0 && (
+                  <div className="grid grid-cols-11 gap-2 text-xs py-3 border-t-2 border-teal-600 bg-teal-50 font-semibold">
+                    <div className="col-span-8 text-right">TOTAL AMOUNT:</div>
+                    <div className="text-right text-green-600">
                       ₹ {totalAmount.toLocaleString('en-BD', { minimumFractionDigits: 2 })}
                     </div>
-                    <div className="col-span-3"></div>
+                    <div className="col-span-2"></div>
                   </div>
                 )}
               </div>
@@ -571,9 +661,9 @@ export default function ServiceExpenseRecord() {
               </div>
               <div className="flex items-center gap-4">
                 <span>
-                  {filteredRecords.length === 0 
+                  {filteredEntries.length === 0 
                     ? '0-0 of 0' 
-                    : `${startIndex + 1}-${Math.min(endIndex, filteredRecords.length)} of ${filteredRecords.length}`
+                    : `${startIndex + 1}-${Math.min(endIndex, filteredEntries.length)} of ${filteredEntries.length}`
                   }
                 </span>
                 <div className="flex gap-1">

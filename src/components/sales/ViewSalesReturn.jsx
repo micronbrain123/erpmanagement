@@ -186,7 +186,7 @@ export default function ViewSalesReturn() {
           <div class="total-section">
             <div class="total-row"><strong>Sub Total:</strong> ${voucherData.subTotal}</div>
             <div class="total-row"><strong>Transport Cost:</strong> ${voucherData.transportCost}</div>
-            <div class="total-row"><strong>Grand Total: Rs</strong> ${voucherData.grandTotal}</div>
+            <div class="total-row"><strong>Grand Total: ₹ </strong> ${voucherData.grandTotal}</div>
           </div>
 
           <div style="margin-top: 20px;">
@@ -309,7 +309,7 @@ export default function ViewSalesReturn() {
                 <div className="font-semibold">Transport Cost :</div>
                 <div className="font-semibold">{voucherData.transportCost}</div>
                 
-                <div className="font-semibold">Grand Total : Rs</div>
+                <div className="font-semibold">Grand Total : ₹ </div>
                 <div className="font-semibold">{voucherData.grandTotal}</div>
               </div>
             </div>

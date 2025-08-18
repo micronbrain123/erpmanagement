@@ -540,12 +540,12 @@ export default function EmployeeLedger() {
                       <div className="truncate" title={entry.particulars}>{entry.particulars}</div>
                       <div className="font-medium text-teal-600">{entry.paymentCode}</div>
                       <div className="text-right font-medium text-green-600">
-                        {entry.debit && `${entry.debit} Rs`}
+                        {entry.debit && `₹ ${entry.debit}`}
                       </div>
                       <div className="text-right font-medium text-red-600">
-                        {entry.credit && `${entry.credit} Rs`}
+                        {entry.credit && `₹ ${entry.credit}`}
                       </div>
-                      <div className="text-right font-medium">{entry.balance} Rs</div>
+                      <div className="text-right font-medium">₹ {entry.balance}</div>
                       <div>
                         <span className={`px-2 py-1 rounded text-xs ${
                           entry.type === 'Salary' 
@@ -589,13 +589,13 @@ export default function EmployeeLedger() {
                   <div className="grid grid-cols-9 gap-2 text-xs py-3 border-t-2 border-teal-600 bg-teal-50 font-semibold">
                     <div className="col-span-4 text-right">TOTAL:</div>
                     <div className="text-right text-green-600">
-                      {totalDebit.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
+                      ₹ {totalDebit.toLocaleString('en-BD', { minimumFractionDigits: 2 })}
                     </div>
                     <div className="text-right text-red-600">
-                      {totalCredit.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
+                      ₹ {totalCredit.toLocaleString('en-BD', { minimumFractionDigits: 2 })}
                     </div>
                     <div className="text-right text-teal-700">
-                      {(totalDebit - totalCredit).toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
+                      ₹ {(totalDebit - totalCredit).toLocaleString('en-BD', { minimumFractionDigits: 2 })}
                     </div>
                     <div className="col-span-2"></div>
                   </div>

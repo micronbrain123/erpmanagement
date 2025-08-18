@@ -31,7 +31,7 @@ export default function PurchaseReturnEntry() {
       supplier: 'ABC Suppliers Ltd',
       entryDate: '2025-08-01',
       items: 3,
-      totalAmount: '7,500.00 Rs',
+      totalAmount: '₹ 7,500.00',
       status: 'Completed'
     },
     {
@@ -40,7 +40,7 @@ export default function PurchaseReturnEntry() {
       supplier: 'XYZ Trading Co',
       entryDate: '2025-08-02',
       items: 2,
-      totalAmount: '4,200.00 Rs',
+      totalAmount: ' ₹4,200.00',
       status: 'Completed'
     }
   ])
@@ -90,7 +90,7 @@ export default function PurchaseReturnEntry() {
       supplier: formData.supplierName,
       entryDate: formData.entryDate,
       items: purchaseReturnItems.length,
-      totalAmount: `${formData.grandTotal} Rs`,
+      totalAmount: `₹ ${formData.grandTotal}`,
       status: 'Completed'
     }
     

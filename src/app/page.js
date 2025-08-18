@@ -9,7 +9,9 @@ import QuotationContent from '@/components/quotation/QuotationContent'
 import OrdersContent from '@/components/orders/OrdersContent'
 import InventoryContent from '@/components/inventory/InventoryContent'
 import ServiceContent from '@/components/service/ServiceContent'
-
+import ManufacturingContent from '@/components/manufacturing/ManufacturingContent'
+// import AccountsContent from '@/components/accounts/AccountsContent'
+// reports and crm has to be imported 
 
 export default function Home() {
   const { activeTab } = useNavigation()
@@ -28,16 +30,9 @@ export default function Home() {
       case 'service':
         return <ServiceContent />
       case 'purchase':
-        return <PurchaseModuleContent/>
+        return <PurchaseModuleContent />
       case 'manufacturing':
-        return (
-          <div className="bg-gray-50 min-h-screen">
-            <h1 className="text-2xl font-bold text-gray-800 mb-4">Manufacturing Module</h1>
-            <div className="bg-white rounded-lg shadow p-6">
-              <p>Manufacturing content will go here...</p>
-            </div>
-          </div>
-        )
+        return <ManufacturingContent />
       case 'inventory':
         return <InventoryContent />
       case 'accounts':

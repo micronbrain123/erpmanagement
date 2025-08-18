@@ -58,7 +58,7 @@ export default function PurchaseOrderEntry() {
       supplier: 'ABC Supplies Ltd',
       date: '15/08/2025',
       items: 3,
-      totalAmount: '22,000.00 Rs',
+      totalAmount: '₹ 22,000.00',
       status: 'Draft',
       createdAt: new Date('2025-08-15').getTime()
     },
@@ -68,7 +68,7 @@ export default function PurchaseOrderEntry() {
       supplier: 'XYZ Materials Inc',
       date: '16/08/2025',
       items: 2,
-      totalAmount: '15,800.00 Rs',
+      totalAmount: '₹ 15,800.00',
       status: 'Approved',
       createdAt: new Date('2025-08-16').getTime()
     }
@@ -195,7 +195,7 @@ export default function PurchaseOrderEntry() {
       supplier: formData.supplierName,
       date: formData.entryDate,
       items: purchaseCart.length,
-      totalAmount: `${formData.grandTotal} Rs`,
+      totalAmount: `₹ ${formData.grandTotal}`,
       status: 'Draft',
       createdAt: Date.now()
     }

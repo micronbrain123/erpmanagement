@@ -58,7 +58,7 @@ export default function SalesOrderEntry() {
       customer: 'ABC Corporation',
       date: '15/08/2025',
       items: 3,
-      totalAmount: '18,000.00 Rs',
+      totalAmount: '₹ 18,000.00',
       status: 'Pending',
       createdAt: new Date('2025-08-15').getTime()
     },
@@ -68,7 +68,7 @@ export default function SalesOrderEntry() {
       customer: 'XYZ Limited',
       date: '16/08/2025',
       items: 2,
-      totalAmount: '12,500.00 Rs',
+      totalAmount: '₹ 12,500.00',
       status: 'Confirmed',
       createdAt: new Date('2025-08-16').getTime()
     }
@@ -194,7 +194,7 @@ export default function SalesOrderEntry() {
       customer: formData.customerName,
       date: formData.entryDate,
       items: salesCart.length,
-      totalAmount: `${formData.grandTotal} Rs`,
+      totalAmount: `₹ ${formData.grandTotal}`,
       status: 'Pending',
       createdAt: Date.now()
     }

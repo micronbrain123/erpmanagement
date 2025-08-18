@@ -37,24 +37,24 @@ export default function DashboardContent() {
 
   // Sample data for the dashboard
   const salesData = [
-    { month: 'August', amount: '2,005.00 Rs' },
-    { month: 'July', amount: '858,388.00 Rs' },
-    { month: 'June', amount: '75,970.00 Rs' },
-    { month: 'May', amount: '849,445.33 Rs' }
+    { month: 'August', amount: '₹ 2,005.00' },
+    { month: 'July', amount: '₹ 858,388.00' },
+    { month: 'June', amount: '₹ 75,970.00' },
+    { month: 'May', amount: '₹ 849,445.33' }
   ]
 
   const todayData = [
-    { label: 'Today Due Collection', amount: '0.00 Rs' },
-    { label: 'Today Sales', amount: '0.00 Rs' },
-    { label: 'Today Expense', amount: '5.00 Rs' },
-    { label: 'Today Profit/ Loss', amount: '0.00 Rs' }
+    { label: 'Today Due Collection', amount: '₹ 0.00' },
+    { label: 'Today Sales', amount: '₹ 0.00' },
+    { label: 'Today Expense', amount: '₹ 5.00' },
+    { label: 'Today Profit/ Loss', amount: '₹ 0.00' }
   ]
 
   const balanceData = [
-    { account: 'Cash In Hand', balance: '1,512,992,558.50 Rs' },
-    { account: 'Bank Accounts', balance: '6,224,604.00 Rs' },
-    { account: 'Customer Due', balance: '1,340,202.00 Rs' },
-    { account: 'Supplier Due', balance: '-3,404,497.42 Rs' }
+    { account: 'Cash In Hand', balance: '₹ 1,512,992,558.50' },
+    { account: 'Bank Accounts', balance: '₹ 6,224,604.00' },
+    { account: 'Customer Due', balance: '₹ 1,340,202.00' },
+    { account: 'Supplier Due', balance: '₹ -3,404,497.42' }
   ]
 
   const modules = [

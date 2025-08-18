@@ -275,9 +275,9 @@ export default function TransferPendingRecord() {
                   <td>${entry.particulars}</td>
                   <td>${entry.category}</td>
                   <td>${entry.user}</td>
-                  <td class="text-right">${entry.amount} Rs</td>
-                  <td class="text-right">${entry.transportCost} Rs</td>
-                  <td class="text-right">${(parseFloat(entry.amount.replace(',', '')) + parseFloat(entry.transportCost.replace(',', ''))).toFixed(2)} Rs</td>
+                  <td class="text-right">₹ ${entry.amount}</td>
+                  <td class="text-right">₹ ${entry.transportCost}</td>
+                  <td class="text-right">₹ ${(parseFloat(entry.amount.replace(',', '')) + parseFloat(entry.transportCost.replace(',', ''))).toFixed(2)}</td>
                   <td>${entry.status}</td>
                 </tr>
               `).join('')}
@@ -609,10 +609,10 @@ export default function TransferPendingRecord() {
                       <div>{entry.category}</div>
                       <div>{entry.user}</div>
                       <div className="text-right font-medium text-green-600">
-                        {entry.amount} Rs
+                        ₹ {entry.amount}
                       </div>
                       <div className="text-right font-medium text-orange-600">
-                        {entry.transportCost} Rs
+                        ₹ {entry.transportCost}
                       </div>
                       <div>
                         <span className={`px-2 py-1 rounded text-xs ${
@@ -660,10 +660,10 @@ export default function TransferPendingRecord() {
                   <div className="grid grid-cols-13 gap-2 text-xs py-3 border-t-2 border-teal-600 bg-teal-50 font-semibold">
                     <div className="col-span-8 text-right">TOTALS:</div>
                     <div className="text-right text-green-600">
-                      {totalAmount.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
+                      ₹ {totalAmount.toLocaleString('en-BD', { minimumFractionDigits: 2 })}
                     </div>
                     <div className="text-right text-orange-600">
-                      {totalTransportCost.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
+                      ₹ {totalTransportCost.toLocaleString('en-BD', { minimumFractionDigits: 2 })}
                     </div>
                     <div className="col-span-3"></div>
                   </div>
@@ -674,7 +674,7 @@ export default function TransferPendingRecord() {
                   <div className="grid grid-cols-13 gap-2 text-xs py-2 bg-gray-100 font-semibold">
                     <div className="col-span-8 text-right">GRAND TOTAL:</div>
                     <div className="col-span-2 text-right text-teal-600">
-                      {grandTotal.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
+                      ₹ {grandTotal.toLocaleString('en-BD', { minimumFractionDigits: 2 })}
                     </div>
                     <div className="col-span-3"></div>
                   </div>

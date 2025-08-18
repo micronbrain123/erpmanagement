@@ -63,7 +63,7 @@ export default function SalaryPayment() {
       payFromAcc: 'Cash',
       payForMonth: 'August',
       year: '2025',
-      payTotal: '25,000.00 Rs',
+      payTotal: '₹ 25,000.00',
       narration: 'Monthly salary payment',
       paymentBy: 'Admin',
       status: 'Completed',
@@ -77,7 +77,7 @@ export default function SalaryPayment() {
       payFromAcc: 'Bank',
       payForMonth: 'August',
       year: '2025',
-      payTotal: '30,000.00 Rs',
+      payTotal: '₹ 30,000.00',
       narration: 'Monthly salary payment',
       paymentBy: 'Admin',
       status: 'Pending',
@@ -174,7 +174,7 @@ export default function SalaryPayment() {
       payFromAcc: formData.paymentFromAccount,
       payForMonth: formData.payMonth,
       year: formData.payYear,
-      payTotal: `${parseFloat(item.amount).toFixed(2)} Rs`,
+      payTotal: `₹ ${parseFloat(item.amount).toFixed(2)}`,
       narration: formData.narration || 'Salary payment',
       paymentBy: 'Admin',
       status: 'Completed',
@@ -575,7 +575,7 @@ export default function SalaryPayment() {
                       <div className="text-xs text-gray-500">{item.paymentType} - {item.account}</div>
                     </div>
                     <div className="text-sm font-medium text-green-600">
-                      {parseFloat(item.amount).toFixed(2)} Rs
+                      ₹ {parseFloat(item.amount).toFixed(2)}
                     </div>
                     <button 
                       onClick={() => handleRemoveFromCart(item.id)}
@@ -590,7 +590,7 @@ export default function SalaryPayment() {
               <div className="mt-3 pt-3 border-t border-gray-200">
                 <div className="flex justify-between items-center">
                   <span className="font-semibold">Total Amount:</span>
-                  <span className="font-semibold text-lg text-green-600">{calculateCartTotal()} Rs</span>
+                  <span className="font-semibold text-lg text-green-600">₹ {calculateCartTotal()}</span>
                 </div>
               </div>
             </div>

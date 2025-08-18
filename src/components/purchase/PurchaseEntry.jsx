@@ -34,9 +34,9 @@ export default function PurchaseEntry() {
       supplier: 'ABC Suppliers Ltd',
       entryDate: '2025-08-01',
       items: 5,
-      totalAmount: '15,500.00 Rs',
-      paidAmount: '10,000.00 Rs',
-      dueAmount: '5,500.00 Rs',
+      totalAmount: '₹ 15,500.00',
+      paidAmount: '₹ 10,000.00',
+      dueAmount: '₹ 5,500.00',
       status: 'Completed'
     },
     {
@@ -45,9 +45,9 @@ export default function PurchaseEntry() {
       supplier: 'XYZ Trading Co',
       entryDate: '2025-08-02',
       items: 3,
-      totalAmount: '8,750.00 Rs',
-      paidAmount: '8,750.00 Rs',
-      dueAmount: '0.00 Rs',
+      totalAmount: '₹ 8,750.00',
+      paidAmount: '₹ 8,750.00',
+      dueAmount: '₹ 0.00',
       status: 'Paid'
     }
   ])
@@ -97,9 +97,9 @@ export default function PurchaseEntry() {
       supplier: formData.supplierName,
       entryDate: formData.entryDate,
       items: purchaseItems.length,
-      totalAmount: `${formData.grandTotal} Rs`,
-      paidAmount: `${formData.paidAmount} Rs`,
-      dueAmount: `${formData.dueAmount} Rs`,
+      totalAmount: `₹ ${formData.grandTotal}`,
+      paidAmount: `₹ ${formData.paidAmount}`,
+      dueAmount: `₹ ${formData.dueAmount}`,
       status: parseFloat(formData.dueAmount) === 0 ? 'Paid' : 'Partial'
     }
     

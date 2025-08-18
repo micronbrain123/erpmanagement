@@ -486,10 +486,10 @@ export default function SalesRecord() {
                       <div className="truncate" title={record.customerName}>{record.customerName}</div>
                       <div className="truncate" title={record.itemName}>{record.itemName}</div>
                       <div>{record.quantity}</div>
-                      <div className="text-right">{record.rate} Rs</div>
+                      <div className="text-right">₹ {record.rate}</div>
                       <div className="text-center">{record.discount}</div>
                       <div className="text-center">{record.GST}</div>
-                      <div className="text-right font-medium text-green-600">{record.total} Rs</div>
+                      <div className="text-right font-medium text-green-600">₹ {record.total}</div>
                       <div>{record.salesBy}</div>
                       <div>
                         <span className={`px-2 py-1 rounded text-xs ${
@@ -532,7 +532,7 @@ export default function SalesRecord() {
                   <div className="grid grid-cols-12 gap-2 text-xs py-3 border-t-2 border-teal-600 bg-teal-50 font-semibold">
                     <div className="col-span-8 text-right">TOTAL:</div>
                     <div className="text-right text-green-600">
-                      {totalAmount.toLocaleString('en-BD', { minimumFractionDigits: 2 })} Rs
+                      ₹ {totalAmount.toLocaleString('en-BD', { minimumFractionDigits: 2 })}
                     </div>
                     <div className="col-span-3"></div>
                   </div>

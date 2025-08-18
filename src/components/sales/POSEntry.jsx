@@ -67,9 +67,9 @@ export default function POSEntry() {
       voucherNo: 'INV-001',
       customer: 'John Doe',
       saleDate: '01/08/2025',
-      grandTotal: '15,500.00 Rs',
-      paidAmount: '10,000.00 Rs',
-      dueAmount: '5,500.00 Rs',
+      grandTotal: '₹ 15,500.00 ',
+      paidAmount: '₹ 10,000.00 ',
+      dueAmount: '₹ 5,500.00 ',
       status: 'Completed',
       createdAt: new Date('2025-08-01').getTime()
     },
@@ -78,9 +78,9 @@ export default function POSEntry() {
       voucherNo: 'INV-002',
       customer: 'Jane Smith',
       saleDate: '02/08/2025',
-      grandTotal: '8,750.00 Rs',
-      paidAmount: '8,750.00 Rs',
-      dueAmount: '0.00 Rs',
+      grandTotal: '₹ 8,750.00 ',
+      paidAmount: '₹ 8,750.00 ',
+      dueAmount: '₹ 0.00 ',
       status: 'Paid',
       createdAt: new Date('2025-08-02').getTime()
     }
@@ -287,9 +287,9 @@ export default function POSEntry() {
       voucherNo: formData.voucherNo,
       customer: formData.customerName,
       saleDate: formData.entryDate,
-      grandTotal: `${parseFloat(calculateGrandTotal()).toFixed(2)} Rs`,
-      paidAmount: `${parseFloat(formData.paidAmount).toFixed(2)} Rs`,
-      dueAmount: `${parseFloat(calculateDueAmount()).toFixed(2)} Rs`,
+      grandTotal: `₹ ${parseFloat(calculateGrandTotal()).toFixed(2)}`,
+      paidAmount: `₹ ${parseFloat(formData.paidAmount).toFixed(2)}`,
+      dueAmount: `₹ ${parseFloat(calculateDueAmount()).toFixed(2)}`,
       status: parseFloat(calculateDueAmount()) > 0 ? 'Partial' : 'Paid',
       items: cartItems,
       institutionName: formData.institutionName,
@@ -699,7 +699,7 @@ export default function POSEntry() {
                   <div className="mt-3 pt-3 border-t border-gray-200">
                     <div className="flex justify-between items-center mb-3">
                       <span className="text-sm font-medium">Total:</span>
-                      <span className="text-lg font-semibold text-green-600">{calculateItemTotal()} Rs</span>
+                      <span className="text-lg font-semibold text-green-600">₹ {calculateItemTotal()}</span>
                     </div>
                     
                     <button 
@@ -742,7 +742,7 @@ export default function POSEntry() {
                       {product.name}
                     </div>
                     <div className="text-xs text-gray-600 text-center">
-                      {product.price} Rs
+                      ₹ {product.price}
                     </div>
                   </div>
                 ))}
@@ -778,7 +778,7 @@ export default function POSEntry() {
                         <td className="py-2 px-3 text-xs text-center">{item.rate.toFixed(2)}</td>
                         <td className="py-2 px-3 text-xs text-center">{item.discountPercent.toFixed(2)}%</td>
                         <td className="py-2 px-3 text-xs text-center">{item.GSTPercent.toFixed(2)}%</td>
-                        <td className="py-2 px-3 text-xs text-center font-medium">{item.total.toFixed(2)} Rs</td>
+                        <td className="py-2 px-3 text-xs text-center font-medium">₹ {item.total.toFixed(2)}</td>
                         <td className="py-2 px-3 text-center">
                           <button 
                             onClick={() => removeFromCart(item.id)}
@@ -795,7 +795,7 @@ export default function POSEntry() {
               </div>
               
               <div className="mt-4 text-right">
-                <div className="text-sm font-semibold">Sub Total: {calculateSubTotal()} Rs</div>
+                <div className="text-sm font-semibold">Sub Total: ₹ {calculateSubTotal()}</div>
               </div>
             </div>
           )}

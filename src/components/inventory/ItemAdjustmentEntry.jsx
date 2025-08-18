@@ -231,7 +231,7 @@ export default function ItemAdjustmentEntry() {
                         }}
                         className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm"
                       >
-                        {item.name} - {item.rate} Rs/{item.unit}
+                        {item.name} - ₹ {item.rate}/{item.unit}
                       </div>
                     ))}
                   </div>
