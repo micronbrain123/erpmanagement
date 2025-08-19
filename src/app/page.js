@@ -10,7 +10,9 @@ import OrdersContent from '@/components/orders/OrdersContent'
 import InventoryContent from '@/components/inventory/InventoryContent'
 import ServiceContent from '@/components/service/ServiceContent'
 import ManufacturingContent from '@/components/manufacturing/ManufacturingContent'
-// import AccountsContent from '@/components/accounts/AccountsContent'
+import AccountsContent from '@/components/accounts/AccountsContent'
+import CRMContent from '@/components/crm/CRMcontent'
+import ReportsContent from '@/components/reports/ReportsContent'
 // reports and crm has to be imported 
 
 export default function Home() {
@@ -36,34 +38,13 @@ export default function Home() {
       case 'inventory':
         return <InventoryContent />
       case 'accounts':
-        return (
-          <div className="bg-gray-50 min-h-screen">
-            <h1 className="text-2xl font-bold text-gray-800 mb-4">Accounts Module</h1>
-            <div className="bg-white rounded-lg shadow p-6">
-              <p>Accounts content will go here...</p>
-            </div>
-          </div>
-        )
+        return <AccountsContent />
       case 'hr-payroll':
         return <HRPayrollContent/>
       case 'reports':
-        return (
-          <div className="bg-gray-50 min-h-screen">
-            <h1 className="text-2xl font-bold text-gray-800 mb-4">Reports Module</h1>
-            <div className="bg-white rounded-lg shadow p-6">
-              <p>Reports content will go here...</p>
-            </div>
-          </div>
-        )
+        return <ReportsContent />
       case 'crm':
-        return (
-          <div className="bg-gray-50 min-h-screen">
-            <h1 className="text-2xl font-bold text-gray-800 mb-4">CRM Module</h1>
-            <div className="bg-white rounded-lg shadow p-6">
-              <p>CRM content will go here...</p>
-            </div>
-          </div>
-        )
+        return <CRMContent />
       default:
         return <DashboardContent />
     }

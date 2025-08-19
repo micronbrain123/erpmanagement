@@ -1,12 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-// import CustomerReceiptEntry from './CustomerReceiptEntry'
-// import SupplierPaymentEntry from './SupplierPaymentEntry'
-// import ExpenseEntry from './ExpenseEntry'
-// import ExpenseRecognition from './ExpenseRecognition'
-// import IncomeEntry from './IncomeEntry'
-// import ContraSingleEntry from './ContraSingleEntry'
+import CustomerReceiptEntry from './CustomerReceiptEntry'
+import SupplierPaymentEntry from './SupplierPaymentEntry'
+import ExpenseEntry from './ExpenseEntry'
+import ExpenseRecognition from './ExpenseRecognition'
+import IncomeEntry from './IncomeEntry'
+import ContraSingleEntry from './ContraSingleEntry'
 // import AdvanceTransaction from './AdvanceTransaction'
 // import JournalDoubleEntry from './JournalDoubleEntry'
 // import BranchTransaction from './BranchTransaction'
@@ -22,42 +22,42 @@ export default function AccountsContent() {
       name: 'Customer Receipt Entry',
       icon: '📝',
       description: 'Manage customer receipt entries',
-    //   component: CustomerReceiptEntry
+      component: CustomerReceiptEntry
     },
     {
       id: 'supplier-payment-entry',
       name: 'Supplier Payment Entry',
       icon: '💳',
       description: 'Handle supplier payment entries',
-    //   component: SupplierPaymentEntry
+      component: SupplierPaymentEntry
     },
     {
       id: 'expense-entry',
       name: 'Expense Entry',
       icon: '💰',
       description: 'Record expense entries',
-    //   component: ExpenseEntry
+      component: ExpenseEntry
     },
     {
       id: 'expense-recognition',
       name: 'Expense Recognition',
       icon: '🔍',
       description: 'Manage expense recognition',
-    //   component: ExpenseRecognition
+      component: ExpenseRecognition
     },
     {
       id: 'income-entry',
       name: 'Income Entry',
       icon: '💵',
       description: 'Record income entries',
-    //   component: IncomeEntry
+      component: IncomeEntry
     },
     {
       id: 'contra-single-entry',
       name: 'Contra/ Single Entry',
       icon: '📊',
       description: 'Handle contra and single entries',
-    //   component: ContraSingleEntry
+      component: ContraSingleEntry
     },
     {
       id: 'advance-transaction',
