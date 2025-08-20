@@ -2,8 +2,11 @@
 
 import { useState } from 'react'
 import { ChevronDown, ChevronRight } from 'lucide-react'
+import { useNavigation } from '../../app/contexts/NavigationContext'
 
 export default function Sidebar() {
+  const { setActiveTab } = useNavigation()
+  
   const [expandedSections, setExpandedSections] = useState({
     entries: true,
     records: false,
@@ -24,46 +27,46 @@ export default function Sidebar() {
       id: 'entries',
       title: 'Data Entry',
       items: [
-        { name: 'Sales Entry', path: '/sales/entry' },
-        { name: 'POS Entry', path: '/pos/entry' },
-        { name: 'Purchase Entry', path: '/purchase/entry' },
-        { name: 'Receipt Entry', path: '/receipt/entry' },
-        { name: 'Payment Entry', path: '/payment/entry' },
-        { name: 'Expense Entry', path: '/expense/entry' },
-        { name: 'Product Entry', path: '/product/entry' }
+        { name: 'Sales Entry', tab: 'sales', subPage: 'SalesEntry' },
+        { name: 'POS Entry', tab: 'sales', subPage: 'POSEntry' },
+        { name: 'Purchase Entry', tab: 'purchase', subPage: 'PurchaseEntry' },
+        { name: 'Receipt Entry', tab: 'accounts', subPage: 'ReceiptEntry' },
+        { name: 'Payment Entry', tab: 'accounts', subPage: 'PaymentEntry' },
+        { name: 'Expense Entry', tab: 'accounts', subPage: 'ExpenseEntry' },
+        { name: 'Product Entry', tab: 'inventory', subPage: 'ProductEntry' }
       ]
     },
     {
       id: 'records',
       title: 'Records',
       items: [
-        { name: 'Sales Record', path: '/sales/record' },
-        { name: 'Purchase Record', path: '/purchase/record' }
+        { name: 'Sales Record', tab: 'sales' },
+        { name: 'Purchase Record', tab: 'purchase' }
       ]
     },
     {
       id: 'reports',
       title: 'Reports',
       items: [
-        { name: 'Stock Report', path: '/inventory/stock-report' }
+        { name: 'Stock Report', tab: 'reports' }
       ]
     },
     {
       id: 'accounts',
       title: 'Accounts',
       items: [
-        { name: 'Customer Due Balance', path: '/accounts/customer-due' },
-        { name: 'Supplier Due Balance', path: '/accounts/supplier-due' },
-        { name: 'Customer Ledger', path: '/accounts/customer-ledger' },
-        { name: 'Supplier Ledger', path: '/accounts/supplier-ledger' }
+        { name: 'Customer Due Balance', tab: 'accounts' },
+        { name: 'Supplier Due Balance', tab: 'accounts' },
+        { name: 'Customer Ledger', tab: 'accounts' },
+        { name: 'Supplier Ledger', tab: 'accounts' }
       ]
     },
     {
       id: 'banking',
       title: 'Banking',
       items: [
-        { name: 'Cash & Bank Balance', path: '/banking/balance' },
-        { name: 'Cash & Bank Ledger', path: '/banking/ledger' }
+        { name: 'Cash & Bank Balance', tab: 'accounts' },
+        { name: 'Cash & Bank Ledger', tab: 'accounts' }
       ]
     }
   ]
@@ -93,13 +96,13 @@ export default function Sidebar() {
               {expandedSections[section.id] && (
                 <div className="ml-4 space-y-1">
                   {section.items.map((item) => (
-                    <a
+                    <button
                       key={item.name}
-                      href={item.path}
-                      className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+                      onClick={() => setActiveTab(item.tab, item.subPage)}
+                      className="block w-full text-left px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
                     >
                       {item.name}
-                    </a>
+                    </button>
                   ))}
                 </div>
               )}
@@ -109,12 +112,12 @@ export default function Sidebar() {
 
         {/* Settings at bottom */}
         <div className="mt-8 pt-4 border-t border-gray-200">
-          <a
-            href="/settings"
-            className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+          <button
+            onClick={() => setActiveTab('settings')}
+            className="block w-full text-left px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
           >
             ⚙️ Settings
-          </a>
+          </button>
         </div>
       </div>
     </div>

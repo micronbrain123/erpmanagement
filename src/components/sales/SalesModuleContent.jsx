@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useNavigation } from '../../app/contexts/NavigationContext'
 import SalesEntry from './SalesEntry'
 import POSEntry from './POSEntry'
 import CustomerEntry from './CustomerEntry'
@@ -13,6 +14,7 @@ import SalesReturnRecord from './SalesReturnRecord'
 import ReplaceRecord from './ReplaceRecord'
 
 export default function SalesModuleContent() {
+  const { activeSubPage } = useNavigation()
   const [selectedModule, setSelectedModule] = useState(null)
 
   const salesModules = [
@@ -90,7 +92,6 @@ export default function SalesModuleContent() {
 
   const handleModuleClick = (module) => {
     setSelectedModule(module)
-    // In a real application, this would navigate to the specific module
     console.log(`Navigating to ${module.name}`)
   }
 
@@ -98,6 +99,24 @@ export default function SalesModuleContent() {
     setSelectedModule(null)
   }
 
+  // Check if we should show a specific component directly from sidebar
+  if (activeSubPage === 'SalesEntry') {
+    return (
+      <div className="bg-gray-50 min-h-screen text-sm">
+        <SalesEntry />
+      </div>
+    )
+  }
+
+  if (activeSubPage === 'POSEntry') {
+    return (
+      <div className="bg-gray-50 min-h-screen text-sm">
+        <POSEntry />
+      </div>
+    )
+  }
+
+  // If a module is selected from the grid
   if (selectedModule) {
     const SelectedComponent = selectedModule.component
     
@@ -119,6 +138,7 @@ export default function SalesModuleContent() {
     )
   }
 
+  // Default: Show the sales module grid
   return (
     <div className="bg-gray-50 min-h-screen text-sm p-4">
       {/* Sales Module Grid - Matching the 2x5 layout from screenshot */}

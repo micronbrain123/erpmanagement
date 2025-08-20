@@ -13,7 +13,6 @@ import ManufacturingContent from '@/components/manufacturing/ManufacturingConten
 import AccountsContent from '@/components/accounts/AccountsContent'
 import CRMContent from '@/components/crm/CRMcontent'
 import ReportsContent from '@/components/reports/ReportsContent'
-// reports and crm has to be imported 
 
 export default function Home() {
   const { activeTab } = useNavigation()

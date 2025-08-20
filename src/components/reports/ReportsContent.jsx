@@ -1,19 +1,18 @@
 'use client'
 
 import { useState } from 'react'
-// Import all report components
-// import CustomerDueBalance from './CustomerDueBalance'
-// import SupplierDueBalance from './SupplierDueBalance'
-// import CustomerLedger from './CustomerLedger'
-// import SupplierLedger from './SupplierLedger'
-// import SalesCollectionRecord from './SalesCollectionRecord'
-// import CustomerReceiptRecord from './CustomerReceiptRecord'
-// import CashBankAccounts from './CashBankAccounts'
-// import CashBankAccountLedger from './CashBankAccountLedger'
-// import ExpenseBalanceReport from './ExpenseBalanceReport'
-// import ExpenseRecord from './ExpenseRecord'
-// import DailyLedger from './DailyLedger'
-// import DailyStatement from './DailyStatement'
+import CustomerDueBalance from './CustomerDueBalance'
+import SupplierDueBalance from './SupplierDueBalance'
+import CustomerLedger from './CustomerLedger'
+import SupplierLedger from './SupplierLedger'
+import SalesCollectionRecord from './SalesCollectionRecord'
+import CustomerReceiptRecord from './CustomerReceiptRecord'
+import CashBankAccounts from './CashBankAccounts'
+import CashBankAccountLedger from './CashBankAccountLedger'
+import ExpenseBalanceReport from './ExpenseBalanceReport'
+import ExpenseRecord from './ExpenseRecord'
+import DailyLedger from './DailyLedger'
+import DailyStatement from './DailyStatement'
 // import ItemStockReport from './ItemStockReport'
 // import ProfitLoss from './ProfitLoss'
 // import ProductWiseProfitLoss from './ProductWiseProfitLoss'
@@ -70,35 +69,35 @@ export default function ReportsContent() {
       name: 'Customer Due Balance',
       icon: '📊',
       description: 'View customer due balances',
-    //   component: CustomerDueBalance
+      component: CustomerDueBalance
     },
     {
       id: 'supplier-due-balance',
       name: 'Supplier Due Balance',
       icon: '📊',
       description: 'View supplier due balances',
-    //   component: SupplierDueBalance
+      component: SupplierDueBalance
     },
     {
       id: 'customer-ledger',
       name: 'Customer Ledger',
       icon: '📊',
       description: 'Customer ledger reports',
-    //   component: CustomerLedger
+      component: CustomerLedger
     },
     {
       id: 'supplier-ledger',
       name: 'Supplier Ledger',
       icon: '📊',
       description: 'Supplier ledger reports',
-    //   component: SupplierLedger
+      component: SupplierLedger
     },
     {
       id: 'sales-collection-record',
       name: 'Sales & Previous Collection',
       icon: '📊',
       description: 'Sales and collection records',
-    //   component: SalesCollectionRecord
+      component: SalesCollectionRecord
     },
     // Row 2
     {
@@ -106,35 +105,35 @@ export default function ReportsContent() {
       name: 'Customer Receipt Record',
       icon: '📊',
       description: 'Customer receipt records',
-    //   component: CustomerReceiptRecord
+      component: CustomerReceiptRecord
     },
     {
       id: 'cash-bank-accounts',
       name: 'Cash & Bank Accounts',
       icon: '📊',
       description: 'Cash and bank account reports',
-    //   component: CashBankAccounts
+      component: CashBankAccounts
     },
     {
       id: 'cash-bank-account-ledger',
       name: 'Cash & Bank Account Ledger',
       icon: '📊',
       description: 'Cash and bank ledger reports',
-    //   component: CashBankAccountLedger
+      component: CashBankAccountLedger
     },
     {
       id: 'expense-balance-report',
       name: 'Expense Balance Report',
       icon: '📊',
       description: 'Expense balance reports',
-    //   component: ExpenseBalanceReport
+      component: ExpenseBalanceReport
     },
     {
       id: 'expense-record',
       name: 'Expense Record',
       icon: '📊',
       description: 'Expense record reports',
-    //   component: ExpenseRecord
+      component: ExpenseRecord
     },
     // Row 3
     {
@@ -142,14 +141,14 @@ export default function ReportsContent() {
       name: 'Daily Ledger',
       icon: '📊',
       description: 'Daily ledger reports',
-    //   component: DailyLedger
+      component: DailyLedger
     },
     {
       id: 'daily-statement',
       name: 'Daily Statement',
       icon: '📊',
       description: 'Daily statement reports',
-    //   component: DailyStatement
+      component: DailyStatement
     },
     {
       id: 'item-stock-report',

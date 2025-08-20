@@ -1,11 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-// import CustomerEntry from './CustomerEntry'
-// import PendingCustomerList from './PendingCustomerList'
-// import ApprovedCustomerList from './ApprovedCustomerList'
-// import RejectedCustomerList from './RejectedCustomerList'
-// import EmployeeWiseCustomer from './EmployeeWiseCustomer'
+import CustomerEntry from './CustomerEntry'
+import PendingCustomerList from './PendingCustomerList'
+import ApprovedCustomerList from './ApprovedCustomerList'
+import RejectedCustomerList from './RejectedCustomerList'
+import EmployeeWiseCustomer from './EmployeeWiseCustomer'
 
 export default function CRMContent() {
   const [selectedModule, setSelectedModule] = useState(null)
@@ -16,35 +16,35 @@ export default function CRMContent() {
       name: 'Customer Entry',
       icon: '👤',
       description: 'Add new customer entries',
-      // component: CustomerEntry
+      component: CustomerEntry
     },
     {
       id: 'pending-customer-list',
       name: 'Pending Customer List',
       icon: '⏳',
       description: 'View pending customer list',
-      // component: PendingCustomerList
+      component: PendingCustomerList
     },
     {
       id: 'approved-customer-list',
       name: 'Approved Customer List',
       icon: '✅',
       description: 'View approved customer list',
-      // component: ApprovedCustomerList
+      component: ApprovedCustomerList
     },
     {
       id: 'rejected-customer-list',
       name: 'Rejected Customer List',
       icon: '❌',
       description: 'View rejected customer list',
-      // component: RejectedCustomerList
+      component: RejectedCustomerList
     },
     {
       id: 'employee-wise-customer',
       name: 'Employee Wise Customer',
       icon: '👥',
       description: 'View employee wise customer data',
-      // component: EmployeeWiseCustomer
+      component: EmployeeWiseCustomer
     }
   ]
 

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useNavigation } from '../../app/contexts/NavigationContext'
 import PurchaseEntry from './PurchaseEntry'
 import SupplierEntry from './SupplierEntry'
 import PurchaseReturnEntry from './PurchaseReturnEntry'
@@ -11,6 +12,7 @@ import PurchaseReturnRecord from './PurchaseReturnRecord'
 
 export default function PurchaseModuleContent() {
   const [selectedModule, setSelectedModule] = useState(null)
+  const { activeSubPage } = useNavigation()
 
   const purchaseModules = [
     {
@@ -72,6 +74,15 @@ export default function PurchaseModuleContent() {
 
   const handleBackClick = () => {
     setSelectedModule(null)
+  }
+
+  // Check if we should show a specific component directly from sidebar
+  if (activeSubPage === 'PurchaseEntry') {
+    return (
+      <div className="bg-gray-50 min-h-screen text-sm">
+        <PurchaseEntry />
+      </div>
+    )
   }
 
   if (selectedModule) {

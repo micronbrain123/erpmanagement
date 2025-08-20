@@ -7,11 +7,11 @@ import ExpenseEntry from './ExpenseEntry'
 import ExpenseRecognition from './ExpenseRecognition'
 import IncomeEntry from './IncomeEntry'
 import ContraSingleEntry from './ContraSingleEntry'
-// import AdvanceTransaction from './AdvanceTransaction'
-// import JournalDoubleEntry from './JournalDoubleEntry'
-// import BranchTransaction from './BranchTransaction'
-// import AccountEntry from './AccountEntry'
-// import LocationEntry from './LocationEntry'
+import AdvanceTransaction from './AdvanceTransaction'
+import JournalDoubleEntry from './JournalDoubleEntry'
+import BranchTransaction from './BranchTransaction'
+import AccountEntry from './AccountEntry'
+import LocationEntry from './LocationEntry'
 
 export default function AccountsContent() {
   const [selectedModule, setSelectedModule] = useState(null)
@@ -64,35 +64,35 @@ export default function AccountsContent() {
       name: 'Advance Transaction',
       icon: '⏭️',
       description: 'Manage advance transactions',
-    //   component: AdvanceTransaction
+      component: AdvanceTransaction
     },
     {
       id: 'journal-double-entry',
       name: 'Journal/ Double Entry',
       icon: '📚',
       description: 'Handle journal and double entries',
-    //   component: JournalDoubleEntry
+      component: JournalDoubleEntry
     },
     {
       id: 'branch-transaction',
       name: 'Branch Transaction',
       icon: '🏢',
       description: 'Manage branch transactions',
-    //   component: BranchTransaction
+      component: BranchTransaction
     },
     {
       id: 'account-entry',
       name: 'Account Entry',
       icon: '📋',
       description: 'General account entries',
-    //   component: AccountEntry
+      component: AccountEntry
     },
     {
       id: 'location-entry',
       name: 'Location Entry',
       icon: '📍',
       description: 'Manage location entries',
-    //   component: LocationEntry
+      component: LocationEntry
     }
   ]
 

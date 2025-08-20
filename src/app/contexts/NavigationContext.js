@@ -6,9 +6,21 @@ const NavigationContext = createContext()
 
 export function NavigationProvider({ children }) {
   const [activeTab, setActiveTab] = useState('dashboard')
+  const [activeSubPage, setActiveSubPage] = useState(null)
+
+  const handleSetActiveTab = (tab, subPage = null) => {
+    setActiveTab(tab)
+    setActiveSubPage(subPage)
+  }
 
   return (
-    <NavigationContext.Provider value={{ activeTab, setActiveTab }}>
+    <NavigationContext.Provider 
+      value={{ 
+        activeTab, 
+        activeSubPage,
+        setActiveTab: handleSetActiveTab 
+      }}
+    >
       {children}
     </NavigationContext.Provider>
   )
