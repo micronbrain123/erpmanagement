@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useNavigation } from '../../app/contexts/NavigationContext'
 import SalaryPayment from './SalaryPayment'
 import AttendanceEntry from './AttendanceEntry'
 import EmployeeEntry from './EmployeeEntry'
@@ -12,6 +13,7 @@ import EmployeeLedger from './EmployeeLedger'
 
 export default function HRPayrollContent() {
   const [selectedModule, setSelectedModule] = useState(null)
+  const { activeSubPage } = useNavigation()
 
   const hrModules = [
     { 
@@ -76,6 +78,15 @@ export default function HRPayrollContent() {
     setSelectedModule(module)
     // In a real application, this would navigate to the specific module
     console.log(`Navigating to ${module.name}`)
+  }
+
+  // Check if we should show a specific component directly from sidebar
+  if (activeSubPage === 'EmployeeEntry') {
+    return (
+      <div className="bg-gray-50 min-h-screen text-sm">
+        <EmployeeEntry />
+      </div>
+    )
   }
 
   const handleBackClick = () => {

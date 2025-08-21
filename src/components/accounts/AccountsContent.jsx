@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useNavigation } from '../../app/contexts/NavigationContext'
 import CustomerReceiptEntry from './CustomerReceiptEntry'
 import SupplierPaymentEntry from './SupplierPaymentEntry'
 import ExpenseEntry from './ExpenseEntry'
@@ -15,6 +16,7 @@ import LocationEntry from './LocationEntry'
 
 export default function AccountsContent() {
   const [selectedModule, setSelectedModule] = useState(null)
+  const { activeSubPage } = useNavigation()
 
   const accountsModules = [
     {
@@ -104,6 +106,22 @@ export default function AccountsContent() {
 
   const handleBackClick = () => {
     setSelectedModule(null)
+  }
+
+  // Check if we should show a specific component directly from sidebar
+  if (activeSubPage === 'SupplierPaymentEntry') {
+    return (
+      <div className="bg-gray-50 min-h-screen text-sm">
+        <SupplierPaymentEntry />
+      </div>
+    )
+  }
+  if (activeSubPage === 'ExpenseEntry') {
+    return (
+      <div className="bg-gray-50 min-h-screen text-sm">
+        <ExpenseEntry />
+      </div>
+    )
   }
 
   if (selectedModule) {

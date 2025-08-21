@@ -30,25 +30,25 @@ export default function Sidebar() {
         { name: 'Sales Entry', tab: 'sales', subPage: 'SalesEntry' },
         { name: 'POS Entry', tab: 'sales', subPage: 'POSEntry' },
         { name: 'Purchase Entry', tab: 'purchase', subPage: 'PurchaseEntry' },
-        { name: 'Receipt Entry', tab: 'accounts', subPage: 'ReceiptEntry' },
-        { name: 'Payment Entry', tab: 'accounts', subPage: 'PaymentEntry' },
+        { name: 'Customer Entry', tab: 'sales', subPage: 'CustomerEntry' },
+        { name: 'Supplier Payment Entry', tab: 'accounts', subPage: 'SupplierPaymentEntry' },
         { name: 'Expense Entry', tab: 'accounts', subPage: 'ExpenseEntry' },
-        { name: 'Product Entry', tab: 'inventory', subPage: 'ProductEntry' }
+        { name: 'Employee Entry', tab: 'hr-payroll', subPage: 'EmployeeEntry' }
       ]
     },
     {
       id: 'records',
       title: 'Records',
       items: [
-        { name: 'Sales Record', tab: 'sales' },
-        { name: 'Purchase Record', tab: 'purchase' }
+        { name: 'Sales Record', tab: 'sales', subPage: 'SalesRecord' },
+        { name: 'Purchase Record', tab: 'purchase', subPage: 'PurchaseRecord' }
       ]
     },
     {
       id: 'reports',
       title: 'Reports',
       items: [
-        { name: 'Stock Report', tab: 'reports' }
+        { name: 'Stock Report', tab: 'reports', subPage :'ItemStockReport' }
       ]
     },
     {

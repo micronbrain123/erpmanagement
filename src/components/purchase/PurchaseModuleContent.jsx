@@ -84,6 +84,13 @@ export default function PurchaseModuleContent() {
       </div>
     )
   }
+  if (activeSubPage === 'PurchaseRecord') {
+    return (
+      <div className="bg-gray-50 min-h-screen text-sm">
+        <PurchaseRecord />
+      </div>
+    )
+  }
 
   if (selectedModule) {
     const SelectedComponent = selectedModule.component

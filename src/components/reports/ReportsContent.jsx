@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useNavigation } from '../../app/contexts/NavigationContext'
 import CustomerDueBalance from './CustomerDueBalance'
 import SupplierDueBalance from './SupplierDueBalance'
 import CustomerLedger from './CustomerLedger'
@@ -13,21 +14,21 @@ import ExpenseBalanceReport from './ExpenseBalanceReport'
 import ExpenseRecord from './ExpenseRecord'
 import DailyLedger from './DailyLedger'
 import DailyStatement from './DailyStatement'
-// import ItemStockReport from './ItemStockReport'
-// import ProfitLoss from './ProfitLoss'
-// import ProductWiseProfitLoss from './ProductWiseProfitLoss'
-// import BillWiseProfitLoss from './BillWiseProfitLoss'
-// import LoanAccountsBalance from './LoanAccountsBalance'
-// import BalanceSheet from './BalanceSheet'
-// import TrialBalance from './TrialBalance'
-// import BranchTransactionPendingList from './BranchTransactionPendingList'
-// import BranchTransactionReceivedList from './BranchTransactionReceivedList'
-// import BranchTransactionTransferList from './BranchTransactionTransferList'
-// import AdvanceCustomerBalance from './AdvanceCustomerBalance'
-// import AdvanceSupplierBalance from './AdvanceSupplierBalance'
-// import IndirectIncomeAccountsBalance from './IndirectIncomeAccountsBalance'
-// import FixedAssetAccountsBalance from './FixedAssetAccountsBalance'
-// import CapitalAccountsBalance from './CapitalAccountsBalance'
+import ItemStockReport from './ItemStockReport'
+import ProfitLoss from './ProfitLoss'
+import ProductWiseProfitLoss from './ProductWiseProfitLoss'
+import BillWiseProfitLoss from './BillWiseProfitLoss'
+import LoanAccountsBalance from './LoanAccountsBalance'
+import BalanceSheet from './BalanceSheet'
+import TrialBalance from './TrialBalance'
+import BranchTransactionPendingList from './BranchTransactionPendingList'
+import BranchTransactionReceivedList from './BranchTransactionReceivedList'
+import BranchTransactionTransferList from './BranchTransactionTransferList'
+import AdvanceCustomerBalance from './AdvanceCustomerBalance'
+import AdvanceSupplierBalance from './AdvanceSupplierBalance'
+import IndirectIncomeAccountsBalance from './IndirectIncomeAccountsBalance'
+import FixedAssetAccountsBalance from './FixedAssetAccountsBalance'
+import CapitalAccountsBalance from './CapitalAccountsBalance'
 // import BranchBalanceReport from './BranchBalanceReport'
 // import IndirectExpenseAccountLedger from './IndirectExpenseAccountLedger'
 // import FixedAssetAccountLedger from './FixedAssetAccountLedger'
@@ -61,6 +62,8 @@ import DailyStatement from './DailyStatement'
 
 export default function ReportsContent() {
   const [selectedModule, setSelectedModule] = useState(null)
+  const { activeSubPage } = useNavigation()
+
 
   const reportsModules = [
     // Row 1
@@ -155,21 +158,21 @@ export default function ReportsContent() {
       name: 'Item Stock Report',
       icon: '📊',
       description: 'Item stock reports',
-    //   component: ItemStockReport
+      component: ItemStockReport
     },
     {
       id: 'profit-loss',
       name: 'Profit Loss',
       icon: '📊',
       description: 'Profit and loss reports',
-    //   component: ProfitLoss
+      component: ProfitLoss
     },
     {
       id: 'product-wise-profit-loss',
       name: 'Product Wise Profit/ Loss',
       icon: '📊',
       description: 'Product-wise profit/loss reports',
-    //   component: ProductWiseProfitLoss
+      component: ProductWiseProfitLoss
     },
     // Row 4
     {
@@ -177,35 +180,35 @@ export default function ReportsContent() {
       name: 'Bill Wise Profit/ Loss',
       icon: '📊',
       description: 'Bill-wise profit/loss reports',
-    //   component: BillWiseProfitLoss
+      component: BillWiseProfitLoss
     },
     {
       id: 'loan-accounts-balance',
       name: 'Loan Accounts Balance',
       icon: '📊',
       description: 'Loan accounts balance reports',
-    //   component: LoanAccountsBalance
+      component: LoanAccountsBalance
     },
     {
       id: 'balance-sheet',
       name: 'Balance Sheet',
       icon: '📊',
       description: 'Balance sheet reports',
-    //   component: BalanceSheet
+      component: BalanceSheet
     },
     {
       id: 'trial-balance',
       name: 'Trial Balance',
       icon: '📊',
       description: 'Trial balance reports',
-    //   component: TrialBalance
+      component: TrialBalance
     },
     {
       id: 'branch-transaction-pending-list',
       name: 'Branch tarnsaction pending list',
       icon: '📊',
       description: 'Branch transaction pending list',
-    //   component: BranchTransactionPendingList
+      component: BranchTransactionPendingList
     },
     // Row 5
     {
@@ -213,35 +216,35 @@ export default function ReportsContent() {
       name: 'Branch tarnsaction received list',
       icon: '📊',
       description: 'Branch transaction received list',
-    //   component: BranchTransactionReceivedList
+      component: BranchTransactionReceivedList
     },
     {
       id: 'branch-transaction-transfer-list',
       name: 'Branch tarnsaction transfer list',
       icon: '📊',
       description: 'Branch transaction transfer list',
-    //   component: BranchTransactionTransferList
+      component: BranchTransactionTransferList
     },
     {
       id: 'advance-customer-balance',
       name: 'Advance Customer Balance',
       icon: '📊',
       description: 'Advance customer balance reports',
-    //   component: AdvanceCustomerBalance
+      component: AdvanceCustomerBalance
     },
     {
       id: 'advance-supplier-balance',
       name: 'Advance Supplier Balance',
       icon: '📊',
       description: 'Advance supplier balance reports',
-    //   component: AdvanceSupplierBalance
+      component: AdvanceSupplierBalance
     },
     {
       id: 'indirect-income-accounts-balance',
       name: 'Indirect Income Accounts Balance',
       icon: '📊',
       description: 'Indirect income accounts balance',
-    //   component: IndirectIncomeAccountsBalance
+      component: IndirectIncomeAccountsBalance
     },
     // Row 6
     {
@@ -249,14 +252,14 @@ export default function ReportsContent() {
       name: 'Fixed Asset Accounts Balance',
       icon: '📊',
       description: 'Fixed asset accounts balance',
-    //   component: FixedAssetAccountsBalance
+      component: FixedAssetAccountsBalance
     },
     {
       id: 'capital-accounts-balance',
       name: 'Capital Accounts Balance',
       icon: '📊',
       description: 'Capital accounts balance reports',
-    //   component: CapitalAccountsBalance
+      component: CapitalAccountsBalance
     },
     {
       id: 'branch-balance-report',
@@ -505,6 +508,15 @@ export default function ReportsContent() {
 
   const handleBackClick = () => {
     setSelectedModule(null)
+  }
+
+  // Check if we should show a specific component directly from sidebar
+  if (activeSubPage === 'ItemStockReport') {
+    return (
+      <div className="bg-gray-50 min-h-screen text-sm">
+        <ItemStockReport />
+      </div>
+    )
   }
 
   if (selectedModule) {

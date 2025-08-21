@@ -115,6 +115,20 @@ export default function SalesModuleContent() {
       </div>
     )
   }
+  if (activeSubPage === 'CustomerEntry') {
+    return (
+      <div className="bg-gray-50 min-h-screen text-sm">
+        <CustomerEntry />
+      </div>
+    )
+  }
+  if (activeSubPage === 'SalesRecord') {
+    return (
+      <div className="bg-gray-50 min-h-screen text-sm">
+        <SalesRecord />
+      </div>
+    )
+  }
 
   // If a module is selected from the grid
   if (selectedModule) {
