@@ -29,19 +29,19 @@ import AdvanceSupplierBalance from './AdvanceSupplierBalance'
 import IndirectIncomeAccountsBalance from './IndirectIncomeAccountsBalance'
 import FixedAssetAccountsBalance from './FixedAssetAccountsBalance'
 import CapitalAccountsBalance from './CapitalAccountsBalance'
-// import BranchBalanceReport from './BranchBalanceReport'
-// import IndirectExpenseAccountLedger from './IndirectExpenseAccountLedger'
-// import FixedAssetAccountLedger from './FixedAssetAccountLedger'
-// import LoanAccountLedger from './LoanAccountLedger'
-// import IndirectIncomeAccountLedger from './IndirectIncomeAccountLedger'
-// import CapitalAccountLedger from './CapitalAccountLedger'
-// import BranchLedger from './BranchLedger'
-// import SalesAccountLedger from './SalesAccountLedger'
-// import PurchaseAccountLedger from './PurchaseAccountLedger'
-// import ServiceExpenseAccountLedger from './ServiceExpenseAccountLedger'
-// import ServiceAccountLedger from './ServiceAccountLedger'
-// import SalesReturnAccountLedger from './SalesReturnAccountLedger'
-// import PurchaseReturnAccountLedger from './PurchaseReturnAccountLedger'
+import BranchBalanceReport from './BranchBalanceReport'
+import IndirectExpenseAccountLedger from './IndirectExpenseAccountLedger'
+import FixedAssetAccountLedger from './FixedAssetAccountLedger'
+import LoanAccountLedger from './LoanAccountLedger'
+import IndirectIncomeAccountLedger from './IndirectIncomeAccountLedger'
+import CapitalAccountLedger from './CapitalAccountLedger'
+import BranchLedger from './BranchLedger'
+import SalesAccountLedger from './SalesAccountLedger'
+import PurchaseAccountLedger from './PurchaseAccountLedger'
+import ServiceExpenseAccountLedger from './ServiceExpenseAccountLedger'
+import ServiceAccountLedger from './ServiceAccountLedger'
+import SalesReturnAccountLedger from './SalesReturnAccountLedger'
+import PurchaseReturnAccountLedger from './PurchaseReturnAccountLedger'
 // import TaxAccountLedger from './TaxAccountLedger'
 // import SupplierPaymentRecord from './SupplierPaymentRecord'
 // import ExpenseRecognitionRecord from './ExpenseRecognitionRecord'
@@ -266,21 +266,21 @@ export default function ReportsContent() {
       name: 'Branch Balance Report',
       icon: '📊',
       description: 'Branch balance reports',
-    //   component: BranchBalanceReport
+      component: BranchBalanceReport
     },
     {
       id: 'indirect-expense-account-ledger',
       name: 'Indirect Expense Account Ledger',
       icon: '📊',
       description: 'Indirect expense account ledger',
-    //   component: IndirectExpenseAccountLedger
+      component: IndirectExpenseAccountLedger
     },
     {
       id: 'fixed-asset-account-ledger',
       name: 'Fixed Asset Account Ledger',
       icon: '📊',
       description: 'Fixed asset account ledger',
-    //   component: FixedAssetAccountLedger
+      component: FixedAssetAccountLedger
     },
     // Row 7
     {
@@ -288,35 +288,35 @@ export default function ReportsContent() {
       name: 'Loan Account Ledger',
       icon: '📊',
       description: 'Loan account ledger reports',
-    //   component: LoanAccountLedger
+      component: LoanAccountLedger
     },
     {
       id: 'indirect-income-account-ledger',
       name: 'Indirect Income Account Ledger',
       icon: '📊',
       description: 'Indirect income account ledger',
-    //   component: IndirectIncomeAccountLedger
+      component: IndirectIncomeAccountLedger
     },
     {
       id: 'capital-account-ledger',
       name: 'Capital Account Ledger',
       icon: '📊',
       description: 'Capital account ledger reports',
-    //   component: CapitalAccountLedger
+      component: CapitalAccountLedger
     },
     {
       id: 'branch-ledger',
       name: 'Branch Ledger',
       icon: '📊',
       description: 'Branch ledger reports',
-    //   component: BranchLedger
+      component: BranchLedger
     },
     {
       id: 'sales-account-ledger',
       name: 'Sales Account Ledger',
       icon: '📊',
       description: 'Sales account ledger reports',
-    //   component: SalesAccountLedger
+      component: SalesAccountLedger
     },
     // Row 8
     {
@@ -324,35 +324,35 @@ export default function ReportsContent() {
       name: 'Purchase Account Ledger',
       icon: '📊',
       description: 'Purchase account ledger reports',
-    //   component: PurchaseAccountLedger
+      component: PurchaseAccountLedger
     },
     {
       id: 'service-expense-account-ledger',
       name: 'Service Expense Account Ledger',
       icon: '📊',
       description: 'Service expense account ledger',
-    //   component: ServiceExpenseAccountLedger
+      component: ServiceExpenseAccountLedger
     },
     {
       id: 'service-account-ledger',
       name: 'Service Account Ledger',
       icon: '📊',
       description: 'Service account ledger reports',
-    //   component: ServiceAccountLedger
+      component: ServiceAccountLedger
     },
     {
       id: 'sales-return-account-ledger',
       name: 'Sales Return Account Ledger',
       icon: '📊',
       description: 'Sales return account ledger',
-    //   component: SalesReturnAccountLedger
+      component: SalesReturnAccountLedger
     },
     {
       id: 'purchase-return-account-ledger',
       name: 'purchase Return Account Ledger',
       icon: '📊',
       description: 'Purchase return account ledger',
-    //   component: PurchaseReturnAccountLedger
+      component: PurchaseReturnAccountLedger
     },
     // Row 9
     {
