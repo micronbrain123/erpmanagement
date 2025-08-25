@@ -42,28 +42,27 @@ import ServiceExpenseAccountLedger from './ServiceExpenseAccountLedger'
 import ServiceAccountLedger from './ServiceAccountLedger'
 import SalesReturnAccountLedger from './SalesReturnAccountLedger'
 import PurchaseReturnAccountLedger from './PurchaseReturnAccountLedger'
-// import TaxAccountLedger from './TaxAccountLedger'
-// import SupplierPaymentRecord from './SupplierPaymentRecord'
-// import ExpenseRecognitionRecord from './ExpenseRecognitionRecord'
-// import IncomeRecord from './IncomeRecord'
-// import JournalRecord from './JournalRecord'
-// import ContraRecord from './ContraRecord'
-// import SalesRecord from './SalesRecord'
-// import SalesReturnRecord from './SalesReturnRecord'
-// import PurchaseRecord from './PurchaseRecord'
-// import PurchaseReturnRecord from './PurchaseReturnRecord'
-// import ManufacturingRecord from './ManufacturingRecord'
-// import SalaryPaymentReport from './SalaryPaymentReport'
-// import DirectExpenseBalance from './DirectExpenseBalance'
-// import DirectExpenseAccountLedger from './DirectExpenseAccountLedger'
-// import DirectIncomeAccountBalance from './DirectIncomeAccountBalance'
-// import DirectIncomeAccountLedger from './DirectIncomeAccountLedger'
-// import MonthlySalaryReport from './MonthlySalaryReport'
+import TaxAccountLedger from './TaxAccountLedger'
+import SupplierPaymentRecord from './SupplierPaymentRecord'
+import ExpenseRecognitionRecord from './ExpenseRecognitionRecord'
+import IncomeRecord from './IncomeRecord'
+import JournalRecord from './JournalRecord'
+import ContraRecord from './ContraRecord'
+import SalesRecord from './SalesRecord'
+import SalesReturnRecord from './SalesReturnRecord'
+import PurchaseRecord from './PurchaseRecord'
+import PurchaseReturnRecord from './PurchaseReturnRecord'
+import ManufacturingRecord from './ManufacturingRecord'
+import SalaryPaymentReport from './SalaryPaymentReport'
+import DirectExpenseBalance from './DirectExpenseBalance'
+import DirectExpenseAccountLedger from './DirectExpenseAccountLedger'
+import DirectIncomeAccountBalance from './DirectIncomeAccountBalance'
+import DirectIncomeAccountLedger from './DirectIncomeAccountLedger'
+import MonthlySalaryReport from './MonthlySalaryReport'
 
 export default function ReportsContent() {
   const [selectedModule, setSelectedModule] = useState(null)
   const { activeSubPage } = useNavigation()
-
 
   const reportsModules = [
     // Row 1
@@ -360,35 +359,28 @@ export default function ReportsContent() {
       name: 'Tax Account Ledger',
       icon: '📊',
       description: 'Tax account ledger reports',
-    //   component: TaxAccountLedger
+      component: TaxAccountLedger
     },
     {
       id: 'supplier-payment-record',
       name: 'Supplier Payment Record',
       icon: '📊',
       description: 'Supplier payment records',
-    //   component: SupplierPaymentRecord
+      component: SupplierPaymentRecord
     },
     {
       id: 'expense-recognition-record',
       name: 'Expense Recognition Record',
       icon: '📊',
       description: 'Expense recognition records',
-    //   component: ExpenseRecognitionRecord
+      component: ExpenseRecognitionRecord
     },
     {
       id: 'income-record',
       name: 'Income Record',
       icon: '📊',
       description: 'Income record reports',
-    //   component: IncomeRecord
-    },
-    {
-      id: 'income-record-2',
-      name: 'Income Record',
-      icon: '📊',
-      description: 'Income record reports',
-    //   component: IncomeRecord
+      component: IncomeRecord
     },
     // Row 10
     {
@@ -396,35 +388,35 @@ export default function ReportsContent() {
       name: 'Journal Record',
       icon: '📊',
       description: 'Journal record reports',
-    //   component: JournalRecord
+      component: JournalRecord
     },
     {
       id: 'contra-record',
       name: 'Contra Record',
       icon: '📊',
       description: 'Contra record reports',
-    //   component: ContraRecord
+      component: ContraRecord
     },
     {
       id: 'sales-record',
       name: 'Sales Record',
       icon: '📊',
       description: 'Sales record reports',
-    //   component: SalesRecord
+      component: SalesRecord
     },
     {
       id: 'sales-return-record',
       name: 'Sales Return Record',
       icon: '📊',
       description: 'Sales return record reports',
-    //   component: SalesReturnRecord
+      component: SalesReturnRecord
     },
     {
       id: 'purchase-record',
       name: 'Purchase Record',
       icon: '📊',
       description: 'Purchase record reports',
-    //   component: PurchaseRecord
+      component: PurchaseRecord
     },
     // Row 11
     {
@@ -432,35 +424,35 @@ export default function ReportsContent() {
       name: 'Purchase Return Record',
       icon: '📊',
       description: 'Purchase return record reports',
-    //   component: PurchaseReturnRecord
+      component: PurchaseReturnRecord
     },
     {
       id: 'manufacturing-record',
       name: 'Manufacturing Record',
       icon: '📊',
       description: 'Manufacturing record reports',
-    //   component: ManufacturingRecord
+      component: ManufacturingRecord
     },
     {
       id: 'salary-payment-report',
       name: 'Salary Payment Report',
       icon: '📊',
       description: 'Salary payment reports',
-    //   component: SalaryPaymentReport
+      component: SalaryPaymentReport
     },
     {
       id: 'direct-expense-balance',
       name: 'Direct Expense Balance',
       icon: '📊',
       description: 'Direct expense balance reports',
-    //   component: DirectExpenseBalance
+      component: DirectExpenseBalance
     },
     {
       id: 'direct-expense-account-ledger',
       name: 'Direct Expense Account Ledger',
       icon: '📊',
       description: 'Direct expense account ledger',
-    //   component: DirectExpenseAccountLedger
+      component: DirectExpenseAccountLedger
     },
     // Row 12
     {
@@ -468,35 +460,21 @@ export default function ReportsContent() {
       name: 'Direct Income Account Balance',
       icon: '📊',
       description: 'Direct income account balance',
-    //   component: DirectIncomeAccountBalance
+      component: DirectIncomeAccountBalance
     },
     {
       id: 'direct-income-account-ledger',
       name: 'Direct Income Account Ledger',
       icon: '📊',
       description: 'Direct income account ledger',
-    //   component: DirectIncomeAccountLedger
-    },
-    {
-      id: 'direct-income-account-ledger-2',
-      name: 'Direct Income Account Ledger',
-      icon: '📊',
-      description: 'Direct income account ledger',
-    //   component: DirectIncomeAccountLedger
-    },
-    {
-      id: 'salary-payment-report-2',
-      name: 'Salary Payment Report',
-      icon: '📊',
-      description: 'Salary payment reports',
-    //   component: SalaryPaymentReport
+      component: DirectIncomeAccountLedger
     },
     {
       id: 'monthly-salary-report',
       name: 'Monthly Salary Report',
       icon: '📊',
       description: 'Monthly salary reports',
-    //   component: MonthlySalaryReport
+      component: MonthlySalaryReport
     }
   ]
 
@@ -515,6 +493,41 @@ export default function ReportsContent() {
     return (
       <div className="bg-gray-50 min-h-screen text-sm">
         <ItemStockReport />
+      </div>
+    )
+  }
+  if (activeSubPage === 'SupplierDueBalance') {
+    return (
+      <div className="bg-gray-50 min-h-screen text-sm">
+        <SupplierDueBalance />
+      </div>
+    )
+  }
+  if (activeSubPage === 'CustomerLedger') {
+    return (
+      <div className="bg-gray-50 min-h-screen text-sm">
+        <CustomerLedger />
+      </div>
+    )
+  }
+  if (activeSubPage === 'SupplierLedger') {
+    return (
+      <div className="bg-gray-50 min-h-screen text-sm">
+        <SupplierLedger />
+      </div>
+    )
+  }
+  if (activeSubPage === 'CashBankAccountLedger') {
+    return (
+      <div className="bg-gray-50 min-h-screen text-sm">
+        <CashBankAccountLedger />
+      </div>
+    )
+  }
+  if (activeSubPage === 'CashBankAccounts') {
+    return (
+      <div className="bg-gray-50 min-h-screen text-sm">
+        <CashBankAccounts />
       </div>
     )
   }

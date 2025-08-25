@@ -157,7 +157,7 @@ export default function DashboardContent() {
       </div>
 
       {/* Module Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+      {/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
         {modules.map((module, index) => (
           <div
             key={index}
@@ -169,7 +169,7 @@ export default function DashboardContent() {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   )
 }

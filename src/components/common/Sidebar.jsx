@@ -55,18 +55,18 @@ export default function Sidebar() {
       id: 'accounts',
       title: 'Accounts',
       items: [
-        { name: 'Customer Due Balance', tab: 'accounts' },
-        { name: 'Supplier Due Balance', tab: 'accounts' },
-        { name: 'Customer Ledger', tab: 'accounts' },
-        { name: 'Supplier Ledger', tab: 'accounts' }
+        { name: 'Account Entry', tab: 'accounts', subPage :'AccountEntry' },
+        { name: 'Supplier Due Balance', tab: 'reports', subPage: 'SupplierDueBalance' },
+        { name: 'Customer Ledger', tab: 'reports', subPage: 'CustomerLedger' },
+        { name: 'Supplier Ledger', tab: 'reports', subPage: 'SupplierLedger' }
       ]
     },
     {
       id: 'banking',
       title: 'Banking',
       items: [
-        { name: 'Cash & Bank Balance', tab: 'accounts' },
-        { name: 'Cash & Bank Ledger', tab: 'accounts' }
+        { name: 'Cash & Bank Balance', tab: 'reports', subPage:'CashBankAccounts' },
+        { name: 'Cash & Bank Account Ledger', tab: 'reports', subPage:'CashBankAccountLedger' }
       ]
     }
   ]

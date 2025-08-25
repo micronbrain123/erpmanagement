@@ -123,6 +123,13 @@ export default function AccountsContent() {
       </div>
     )
   }
+  if (activeSubPage === 'AccountEntry') {
+    return (
+      <div className="bg-gray-50 min-h-screen text-sm">
+        <AccountEntry />
+      </div>
+    )
+  }
 
   if (selectedModule) {
     const SelectedComponent = selectedModule.component
